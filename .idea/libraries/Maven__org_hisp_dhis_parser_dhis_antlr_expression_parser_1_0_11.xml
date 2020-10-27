@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.hisp.dhis.parser:dhis-antlr-expression-parser:1.0.11">
+    <CLASSES>
+      <root url="jar://D:/JavaEE_development/JavaEEMvnRepository/.m2/repository/org/hisp/dhis/parser/dhis-antlr-expression-parser/1.0.11/dhis-antlr-expression-parser-1.0.11.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://D:/JavaEE_development/JavaEEMvnRepository/.m2/repository/org/hisp/dhis/parser/dhis-antlr-expression-parser/1.0.11/dhis-antlr-expression-parser-1.0.11-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://D:/JavaEE_development/JavaEEMvnRepository/.m2/repository/org/hisp/dhis/parser/dhis-antlr-expression-parser/1.0.11/dhis-antlr-expression-parser-1.0.11-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

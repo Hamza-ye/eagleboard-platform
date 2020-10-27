@@ -1,0 +1,18 @@
+<hibernate-mapping>
+  <class name="com.mass3d.translation.ObjectTranslation" table="objecttranslation">
+
+    <cache usage="read-write" />
+
+    <id name="id" column="objecttranslationid">
+      <generator class="native" />
+    </id>
+
+    <property name="locale" column="locale" length="15" not-null="true" />
+
+    <property name="property" length="50" not-null="true" type="com.mass3d.common.TranslationPropertyUserType"/>
+
+    <property name="value" column="value" type="text" not-null="true" />
+
+  </class>
+
+</hibernate-mapping>

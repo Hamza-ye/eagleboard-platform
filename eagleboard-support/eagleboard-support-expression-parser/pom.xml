@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>eagleboard-support</artifactId>
+    <groupId>com.mass3d.eagleboard</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>eagleboard-support-expression-parser</artifactId>
+  <packaging>jar</packaging>
+
+  <dependencies>
+
+    <!-- EAGLEBOARD -->
+
+    <dependency>
+      <groupId>com.mass3d.eagleboard</groupId>
+      <artifactId>eagleboard-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.mass3d.eagleboard</groupId>
+      <artifactId>eagleboard-support-jdbc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.hisp.dhis.parser</groupId>
+      <artifactId>dhis-antlr-expression-parser</artifactId>
+    </dependency>
+
+    <!-- ANTLR -->
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-text</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+
+  </dependencies>
+
+</project>

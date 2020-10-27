@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>eagleboard</artifactId>
+    <groupId>com.mass3d.eagleboard</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>eagleboard-web</artifactId>
+  <packaging>pom</packaging>
+  <modules>
+    <module>eagleboard-web-api</module>
+    <module>eagleboard-web-commons</module>
+    <module>eagleboard-web-api-test</module>
+  </modules>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.mass3d.eagleboard</groupId>
+      <artifactId>eagleboard-support-test</artifactId>
+    </dependency>
+  </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.mass3d.eagleboard</groupId>
+        <artifactId>eagleboard-web-commons</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.mass3d.eagleboard</groupId>
+        <artifactId>eagleboard-web-api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <!--<dependency>-->
+      <!--<groupId>com.mass3d.eagleboard</groupId>-->
+      <!--<artifactId>eagleboard-web-api-mobile</artifactId>-->
+      <!--<version>${project.version}</version>-->
+      <!--</dependency>-->
+    </dependencies>
+  </dependencyManagement>
+
+</project>

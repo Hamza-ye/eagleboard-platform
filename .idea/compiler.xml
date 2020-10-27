@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="eagleboard-api" />
+        <module name="eagleboard-service-acl" />
+        <module name="eagleboard-service-administration" />
+        <module name="eagleboard-service-analytics" />
+        <module name="eagleboard-service-audit-consumer" />
+        <module name="eagleboard-service-core" />
+        <module name="eagleboard-service-dxf2" />
+        <module name="eagleboard-service-node" />
+        <module name="eagleboard-service-reporting" />
+        <module name="eagleboard-service-schema" />
+        <module name="eagleboard-service-setting" />
+        <module name="eagleboard-support-artemis" />
+        <module name="eagleboard-support-audit" />
+        <module name="eagleboard-support-commons" />
+        <module name="eagleboard-support-expression-parser" />
+        <module name="eagleboard-support-external" />
+        <module name="eagleboard-support-hibernate" />
+        <module name="eagleboard-support-jdbc" />
+        <module name="eagleboard-support-system" />
+        <module name="eagleboard-support-test" />
+        <module name="eagleboard-web-api" />
+        <module name="eagleboard-web-api-test" />
+        <module name="eagleboard-web-commons" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="eagleboard-api" target="1.8" />
+      <module name="eagleboard-platform" target="1.8" />
+      <module name="eagleboard-service-acl" target="1.8" />
+      <module name="eagleboard-service-administration" target="1.8" />
+      <module name="eagleboard-service-analytics" target="1.8" />
+      <module name="eagleboard-service-audit-consumer" target="1.8" />
+      <module name="eagleboard-service-core" target="1.8" />
+      <module name="eagleboard-service-dxf2" target="1.8" />
+      <module name="eagleboard-service-node" target="1.8" />
+      <module name="eagleboard-service-reporting" target="1.8" />
+      <module name="eagleboard-service-schema" target="1.8" />
+      <module name="eagleboard-service-setting" target="1.8" />
+      <module name="eagleboard-services" target="1.8" />
+      <module name="eagleboard-support" target="1.8" />
+      <module name="eagleboard-support-artemis" target="1.8" />
+      <module name="eagleboard-support-audit" target="1.8" />
+      <module name="eagleboard-support-commons" target="1.8" />
+      <module name="eagleboard-support-expression-parser" target="1.8" />
+      <module name="eagleboard-support-external" target="1.8" />
+      <module name="eagleboard-support-hibernate" target="1.8" />
+      <module name="eagleboard-support-jdbc" target="1.8" />
+      <module name="eagleboard-support-system" target="1.8" />
+      <module name="eagleboard-support-test" target="1.8" />
+      <module name="eagleboard-web" target="1.8" />
+      <module name="eagleboard-web-api" target="1.8" />
+      <module name="eagleboard-web-api-test" target="1.8" />
+      <module name="eagleboard-web-commons" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="eagleboard-api" options="-parameters" />
+      <module name="eagleboard-platform" options="-parameters" />
+      <module name="eagleboard-service-acl" options="-parameters" />
+      <module name="eagleboard-service-administration" options="-parameters" />
+      <module name="eagleboard-service-analytics" options="-parameters" />
+      <module name="eagleboard-service-audit-consumer" options="-parameters" />
+      <module name="eagleboard-service-core" options="-parameters" />
+      <module name="eagleboard-service-dxf2" options="-parameters" />
+      <module name="eagleboard-service-node" options="-parameters" />
+      <module name="eagleboard-service-reporting" options="-parameters" />
+      <module name="eagleboard-service-schema" options="-parameters" />
+      <module name="eagleboard-service-setting" options="-parameters" />
+      <module name="eagleboard-services" options="-parameters" />
+      <module name="eagleboard-support" options="-parameters" />
+      <module name="eagleboard-support-artemis" options="-parameters" />
+      <module name="eagleboard-support-audit" options="-parameters" />
+      <module name="eagleboard-support-commons" options="-parameters" />
+      <module name="eagleboard-support-expression-parser" options="-parameters" />
+      <module name="eagleboard-support-external" options="-parameters" />
+      <module name="eagleboard-support-hibernate" options="-parameters" />
+      <module name="eagleboard-support-jdbc" options="-parameters" />
+      <module name="eagleboard-support-system" options="-parameters" />
+      <module name="eagleboard-support-test" options="-parameters" />
+      <module name="eagleboard-web" options="-parameters" />
+      <module name="eagleboard-web-api" options="-parameters" />
+      <module name="eagleboard-web-api-test" options="-parameters" />
+      <module name="eagleboard-web-commons" options="-parameters" />
+    </option>
+  </component>
+</project>

@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="
+		http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+  <!-- Web Portal -->
+
+  <bean id="com.mass3d.security.authority.RequiredAuthoritiesProvider"
+        class="com.mass3d.security.authority.DefaultRequiredAuthoritiesProvider">
+    <property name="requiredAuthoritiesKey" value="requiredAuthorities" />
+    <property name="anyAuthoritiesKey" value="anyAuthorities" />
+    <property name="globalAttributes">
+      <set>
+        <value>M_MODULE_ACCESS_VOTER_ENABLED</value>
+      </set>
+    </property>
+  </bean>
+
+  <!--<bean id="com.mass3d.security.ActionAccessResolver" class="com.mass3d.security.SpringSecurityActionAccessResolver">-->
+    <!--<property name="requiredAuthoritiesProvider" ref="com.mass3d.security.authority.RequiredAuthoritiesProvider" />-->
+    <!--<property name="accessDecisionManager" ref="accessDecisionManager" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.webportal.module.ModuleManager" class="com.mass3d.webportal.module.DefaultModuleManager">-->
+    <!--<property name="actionAccessResolver" ref="com.mass3d.security.ActionAccessResolver" />-->
+    <!--<property name="moduleComparator" ref="com.mass3d.webportal.module.ConfigurableModuleComparator" />-->
+    <!--<property name="defaultActionName" value="index" />-->
+    <!--<property name="menuModuleExclusions">-->
+      <!--<set>-->
+        <!--<value>dhis-web-apps</value>-->
+      <!--</set>-->
+    <!--</property>-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.webportal.module.ConfigurableModuleComparator"-->
+    <!--class="com.mass3d.webportal.module.ConfigurableModuleComparator">-->
+    <!--<property name="order">-->
+      <!--<list>-->
+        <!--<value>dhis-web-pivot</value>-->
+        <!--<value>dhis-web-visualizer</value>-->
+        <!--<value>dhis-web-mapping</value>-->
+        <!--<value>dhis-web-event-reports</value>-->
+        <!--<value>dhis-web-event-visualizer</value>-->
+        <!--<value>dhis-web-dataentry</value>-->
+        <!--<value>dhis-web-event-capture</value>-->
+        <!--<value>dhis-web-tracker-capture</value>-->
+        <!--<value>dhis-web-maintenance-dataadmin</value>-->
+        <!--<value>dhis-web-maintenance-dataset</value>-->
+        <!--<value>dhis-web-importexport</value>-->
+        <!--<value>dhis-web-maintenance-mobile</value>-->
+        <!--<value>dhis-web-maintenance-organisationunit</value>-->
+        <!--<value>dhis-web-maintenance-program</value>-->
+        <!--<value>dhis-web-maintenance-settings</value>-->
+        <!--<value>dhis-web-maintenance-user</value>-->
+        <!--<value>dhis-web-validationrule</value>-->
+        <!--<value>dhis-web-reporting</value>-->
+        <!--<value>dhis-web-sms</value>-->
+        <!--<value>dhis-web-dashboard</value>-->
+      <!--</list>-->
+    <!--</property>-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.webportal.module.CurrentModuleDetectorFilter" class="com.mass3d.webportal.module.CurrentModuleDetectorFilter">-->
+    <!--<property name="moduleManager" ref="com.mass3d.webportal.module.ModuleManager" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.webportal.interceptor.XWorkPortalParamsInterceptor"-->
+    <!--class="com.mass3d.webportal.interceptor.XWorkPortalParamsInterceptor">-->
+    <!--<property name="standardParams">-->
+      <!--<set>-->
+        <!--<value>page</value>-->
+        <!--<value>menu</value>-->
+        <!--<value>hideMenu</value>-->
+        <!--<value>manifest</value>-->
+      <!--</set>-->
+    <!--</property>-->
+    <!--<property name="commaSeparatedParams">-->
+      <!--<set>-->
+        <!--<value>javascripts</value>-->
+        <!--<value>stylesheets</value>-->
+      <!--</set>-->
+    <!--</property>-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.webportal.interceptor.XWorkPortalModuleInterceptor"-->
+    <!--class="com.mass3d.webportal.interceptor.XWorkPortalModuleInterceptor">-->
+    <!--<property name="moduleManager" ref="com.mass3d.webportal.module.ModuleManager"/>-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.webportal.menu.MenuStateManager" class="com.mass3d.webportal.menu.SessionMenuStateManager" />-->
+
+  <!--<bean id="com.mass3d.webportal.menu.action.SetMenuStateAction" class="com.mass3d.webportal.menu.action.SetMenuStateAction" scope="prototype" />-->
+
+  <!--<bean id="com.mass3d.webportal.menu.action.GetModulesAction" class="com.mass3d.webportal.menu.action.GetModulesAction" scope="prototype" />-->
+
+  <!--<bean id="com.mass3d.webportal.interceptor.XWorkPortalMenuInterceptor"-->
+    <!--class="com.mass3d.webportal.interceptor.XWorkPortalMenuInterceptor">-->
+    <!--<property name="menuStateManager" ref="com.mass3d.webportal.menu.MenuStateManager"/>-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.webportal.interceptor.XWorkPortalUserInterceptor"-->
+    <!--class="com.mass3d.webportal.interceptor.XWorkPortalUserInterceptor">-->
+    <!--<property name="currentUserService" ref="com.mass3d.user.CurrentUserService" />-->
+  <!--</bean>-->
+
+  <bean id="org.springframework.mobile.device.DeviceResolver" class="org.springframework.mobile.device.LiteDeviceResolver" />
+
+  <!--<bean id="com.mass3d.security.action.LoginAction" class="com.mass3d.security.action.LoginAction" scope="prototype">-->
+    <!--<property name="deviceResolver" ref="org.springframework.mobile.device.DeviceResolver" />-->
+  <!--</bean>-->
+
+  <!-- Organisation Unit Web Tree -->
+
+  <!--<bean id="com.mass3d.ouwt.manager.OrganisationUnitSelectionManager"-->
+    <!--class="com.mass3d.ouwt.manager.DefaultOrganisationUnitSelectionManager">-->
+    <!--<property name="organisationUnitService" ref="com.mass3d.organisationunit.OrganisationUnitService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.ouwt.manager.TreeStateManager" class="com.mass3d.ouwt.manager.DefaultTreeStateManager">-->
+    <!--<property name="organisationUnitService" ref="com.mass3d.organisationunit.OrganisationUnitService" />-->
+    <!--<property name="collapseClosesAllSubtrees" value="false" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.ouwt.interceptor.OrganisationUnitTreeInterceptor"-->
+    <!--class="com.mass3d.ouwt.interceptor.OrganisationUnitTreeInterceptor">-->
+    <!--<property name="selectionManager" ref="com.mass3d.ouwt.manager.OrganisationUnitSelectionManager"/>-->
+    <!--<property name="treeStateManager" ref="com.mass3d.ouwt.manager.TreeStateManager"/>-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.ouwt.action.ExpandSubtreeAction" class="com.mass3d.ouwt.action.ExpandSubtreeAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="organisationUnitService" ref="com.mass3d.organisationunit.OrganisationUnitService" />-->
+    <!--<property name="treeStateManager" ref="com.mass3d.ouwt.manager.TreeStateManager"/>-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.ouwt.action.CollapseSubtreeAction" class="com.mass3d.ouwt.action.CollapseSubtreeAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="organisationUnitService" ref="com.mass3d.organisationunit.OrganisationUnitService" />-->
+    <!--<property name="treeStateManager" ref="com.mass3d.ouwt.manager.TreeStateManager"/>-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.ouwt.action.GetExpandedTreeAction" class="com.mass3d.ouwt.action.GetExpandedTreeAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="selectionManager" ref="com.mass3d.ouwt.manager.OrganisationUnitSelectionManager"/>-->
+    <!--<property name="treeStateManager" ref="com.mass3d.ouwt.manager.TreeStateManager"/>-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.ouwt.action.ClearSelectedOrganisationUnitsAction"-->
+    <!--class="com.mass3d.ouwt.action.ClearSelectedOrganisationUnitsAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="selectionManager" ref="com.mass3d.ouwt.manager.OrganisationUnitSelectionManager" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.ouwt.action.SetSelectedOrganisationUnitAction" class="com.mass3d.ouwt.action.SetSelectedOrganisationUnitAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="organisationUnitService" ref="com.mass3d.organisationunit.OrganisationUnitService" />-->
+    <!--<property name="selectionManager" ref="com.mass3d.ouwt.manager.OrganisationUnitSelectionManager"/>-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.ouwt.action.GetSelectedOrganisationUnitsAction"-->
+    <!--class="com.mass3d.ouwt.action.GetSelectedOrganisationUnitsAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="selectionManager" ref="com.mass3d.ouwt.manager.OrganisationUnitSelectionManager" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.ouwt.action.AddSelectedOrganisationUnitAction" class="com.mass3d.ouwt.action.AddSelectedOrganisationUnitAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="organisationUnitService" ref="com.mass3d.organisationunit.OrganisationUnitService" />-->
+    <!--<property name="selectionManager" ref="com.mass3d.ouwt.manager.OrganisationUnitSelectionManager"/>-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.ouwt.action.RemoveSelectedOrganisationUnitAction"-->
+    <!--class="com.mass3d.ouwt.action.RemoveSelectedOrganisationUnitAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="organisationUnitService" ref="com.mass3d.organisationunit.OrganisationUnitService" />-->
+    <!--<property name="selectionManager" ref="com.mass3d.ouwt.manager.OrganisationUnitSelectionManager"/>-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.ouwt.action.GetOrganisationUnitsByNameAction" class="com.mass3d.ouwt.action.GetOrganisationUnitsByNameAction"-->
+    <!--scope="prototype" />-->
+
+  <!-- Organisation Unit Selection Tree -->
+
+  <!--<bean id="com.mass3d.oust.manager.SelectionTreeManager" class="com.mass3d.oust.manager.DefaultSelectionTreeManager">-->
+    <!--<property name="organisationUnitService" ref="com.mass3d.organisationunit.OrganisationUnitService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.oust.action.ExpandSubtreeAction" class="com.mass3d.oust.action.ExpandSubtreeAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="organisationUnitService" ref="com.mass3d.organisationunit.OrganisationUnitService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.oust.action.GetExpandedTreeAction" class="com.mass3d.oust.action.GetExpandedTreeAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="selectionTreeManager" ref="com.mass3d.oust.manager.SelectionTreeManager"/>-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.oust.action.SetSelectedOrganisationUnitAction" class="com.mass3d.oust.action.SetSelectedOrganisationUnitAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="organisationUnitService" ref="com.mass3d.organisationunit.OrganisationUnitService" />-->
+    <!--<property name="selectionTreeManager" ref="com.mass3d.oust.manager.SelectionTreeManager"/>-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.oust.action.AddSelectedOrganisationUnitAction" class="com.mass3d.oust.action.AddSelectedOrganisationUnitAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="organisationUnitService" ref="com.mass3d.organisationunit.OrganisationUnitService" />-->
+    <!--<property name="organisationUnitGroupService" ref="com.mass3d.organisationunit.OrganisationUnitGroupService" />-->
+    <!--<property name="selectionTreeManager" ref="com.mass3d.oust.manager.SelectionTreeManager"/>-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.oust.action.RemoveSelectedOrganisationUnitAction"-->
+    <!--class="com.mass3d.oust.action.RemoveSelectedOrganisationUnitAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="organisationUnitService" ref="com.mass3d.organisationunit.OrganisationUnitService" />-->
+    <!--<property name="organisationUnitGroupService" ref="com.mass3d.organisationunit.OrganisationUnitGroupService" />-->
+    <!--<property name="selectionTreeManager" ref="com.mass3d.oust.manager.SelectionTreeManager"/>-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.oust.action.SelectAllOrganisationUnitAction" class="com.mass3d.oust.action.SelectAllOrganisationUnitAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="organisationUnitService" ref="com.mass3d.organisationunit.OrganisationUnitService" />-->
+    <!--<property name="selectionTreeManager" ref="com.mass3d.oust.manager.SelectionTreeManager"/>-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.oust.action.ClearSelectedOrganisationUnitsAction"-->
+    <!--class="com.mass3d.oust.action.ClearSelectedOrganisationUnitsAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="selectionTreeManager" ref="com.mass3d.oust.manager.SelectionTreeManager"/>-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.oust.action.GetUserCountAction" class="com.mass3d.oust.action.GetUserCountAction" scope="prototype" />-->
+
+  <!--&lt;!&ndash; Security import &ndash;&gt;-->
+<!--&lt;!&ndash;  <import resource="security.xml" />&ndash;&gt;-->
+
+  <!--&lt;!&ndash; i18n &ndash;&gt;-->
+
+  <!--<bean id="com.mass3d.i18n.action.I18nAction" class="com.mass3d.i18n.action.I18nAction" scope="prototype">-->
+    <!--<property name="userSettingService" ref="com.mass3d.user.UserSettingService" />-->
+    <!--<property name="identifiableObjectManager" ref="com.mass3d.common.IdentifiableObjectManager" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.i18n.action.GetTranslationsAction" class="com.mass3d.i18n.action.GetTranslationsAction">-->
+    <!--<property name="identifiableObjectManager" ref="com.mass3d.common.IdentifiableObjectManager" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.i18n.action.TranslateAction" class="com.mass3d.i18n.action.TranslateAction">-->
+    <!--<property name="identifiableObjectManager" ref="com.mass3d.common.IdentifiableObjectManager" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.i18n.action.GetStringsFromLocaleAction" class="com.mass3d.i18n.action.GetStringsFromLocaleAction" />-->
+
+  <!--&lt;!&ndash; About &ndash;&gt;-->
+
+  <bean id="com.mass3d.about.action.AboutAction" class="com.mass3d.about.action.AboutAction" scope="prototype" />
+
+  <!--<bean id="com.mass3d.about.action.HelpAction" class="com.mass3d.about.action.HelpAction" scope="prototype">-->
+    <!--<property name="localeManager" ref="com.mass3d.i18n.locale.LocaleManager" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.help.action.GetHelpContentAction" class="com.mass3d.help.action.GetHelpContentAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="localeManager" ref="com.mass3d.i18n.locale.LocaleManager" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.about.action.RedirectAction" class="com.mass3d.about.action.RedirectAction"-->
+    <!--scope="prototype" />-->
+
+  <!--<bean id="com.mass3d.help.action.GetHelpItemsAction" class="com.mass3d.help.action.GetHelpItemsAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="localeManager" ref="com.mass3d.i18n.locale.LocaleManager" />-->
+  <!--</bean>-->
+
+  <!--&lt;!&ndash; Common actions &ndash;&gt;-->
+
+  <!--<bean id="com.mass3d.commons.action.GetSystemAuthoritiesAction" class="com.mass3d.commons.action.GetSystemAuthoritiesAction"-->
+        <!--scope="prototype">-->
+    <!--<property name="authoritiesProvider" ref="com.mass3d.security.authority.SystemAuthoritiesProvider" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetUserAction" class="com.mass3d.commons.action.GetUserAction" scope="prototype">-->
+    <!--<property name="userService" ref="com.mass3d.user.UserService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetUserRolesAction" class="com.mass3d.commons.action.GetUserRolesAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="userService" ref="com.mass3d.user.UserService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetUsersAction" class="com.mass3d.commons.action.GetUsersAction" scope="prototype">-->
+    <!--<property name="userService" ref="com.mass3d.user.UserService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetUserGroupsAction" class="com.mass3d.commons.action.GetUserGroupsAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="userGroupService" ref="com.mass3d.user.UserGroupService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetValidationRulesAction" class="com.mass3d.commons.action.GetValidationRulesAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="validationRuleService" ref="com.mass3d.validation.ValidationRuleService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetCategoryOptionsAction" class="com.mass3d.commons.action.GetCategoryOptionsAction"-->
+    <!--scope="prototype" />-->
+
+  <!--<bean id="com.mass3d.commons.action.GetCategoryOptionCombosAction" class="com.mass3d.commons.action.GetCategoryOptionCombosAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="dataElementService" ref="com.mass3d.dataelement.DataElementService" />-->
+    <!--<property name="categoryService" ref="com.mass3d.category.CategoryService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetDataElementAction" class="com.mass3d.commons.action.GetDataElementAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="dataElementService" ref="com.mass3d.dataelement.DataElementService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetDataElementGroupAction" class="com.mass3d.commons.action.GetDataElementGroupAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="dataElementService" ref="com.mass3d.dataelement.DataElementService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetDataElementGroupsAction" class="com.mass3d.commons.action.GetDataElementGroupsAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="dataElementService" ref="com.mass3d.dataelement.DataElementService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetDataElementsNotInGroupAction"-->
+    <!--class="com.mass3d.commons.action.GetDataElementsNotInGroupAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="dataElementService" ref="com.mass3d.dataelement.DataElementService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetDataElementGroupSetAction" class="com.mass3d.commons.action.GetDataElementGroupSetAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="dataElementService" ref="com.mass3d.dataelement.DataElementService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetDataElementGroupSetsAction" class="com.mass3d.commons.action.GetDataElementGroupSetsAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="dataElementService" ref="com.mass3d.dataelement.DataElementService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetDataElementNameAction" class="com.mass3d.commons.action.GetDataElementNameAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="dataElementService" ref="com.mass3d.dataelement.DataElementService" />-->
+    <!--<property name="categoryService" ref="com.mass3d.category.CategoryService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetDataElementsAction" class="com.mass3d.commons.action.GetDataElementsAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="dataElementService" ref="com.mass3d.dataelement.DataElementService" />-->
+    <!--<property name="categoryService" ref="com.mass3d.category.CategoryService" />-->
+    <!--<property name="dataSetService" ref="com.mass3d.dataset.DataSetService" />-->
+    <!--<property name="periodService" ref="com.mass3d.period.PeriodService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetSectionIndicatorsAction" class="com.mass3d.commons.action.GetSectionIndicatorsAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="dataSetService" ref="com.mass3d.dataset.DataSetService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetDataElementCategoriesAction" class="com.mass3d.commons.action.GetDataElementCategoriesAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="categoryService" ref="com.mass3d.category.CategoryService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetDataSetsAction" class="com.mass3d.commons.action.GetDataSetsAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="dataSetService" ref="com.mass3d.dataset.DataSetService" />-->
+    <!--<property name="periodService" ref="com.mass3d.period.PeriodService" />-->
+    <!--<property name="currentUserService" ref="com.mass3d.user.CurrentUserService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetIndicatorAction" class="com.mass3d.commons.action.GetIndicatorAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="indicatorService" ref="com.mass3d.indicator.IndicatorService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetIndicatorGroupAction" class="com.mass3d.commons.action.GetIndicatorGroupAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="indicatorService" ref="com.mass3d.indicator.IndicatorService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetIndicatorGroupsAction" class="com.mass3d.commons.action.GetIndicatorGroupsAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="indicatorService" ref="com.mass3d.indicator.IndicatorService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetIndicatorGroupSetAction" class="com.mass3d.commons.action.GetIndicatorGroupSetAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="indicatorService" ref="com.mass3d.indicator.IndicatorService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetIndicatorGroupSetsAction" class="com.mass3d.commons.action.GetIndicatorGroupSetsAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="indicatorService" ref="com.mass3d.indicator.IndicatorService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetIndicatorsAction" class="com.mass3d.commons.action.GetIndicatorsAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="indicatorService" ref="com.mass3d.indicator.IndicatorService" />-->
+    <!--<property name="dataSetService" ref="com.mass3d.dataset.DataSetService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetOrganisationUnitAction" class="com.mass3d.commons.action.GetOrganisationUnitAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="organisationUnitService" ref="com.mass3d.organisationunit.OrganisationUnitService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetOrganisationUnitChildrenAction"-->
+    <!--class="com.mass3d.commons.action.GetOrganisationUnitChildrenAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="organisationUnitService" ref="com.mass3d.organisationunit.OrganisationUnitService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetOrganisationUnitGroupsAction"-->
+    <!--class="com.mass3d.commons.action.GetOrganisationUnitGroupsAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="organisationUnitGroupService" ref="com.mass3d.organisationunit.OrganisationUnitGroupService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetOrganisationUnitGroupsByGroupSetAction"-->
+    <!--class="com.mass3d.commons.action.GetOrganisationUnitGroupsByGroupSetAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="organisationUnitGroupService" ref="com.mass3d.organisationunit.OrganisationUnitGroupService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetOrganisationUnitGroupSetsAction"-->
+    <!--class="com.mass3d.commons.action.GetOrganisationUnitGroupSetsAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="organisationUnitGroupService" ref="com.mass3d.organisationunit.OrganisationUnitGroupService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetOrganisationUnitLevelsAction"-->
+    <!--class="com.mass3d.commons.action.GetOrganisationUnitLevelsAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="organisationUnitService" ref="com.mass3d.organisationunit.OrganisationUnitService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetOrganisationUnitsAction" class="com.mass3d.commons.action.GetOrganisationUnitsAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="organisationUnitService" ref="com.mass3d.organisationunit.OrganisationUnitService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetOrganisationUnitTreeAction" class="com.mass3d.commons.action.GetOrganisationUnitTreeAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="currentUserService" ref="com.mass3d.user.CurrentUserService" />-->
+    <!--<property name="organisationUnitService" ref="com.mass3d.organisationunit.OrganisationUnitService" />-->
+    <!--<property name="versionService" ref="com.mass3d.version.VersionService" />-->
+    <!--<property name="userSettingService" ref="com.mass3d.user.UserSettingService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetPeriodAction" class="com.mass3d.commons.action.GetPeriodAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="periodService" ref="com.mass3d.period.PeriodService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetPeriodsAction" class="com.mass3d.commons.action.GetPeriodsAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="periodService" ref="com.mass3d.period.PeriodService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetPeriodTypesAction" class="com.mass3d.commons.action.GetPeriodTypesAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="periodService" ref="com.mass3d.period.PeriodService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.GetConstantsAction" class="com.mass3d.commons.action.GetConstantsAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="constantService" ref="com.mass3d.constant.ConstantService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.commons.action.NoAction" class="com.mass3d.commons.action.NoAction" />-->
+
+  <!-- Interceptor -->
+
+  <bean id="com.mass3d.interceptor.ExceptionInterceptor" class="com.mass3d.interceptor.ExceptionInterceptor">
+    <property name="showStackTrace" value="false" />
+    <property name="ignoredExceptions">
+      <list>
+        <value>org.apache.catalina.connector.ClientAbortException</value>
+      </list>
+    </property>
+  </bean>
+
+  <bean id="com.mass3d.interceptor.I18nInterceptor" class="com.mass3d.interceptor.I18nInterceptor">
+    <property name="i18nManager" ref="com.mass3d.i18n.I18nManager" />
+    <property name="localeManager" ref="com.mass3d.i18n.locale.LocaleManager" />
+    <property name="currentUserService" ref="com.mass3d.user.CurrentUserService" />
+    <property name="userSettingService" ref="com.mass3d.user.UserSettingService"/>
+  </bean>
+
+  <bean id="com.mass3d.interceptor.SystemSettingInterceptor" class="com.mass3d.interceptor.SystemSettingInterceptor">
+    <property name="systemSettingManager" ref="com.mass3d.setting.SystemSettingManager" />
+    <property name="configurationService" ref="com.mass3d.configuration.ConfigurationService" />
+  </bean>
+
+  <bean id="com.mass3d.interceptor.ContextInterceptor" class="com.mass3d.interceptor.ContextInterceptor">
+    <property name="databaseInfoProvider" ref="databaseInfoProvider" />
+  </bean>
+
+  <bean id="com.mass3d.interceptor.CacheInterceptor" class="com.mass3d.interceptor.CacheInterceptor" />
+
+  <bean id="com.mass3d.interceptor.UserSettingInterceptor" class="com.mass3d.interceptor.UserSettingInterceptor">
+    <!--<property name="styleManager" ref="com.mass3d.setting.StyleManager" />-->
+  </bean>
+
+  <!-- User Account -->
+
+  <!--<bean id="com.mass3d.useraccount.action.ExpiredAccountAction" class="com.mass3d.useraccount.action.ExpiredAccountAction"-->
+    <!--scope="prototype" />-->
+
+  <!--<bean id="com.mass3d.useraccount.action.GetCurrentUserAction" class="com.mass3d.useraccount.action.GetCurrentUserAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="currentUserService" ref="com.mass3d.user.CurrentUserService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.useraccount.action.UpdateUserAccountAction" class="com.mass3d.useraccount.action.UpdateUserAccountAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="userService" ref="com.mass3d.user.UserService" />-->
+    <!--<property name="passwordManager" ref="com.mass3d.security.PasswordManager" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.useraccount.action.UpdateUserProfileAction" class="com.mass3d.useraccount.action.UpdateUserProfileAction"-->
+    <!--scope="prototype" />-->
+
+  <!--<bean id="com.mass3d.useraccount.action.IsSelfRegistrationAllowedAction"-->
+    <!--class="com.mass3d.useraccount.action.IsSelfRegistrationAllowedAction"-->
+    <!--scope="prototype" />-->
+
+  <!--<bean id="com.mass3d.useraccount.action.IsRestoreTokenValidAction" class="com.mass3d.useraccount.action.IsRestoreTokenValidAction"-->
+    <!--scope="prototype" />-->
+
+  <!--<bean id="com.mass3d.useraccount.action.IsInviteTokenValidAction" class="com.mass3d.useraccount.action.IsInviteTokenValidAction"-->
+    <!--scope="prototype" />-->
+
+  <!--<bean id="com.mass3d.useraccount.action.IsAccountRecoveryAllowedAction"-->
+    <!--class="com.mass3d.useraccount.action.IsAccountRecoveryAllowedAction"-->
+    <!--scope="prototype" />-->
+
+  <!--&lt;!&ndash; User settings &ndash;&gt;-->
+
+  <!--<bean id="com.mass3d.settings.user.action.GetGeneralSettingsAction"-->
+    <!--class="com.mass3d.settings.user.action.GetGeneralSettingsAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="localeManager" ref="com.mass3d.i18n.locale.LocaleManager" />-->
+    <!--<property name="userSettingService" ref="com.mass3d.user.UserSettingService" />-->
+    <!--<property name="styleManager" ref="com.mass3d.setting.StyleManager" />-->
+    <!--<property name="i18nLocaleService" ref="com.mass3d.i18n.118nLocaleService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.settings.user.action.SetGeneralSettingsAction"-->
+    <!--class="com.mass3d.settings.user.action.SetGeneralSettingsAction"-->
+    <!--scope="prototype">-->
+    <!--<property name="localeManager" ref="com.mass3d.i18n.locale.LocaleManager" />-->
+    <!--<property name="userSettingService" ref="com.mass3d.user.UserSettingService" />-->
+    <!--<property name="styleManager" ref="com.mass3d.setting.StyleManager" />-->
+  <!--</bean>-->
+
+  <!--&lt;!&ndash; Others &ndash;&gt;-->
+
+  <!--<bean id="com.mass3d.commons.action.GetPingAction" class="com.mass3d.commons.action.GetPingAction" />-->
+
+  <!--<bean id="com.mass3d.commons.action.GetAttributesAction" class="com.mass3d.commons.action.GetAttributesAction">-->
+    <!--<property name="attributeService" ref="com.mass3d.attribute.AttributeService" />-->
+  <!--</bean>-->
+
+  <!--<bean id="com.mass3d.appcache.AppCacheAction" class="com.mass3d.appcache.AppCacheAction" />-->
+
+  <!--<bean id="com.mass3d.appcache.CacheManifestAction" class="com.mass3d.appcache.CacheManifestAction" />-->
+
+  <bean class="com.mass3d.security.DefaultRolesPrefixPostProcessor" />
+
+</beans>

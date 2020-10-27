@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+  <!-- AES-128 encrypted string type -->
+
+  <typedef class="com.mass3d.hibernate.encryption.type.EncryptedStringUserType" name="Aes128EncryptedString">
+    <!-- Must be registered in the com.mass3d.hibernate.encryption.HibernateEncryptorRegistry bean -->
+    <param name="encryptor">aes128StringEncryptor</param>
+  </typedef>
+
+  <!-- Jsonb type -->
+
+  <typedef class="com.mass3d.hibernate.jsonb.type.JsonBinaryType" name="jbObject">
+    <param name="clazz">java.lang.Object</param>
+  </typedef>
+
+  <typedef class="com.mass3d.hibernate.jsonb.type.JsonBinaryPlainStringType" name="jbPlainString">
+  </typedef>
+
+  <typedef class="com.mass3d.hibernate.jsonb.type.JsonBinaryType" name="jbObjectStyle">
+    <param name="clazz">com.mass3d.common.ObjectStyle</param>
+  </typedef>
+
+  <typedef class="com.mass3d.hibernate.jsonb.type.JsonBinaryType" name="jbVisualizationFontStyle">
+    <param name="clazz">com.mass3d.visualization.VisualizationFontStyle</param>
+  </typedef>
+
+  <typedef class="com.mass3d.hibernate.jsonb.type.JsonBinaryType" name="jbTextPattern">
+    <param name="clazz">com.mass3d.textpattern.TextPattern</param>
+  </typedef>
+
+  <typedef class="com.mass3d.hibernate.jsonb.type.JsonDeviceRenderTypeMap" name="jbSectionRenderType">
+    <param name="clazz">com.mass3d.render.DeviceRenderTypeMap</param>
+    <param name="renderType">com.mass3d.render.type.SectionRenderingObject</param>
+  </typedef>
+
+  <typedef class="com.mass3d.hibernate.jsonb.type.JsonDeviceRenderTypeMap" name="jbValueRenderType">
+    <param name="clazz">com.mass3d.render.DeviceRenderTypeMap</param>
+    <param name="renderType">com.mass3d.render.type.ValueTypeRenderingObject</param>
+  </typedef>
+  
+  <typedef class="com.mass3d.hibernate.jsonb.type.JsonBinaryType" name="jbFilterPeriod">
+    <param name="clazz">com.mass3d.trackedentityfilter.FilterPeriod</param>
+  </typedef>
+  
+  <typedef class="com.mass3d.hibernate.jsonb.type.JsonBinaryType" name="jbSet">
+    <param name="clazz">java.util.HashSet</param>
+  </typedef>
+
+  <typedef class="com.mass3d.hibernate.jsonb.type.JsonJobParametersType" name="jbJobParameters">
+    <param name="clazz">com.mass3d.scheduling.JobParameters</param>
+  </typedef>
+
+  <typedef class="com.mass3d.hibernate.jsonb.type.JsonListBinaryType" name="jlbEventFilter">
+    <param name="clazz">com.mass3d.trackedentityfilter.EventFilter</param>
+  </typedef>
+  
+  <typedef class="com.mass3d.hibernate.jsonb.type.JsonBinaryType" name="jbEventQueryCriteria">
+    <param name="clazz">com.mass3d.programstagefilter.EventQueryCriteria</param>
+  </typedef>
+  
+  <typedef class="com.mass3d.hibernate.jsonb.type.JsonListBinaryType" name="jbSeries">
+    <param name="clazz">com.mass3d.visualization.Series</param>
+  </typedef>
+  
+   <typedef class="com.mass3d.hibernate.jsonb.type.JsonListBinaryType" name="jlbMentions">
+    <param name="clazz">com.mass3d.interpretation.Mention</param>
+  </typedef>
+
+  <typedef class="com.mass3d.hibernate.jsonb.type.JsonSetBinaryType" name="jblTranslations">
+    <param name="clazz">com.mass3d.translation.Translation</param>
+  </typedef>
+
+  <typedef class="com.mass3d.hibernate.jsonb.type.JsonEventDataValueSetBinaryType" name="jsbEventDataValues">
+    <param name="clazz">com.mass3d.eventdatavalue.EventDataValue</param>
+  </typedef>
+
+  <typedef class="com.mass3d.hibernate.jsonb.type.JsonProgramRuleEvaluationEnvironmentSetBinaryType" name="jsbProgramRuleEvaluationEnvironments">
+    <param name="clazz">com.mass3d.programrule.ProgramRuleActionEvaluationEnvironment</param>
+  </typedef>
+
+  <!--<typedef class="com.mass3d.hibernate.jsonb.type.JsonAttributeValueBinaryType" name="jsbAttributeValues">-->
+    <!--<param name="clazz">com.mass3d.attribute.AttributeValue</param>-->
+  <!--</typedef>-->
+
+</hibernate-mapping>

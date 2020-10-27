@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>eagleboard-services</artifactId>
+    <groupId>com.mass3d.eagleboard</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>eagleboard-service-reporting</artifactId>
+  <packaging>jar</packaging>
+
+  <dependencies>
+    <!-- EAGLEBOARD -->
+
+    <dependency>
+      <groupId>com.mass3d.eagleboard</groupId>
+      <artifactId>eagleboard-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.mass3d.eagleboard</groupId>
+      <artifactId>eagleboard-service-core</artifactId>
+    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>com.mass3d.eagleboard</groupId>-->
+      <!--<artifactId>eagleboard-service-validation</artifactId>-->
+    <!--</dependency>-->
+    <dependency>
+      <groupId>com.mass3d.eagleboard</groupId>
+      <artifactId>eagleboard-service-analytics</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.mass3d.eagleboard</groupId>
+      <artifactId>eagleboard-service-administration</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.mass3d.eagleboard</groupId>
+      <artifactId>eagleboard-service-dxf2</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- JasperReports -->
+
+    <dependency>
+      <groupId>net.sf.jasperreports</groupId>
+      <artifactId>jasperreports</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.jasperreports</groupId>
+      <artifactId>jasperreports-fonts</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jfree</groupId>
+      <artifactId>jfreechart</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+    </dependency>
+
+    <!-- GeoTools -->
+
+    <!--<dependency>-->
+      <!--<groupId>org.geotools</groupId>-->
+      <!--<artifactId>gt-render</artifactId>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+      <!--<groupId>org.geotools</groupId>-->
+      <!--<artifactId>gt-epsg-wkt</artifactId>-->
+    <!--</dependency>-->
+    <dependency>
+      <groupId>org.geotools</groupId>
+      <artifactId>gt-referencing</artifactId>
+    </dependency>
+
+    <!-- Test -->
+
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-library</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Other -->
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-math3</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.mass3d.eagleboard</groupId>
+      <artifactId>eagleboard-support-external</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jsoup</groupId>
+      <artifactId>jsoup</artifactId>
+      <version>1.11.3</version>
+    </dependency>
+
+
+  </dependencies>
+
+
+</project>

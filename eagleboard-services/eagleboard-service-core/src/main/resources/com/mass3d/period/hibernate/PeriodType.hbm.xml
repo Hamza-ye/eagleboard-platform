@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class name="com.mass3d.period.PeriodType" table="periodtype">
+
+    <cache usage="read-write" />
+
+    <id name="id" column="periodtypeid">
+      <generator class="native" />
+    </id>
+
+    <discriminator column="name" type="string" length="50" not-null="true" />
+
+    <subclass name="com.mass3d.period.DailyPeriodType" discriminator-value="Daily" />
+    <subclass name="com.mass3d.period.WeeklyPeriodType" discriminator-value="Weekly" />
+    <subclass name="com.mass3d.period.WeeklyWednesdayPeriodType" discriminator-value="WeeklyWednesday" />
+    <subclass name="com.mass3d.period.WeeklyThursdayPeriodType" discriminator-value="WeeklyThursday" />
+    <subclass name="com.mass3d.period.WeeklySaturdayPeriodType" discriminator-value="WeeklySaturday" />
+    <subclass name="com.mass3d.period.WeeklySundayPeriodType" discriminator-value="WeeklySunday" />
+    <subclass name="com.mass3d.period.BiWeeklyPeriodType" discriminator-value="BiWeekly" />
+    <subclass name="com.mass3d.period.MonthlyPeriodType" discriminator-value="Monthly" />
+    <subclass name="com.mass3d.period.BiMonthlyPeriodType" discriminator-value="BiMonthly" />
+    <subclass name="com.mass3d.period.QuarterlyPeriodType" discriminator-value="Quarterly" />
+    <subclass name="com.mass3d.period.SixMonthlyPeriodType" discriminator-value="SixMonthly" />
+    <subclass name="com.mass3d.period.SixMonthlyAprilPeriodType" discriminator-value="SixMonthlyApril" />
+    <subclass name="com.mass3d.period.SixMonthlyNovemberPeriodType" discriminator-value="SixMonthlyNov" />
+    <subclass name="com.mass3d.period.YearlyPeriodType" discriminator-value="Yearly" />
+    <subclass name="com.mass3d.period.TwoYearlyPeriodType" discriminator-value="TwoYearly" />
+    <subclass name="com.mass3d.period.FinancialAprilPeriodType" discriminator-value="FinancialApril" />
+    <subclass name="com.mass3d.period.FinancialJulyPeriodType" discriminator-value="FinancialJuly" />
+    <subclass name="com.mass3d.period.FinancialOctoberPeriodType" discriminator-value="FinancialOct" />
+    <subclass name="com.mass3d.period.FinancialNovemberPeriodType" discriminator-value="FinancialNov" />
+
+  </class>
+</hibernate-mapping>

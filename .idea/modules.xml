@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/eagleboard-api/eagleboard-api.iml" filepath="$PROJECT_DIR$/eagleboard-api/eagleboard-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eagleboard-platform.iml" filepath="$PROJECT_DIR$/eagleboard-platform.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eagleboard-services/eagleboard-service-acl/eagleboard-service-acl.iml" filepath="$PROJECT_DIR$/eagleboard-services/eagleboard-service-acl/eagleboard-service-acl.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eagleboard-services/eagleboard-service-administration/eagleboard-service-administration.iml" filepath="$PROJECT_DIR$/eagleboard-services/eagleboard-service-administration/eagleboard-service-administration.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eagleboard-services/eagleboard-service-analytics/eagleboard-service-analytics.iml" filepath="$PROJECT_DIR$/eagleboard-services/eagleboard-service-analytics/eagleboard-service-analytics.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eagleboard-services/eagleboard-service-audit-consumer/eagleboard-service-audit-consumer.iml" filepath="$PROJECT_DIR$/eagleboard-services/eagleboard-service-audit-consumer/eagleboard-service-audit-consumer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eagleboard-services/eagleboard-service-core/eagleboard-service-core.iml" filepath="$PROJECT_DIR$/eagleboard-services/eagleboard-service-core/eagleboard-service-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eagleboard-services/eagleboard-service-dxf2/eagleboard-service-dxf2.iml" filepath="$PROJECT_DIR$/eagleboard-services/eagleboard-service-dxf2/eagleboard-service-dxf2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eagleboard-services/eagleboard-service-node/eagleboard-service-node.iml" filepath="$PROJECT_DIR$/eagleboard-services/eagleboard-service-node/eagleboard-service-node.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eagleboard-services/eagleboard-service-reporting/eagleboard-service-reporting.iml" filepath="$PROJECT_DIR$/eagleboard-services/eagleboard-service-reporting/eagleboard-service-reporting.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eagleboard-services/eagleboard-service-schema/eagleboard-service-schema.iml" filepath="$PROJECT_DIR$/eagleboard-services/eagleboard-service-schema/eagleboard-service-schema.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eagleboard-services/eagleboard-service-setting/eagleboard-service-setting.iml" filepath="$PROJECT_DIR$/eagleboard-services/eagleboard-service-setting/eagleboard-service-setting.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eagleboard-services/eagleboard-services.iml" filepath="$PROJECT_DIR$/eagleboard-services/eagleboard-services.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eagleboard-support/eagleboard-support.iml" filepath="$PROJECT_DIR$/eagleboard-support/eagleboard-support.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eagleboard-support/eagleboard-support-artemis/eagleboard-support-artemis.iml" filepath="$PROJECT_DIR$/eagleboard-support/eagleboard-support-artemis/eagleboard-support-artemis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eagleboard-support/eagleboard-support-audit/eagleboard-support-audit.iml" filepath="$PROJECT_DIR$/eagleboard-support/eagleboard-support-audit/eagleboard-support-audit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eagleboard-support/eagleboard-support-commons/eagleboard-support-commons.iml" filepath="$PROJECT_DIR$/eagleboard-support/eagleboard-support-commons/eagleboard-support-commons.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eagleboard-support/eagleboard-support-expression-parser/eagleboard-support-expression-parser.iml" filepath="$PROJECT_DIR$/eagleboard-support/eagleboard-support-expression-parser/eagleboard-support-expression-parser.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eagleboard-support/eagleboard-support-external/eagleboard-support-external.iml" filepath="$PROJECT_DIR$/eagleboard-support/eagleboard-support-external/eagleboard-support-external.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eagleboard-support/eagleboard-support-hibernate/eagleboard-support-hibernate.iml" filepath="$PROJECT_DIR$/eagleboard-support/eagleboard-support-hibernate/eagleboard-support-hibernate.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eagleboard-support/eagleboard-support-jdbc/eagleboard-support-jdbc.iml" filepath="$PROJECT_DIR$/eagleboard-support/eagleboard-support-jdbc/eagleboard-support-jdbc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eagleboard-support/eagleboard-support-system/eagleboard-support-system.iml" filepath="$PROJECT_DIR$/eagleboard-support/eagleboard-support-system/eagleboard-support-system.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eagleboard-support/eagleboard-support-test/eagleboard-support-test.iml" filepath="$PROJECT_DIR$/eagleboard-support/eagleboard-support-test/eagleboard-support-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eagleboard-web/eagleboard-web.iml" filepath="$PROJECT_DIR$/eagleboard-web/eagleboard-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eagleboard-web/eagleboard-web-api/eagleboard-web-api.iml" filepath="$PROJECT_DIR$/eagleboard-web/eagleboard-web-api/eagleboard-web-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eagleboard-web/eagleboard-web-api-test/eagleboard-web-api-test.iml" filepath="$PROJECT_DIR$/eagleboard-web/eagleboard-web-api-test/eagleboard-web-api-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eagleboard-web/eagleboard-web-commons/eagleboard-web-commons.iml" filepath="$PROJECT_DIR$/eagleboard-web/eagleboard-web-commons/eagleboard-web-commons.iml" />
+    </modules>
+  </component>
+</project>

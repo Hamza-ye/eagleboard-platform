@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"
+  [<!ENTITY identifiableProperties SYSTEM "classpath://com/mass3d/common/identifiableProperties.hbm">]
+  >
+
+<hibernate-mapping>
+  <!--<typedef class="com.mass3d.hibernate.jsonb.type.JsonSetBinaryType" name="jblTranslations">-->
+    <!--<param name="clazz">com.mass3d.translation.Translation</param>-->
+  <!--</typedef>-->
+  <class name="com.mass3d.project.Project" table="project">
+
+    <cache usage="read-write" />
+
+    <id name="id" column="projectid">
+      <generator class="native" />
+    </id>
+    &identifiableProperties;
+
+    <property name="name" column="name" not-null="true" unique="false" length="230" />
+
+    <property name="shortName" unique="false" length="50" />
+
+    <property name="description" type="text" />
+
+
+    <!--<property name="style" type="jbObjectStyle" column="style" />-->
+    
+    <set name="activities" table="projectactivities">
+      <cache usage="read-write" />
+      <key column="projectid" foreign-key="fk_projectactivities_projectid" />
+      <one-to-many class="com.mass3d.activity.Activity" />
+    </set>
+    
+    <set name="interpretations" inverse="true">
+      <key column="projectid" />
+      <one-to-many class="com.mass3d.interpretation.Interpretation" />
+    </set>
+
+    <!--<property name="translations" type="jblTranslations"/>-->
+
+    <!-- Access properties -->
+    <many-to-one name="user" class="com.mass3d.user.User" column="userid" foreign-key="fk_todotask_userid" />
+
+    <property name="publicAccess" length="8" />
+
+    <set name="userGroupAccesses" table="projectusergroupaccesses" cascade="all-delete-orphan">
+      <cache usage="read-write" />
+      <key column="projectid" />
+      <many-to-many class="com.mass3d.user.UserGroupAccess" column="usergroupaccessid" unique="true" />
+    </set>
+
+    <set name="userAccesses" table="projectuseraccesses" cascade="all-delete-orphan">
+      <cache usage="read-write" />
+      <key column="projectid" />
+      <many-to-many class="com.mass3d.user.UserAccess" column="useraccessid" unique="true" />
+    </set>
+
+  </class>
+
+</hibernate-mapping>
