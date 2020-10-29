@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Profile("test")
 @ComponentScan( "com.mass3d" )
 //@ImportResource( locations = { "classpath*:/META-INF/mass3d/beans.xml" } )
-//@EnableTransactionManagement(proxyTargetClass = true) // to fix BeanNotOfRequiredTypeException: Bean named X is expected to be of type X but was actually of type 'com.sun.proxy.$Proxy
+@EnableTransactionManagement(proxyTargetClass = true) // to fix BeanNotOfRequiredTypeException: Bean named X is expected to be of type X but was actually of type 'com.sun.proxy.$Proxy
 public class UnitTestConfiguration
 {
     @Bean( name = "dhisConfigurationProvider" )

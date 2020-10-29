@@ -29,7 +29,7 @@ import org.springframework.web.filter.ShallowEtagHeaderFilter;
  * {@code
  * <filter>
  *     <filter-name>ShallowEtagHeaderFilter</filter-name>
- *     <filter-class>org.hisp.dhis.webapi.filter.ExcludableShallowEtagHeaderFilter</filter-class>
+ *     <filter-class>com.mass3d.webapi.filter.ExcludableShallowEtagHeaderFilter</filter-class>
  *     <init-param>
  *         <param-name>excludeUriRegex</param-name>
  *         <param-value>/api/dataValues|/api/dataValues/files</param-value>

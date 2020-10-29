@@ -42,11 +42,11 @@ public class AuthenticationProviderConfig
 //        auth.authenticationProvider( customLdapAuthenticationProvider() );
     }
 
-//    @Bean
-//    public TwoFactorWebAuthenticationDetailsSource twoFactorWebAuthenticationDetailsSource()
-//    {
-//        return new TwoFactorWebAuthenticationDetailsSource();
-//    }
+    @Bean
+    public TwoFactorWebAuthenticationDetailsSource twoFactorWebAuthenticationDetailsSource()
+    {
+        return new TwoFactorWebAuthenticationDetailsSource();
+    }
 
 
     // Ldap configs
@@ -107,9 +107,9 @@ public class AuthenticationProviderConfig
         return new AuthenticationLoggerListener();
     }
 
-//    @Bean
-//    public AuthenticationListener authenticationListener()
-//    {
-//        return new AuthenticationListener();
-//    }
+    @Bean
+    public AuthenticationListener authenticationListener()
+    {
+        return new AuthenticationListener();
+    }
 }

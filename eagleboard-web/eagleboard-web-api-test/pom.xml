@@ -13,6 +13,10 @@
   <packaging>jar</packaging>
   <name>Eagleboard Web API Test</name>
 
+  <build>
+    <finalName>Eagleboard-web-api-test</finalName>
+  </build>
+
   <dependencies>
     <dependency>
       <groupId>com.mass3d.eagleboard</groupId>
@@ -120,5 +124,8 @@
     </dependency>
   </dependencies>
 
+  <properties>
+    <rootDir>../../</rootDir>
+  </properties>
 
 </project>

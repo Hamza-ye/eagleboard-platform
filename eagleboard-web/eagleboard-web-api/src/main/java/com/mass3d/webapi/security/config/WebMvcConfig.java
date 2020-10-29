@@ -70,8 +70,8 @@ public class WebMvcConfig extends DelegatingWebMvcConfiguration
     @Autowired
     private ContextService contextService;
 
-    @Autowired
-    DhisApiVersionHandlerMethodArgumentResolver dhisApiVersionHandlerMethodArgumentResolver;
+//    @Autowired
+//    DhisApiVersionHandlerMethodArgumentResolver dhisApiVersionHandlerMethodArgumentResolver;
 
 //    @Autowired
 //    NodeService nodeService;
@@ -82,16 +82,16 @@ public class WebMvcConfig extends DelegatingWebMvcConfiguration
         return new CommonsMultipartResolver();
     }
 
-//    @Bean
-//    public DhisApiVersionHandlerMethodArgumentResolver dhisApiVersionHandlerMethodArgumentResolver()
-//    {
-//        return new DhisApiVersionHandlerMethodArgumentResolver();
-//    }
+    @Bean
+    public DhisApiVersionHandlerMethodArgumentResolver dhisApiVersionHandlerMethodArgumentResolver()
+    {
+        return new DhisApiVersionHandlerMethodArgumentResolver();
+    }
 
     @Override
     public void addArgumentResolvers( List<HandlerMethodArgumentResolver> resolvers )
     {
-        resolvers.add( dhisApiVersionHandlerMethodArgumentResolver );
+        resolvers.add( dhisApiVersionHandlerMethodArgumentResolver() );
         resolvers.add( currentUserHandlerMethodArgumentResolver );
         resolvers.add( currentUserInfoHandlerMethodArgumentResolver );
     }

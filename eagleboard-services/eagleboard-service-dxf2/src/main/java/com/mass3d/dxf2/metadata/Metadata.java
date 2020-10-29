@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import com.mass3d.activity.Activity;
+import com.mass3d.project.Project;
+import com.mass3d.todotask.TodoTask;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -107,11 +110,11 @@ public class Metadata
 
     private List<NameableObject> items = new ArrayList<>();
 
-//    private List<OrganisationUnit> organisationUnits = new ArrayList<>();
-//
-//    private List<OrganisationUnitGroup> organisationUnitGroups = new ArrayList<>();
-//
-//    private List<OrganisationUnitGroupSet> organisationUnitGroupSets = new ArrayList<>();
+    private List<TodoTask> todoTasks = new ArrayList<>();
+
+    private List<Activity> activities = new ArrayList<>();
+
+    private List<Project> projects = new ArrayList<>();
 //
 //    private List<OrganisationUnitLevel> organisationUnitLevels = new ArrayList<>();
 //
@@ -559,44 +562,44 @@ public class Metadata
         this.items = items;
     }
 
-//    @JsonProperty
-//    @JacksonXmlElementWrapper( localName = "organisationUnits", namespace = DxfNamespaces.DXF_2_0 )
-//    @JacksonXmlProperty( localName = "organisationUnit", namespace = DxfNamespaces.DXF_2_0 )
-//    public List<OrganisationUnit> getTodoTasks()
-//    {
-//        return organisationUnits;
-//    }
-//
-//    public void setTodoTasks( List<OrganisationUnit> organisationUnits )
-//    {
-//        this.organisationUnits = organisationUnits;
-//    }
-//
-//    @JsonProperty
-//    @JacksonXmlElementWrapper( localName = "organisationUnitGroups", namespace = DxfNamespaces.DXF_2_0 )
-//    @JacksonXmlProperty( localName = "organisationUnitGroup", namespace = DxfNamespaces.DXF_2_0 )
-//    public List<OrganisationUnitGroup> getOrganisationUnitGroups()
-//    {
-//        return organisationUnitGroups;
-//    }
-//
-//    public void setOrganisationUnitGroups( List<OrganisationUnitGroup> organisationUnitGroups )
-//    {
-//        this.organisationUnitGroups = organisationUnitGroups;
-//    }
-//
-//    @JsonProperty
-//    @JacksonXmlElementWrapper( localName = "organisationUnitGroupSets", namespace = DxfNamespaces.DXF_2_0 )
-//    @JacksonXmlProperty( localName = "organisationUnitGroupSet", namespace = DxfNamespaces.DXF_2_0 )
-//    public List<OrganisationUnitGroupSet> getOrganisationUnitGroupSets()
-//    {
-//        return organisationUnitGroupSets;
-//    }
-//
-//    public void setOrganisationUnitGroupSets( List<OrganisationUnitGroupSet> organisationUnitGroupSets )
-//    {
-//        this.organisationUnitGroupSets = organisationUnitGroupSets;
-//    }
+    @JsonProperty
+    @JacksonXmlElementWrapper( localName = "todoTasks", namespace = DxfNamespaces.DXF_2_0 )
+    @JacksonXmlProperty( localName = "todoTask", namespace = DxfNamespaces.DXF_2_0 )
+    public List<TodoTask> getTodoTasks()
+    {
+        return todoTasks;
+    }
+
+    public void setTodoTasks( List<TodoTask> todoTasks )
+    {
+        this.todoTasks = todoTasks;
+    }
+
+    @JsonProperty
+    @JacksonXmlElementWrapper( localName = "activities", namespace = DxfNamespaces.DXF_2_0 )
+    @JacksonXmlProperty( localName = "activity", namespace = DxfNamespaces.DXF_2_0 )
+    public List<Activity> getActivities()
+    {
+        return activities;
+    }
+
+    public void setActivities( List<Activity> activities )
+    {
+        this.activities = activities;
+    }
+
+    @JsonProperty
+    @JacksonXmlElementWrapper( localName = "projects", namespace = DxfNamespaces.DXF_2_0 )
+    @JacksonXmlProperty( localName = "project", namespace = DxfNamespaces.DXF_2_0 )
+    public List<Project> getProjects()
+    {
+        return projects;
+    }
+
+    public void setProjects( List<Project> projects )
+    {
+        this.projects = projects;
+    }
 //
 //    @JsonProperty
 //    @JacksonXmlElementWrapper( localName = "organisationUnitLevels", namespace = DxfNamespaces.DXF_2_0 )
@@ -1125,9 +1128,9 @@ public class Metadata
             ", indicatorGroupSets=" + indicatorGroupSets +
             ", indicatorTypes=" + indicatorTypes +
             ", items=" + items +
-//            ", organisationUnits=" + organisationUnits +
-//            ", organisationUnitGroups=" + organisationUnitGroups +
-//            ", organisationUnitGroupSets=" + organisationUnitGroupSets +
+//            ", todoTasks=" + todoTasks +
+//            ", activities=" + activities +
+//            ", projects=" + projects +
 //            ", organisationUnitLevels=" + organisationUnitLevels +
 //            ", validationRules=" + validationRules +
 //            ", validationRuleGroups=" + validationRuleGroups +

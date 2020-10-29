@@ -41,7 +41,7 @@ import org.springframework.util.Assert;
         org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration.class,
         org.springframework.boot.autoconfigure.ldap.LdapAutoConfiguration.class})
 // , exclude = {org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration.class
-@EnableTransactionManagement
+//@EnableTransactionManagement(proxyTargetClass = true)
 //@ComponentScan(basePackages = { "com.mass3d" }, excludeFilters = { @Filter(type = FilterType.ANNOTATION, value = Configuration.class) })
 //@ContextConfiguration(classes= AnnotationConfigWebContextLoader.class)
 public class MainApp extends SpringBootServletInitializer {
@@ -256,6 +256,8 @@ public class MainApp extends SpringBootServletInitializer {
         System.out.println("idB = " + idB);
         System.out.println("idC = " + idC);
         System.out.println("currentUserServices.size() = " + currentUserServices.size());
+        System.out.println("currentUser = " + currentUserServices.get(0).getCurrentUser());
+        System.out.println("currentUserName = " + currentUserServices.get(0).getCurrentUsername());
         DataElement dataElementGet = identifiableObjectManager.get(DataElement.class, idC);
         System.out.println("DataElement-------- = " + dataElementGet);
 

@@ -11,6 +11,11 @@
 
   <artifactId>eagleboard-web-api</artifactId>
   <packaging>jar</packaging>
+  <name>Eagleboard Web API</name>
+
+  <build>
+    <finalName>dhis-web-api</finalName>
+  </build>
 
   <dependencies>
     <dependency>
@@ -56,6 +61,49 @@
       <!--<groupId>org.springframework</groupId>-->
       <!--<artifactId>spring-oxm</artifactId>-->
     <!--</dependency>-->
+
+    <!-- _________________________________ -->
+
+    <dependency>
+      <groupId>org.springframework.mobile</groupId>
+      <artifactId>spring-mobile-device</artifactId>
+    </dependency>
+
+    <!--Spring Session and Redis -->
+
+    <dependency>
+      <groupId>org.springframework.session</groupId>
+      <artifactId>spring-session-data-redis</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>io.lettuce</groupId>
+      <artifactId>lettuce-core</artifactId>
+    </dependency>
+
+    <!-- Web -->
+    <dependency>
+      <groupId>org.apache.struts</groupId>
+      <artifactId>struts2-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.struts</groupId>
+      <artifactId>struts2-spring-plugin</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.velocity</groupId>
+      <artifactId>velocity</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.velocity</groupId>
+      <artifactId>velocity-tools</artifactId>
+    </dependency>
+
+    <!-- _________________________________ -->
 
     <dependency>
       <groupId>net.sf.jasperreports</groupId>
@@ -119,4 +167,8 @@
       <artifactId>commons-fileupload</artifactId>
     </dependency>
   </dependencies>
+
+  <properties>
+    <rootDir>../../</rootDir>
+  </properties>
 </project>

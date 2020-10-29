@@ -10,7 +10,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 
-
 /**
  * AccessDecisionVoter which grants access if one of the granted authorities
  * matches attribute prefix + module name. The module name is taken from an

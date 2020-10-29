@@ -1,7 +1,5 @@
 package com.mass3d.user;
 
-import java.util.Set;
-
 /**
  * This interface defined methods for getting access to the currently logged in
  * user and clearing the logged in state. If no user is logged in or the auto

@@ -15,6 +15,8 @@
     <module>eagleboard-web-api</module>
     <module>eagleboard-web-commons</module>
     <module>eagleboard-web-api-test</module>
+    <module>eagleboard-web-api-mobile</module>
+    <module>eagleboard-web-commons-resources</module>
   </modules>
 
   <dependencies>
@@ -33,15 +35,28 @@
       </dependency>
       <dependency>
         <groupId>com.mass3d.eagleboard</groupId>
+        <artifactId>eagleboard-web-commons-resources</artifactId>
+        <version>${project.version}</version>
+        <type>war</type>
+      </dependency>
+      <dependency>
+        <groupId>com.mass3d.eagleboard</groupId>
         <artifactId>eagleboard-web-api</artifactId>
         <version>${project.version}</version>
       </dependency>
-      <!--<dependency>-->
-      <!--<groupId>com.mass3d.eagleboard</groupId>-->
-      <!--<artifactId>eagleboard-web-api-mobile</artifactId>-->
-      <!--<version>${project.version}</version>-->
-      <!--</dependency>-->
+      <dependency>
+        <groupId>com.mass3d.eagleboard</groupId>
+        <artifactId>eagleboard-web-api-mobile</artifactId>
+        <version>${project.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <properties>
+    <rootDir>../</rootDir>
+    <useWarCompression>true</useWarCompression>
+    <maven-jetty-plugin.version>9.4.31.v20200723</maven-jetty-plugin.version>
+    <!--<tomcat.version>8.5.47</tomcat.version>-->
+  </properties>
 
 </project>

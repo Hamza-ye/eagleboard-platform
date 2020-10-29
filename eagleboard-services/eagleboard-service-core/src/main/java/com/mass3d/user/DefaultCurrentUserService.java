@@ -8,6 +8,7 @@ import com.mass3d.commons.util.SystemUtils;
 import com.mass3d.security.spring.AbstractSpringSecurityCurrentUserService;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
+import org.hibernate.Hibernate;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.session.SessionRegistry;
@@ -87,6 +88,7 @@ public class DefaultCurrentUserService
     User user = userStore.getUser(userId);
 
     // TODO: this is pretty ugly way to retrieve auths
+//    Hibernate.initialize(user.getUserCredentials().getAllAuthorities());
     user.getUserCredentials().getAllAuthorities();
     return user;
   }

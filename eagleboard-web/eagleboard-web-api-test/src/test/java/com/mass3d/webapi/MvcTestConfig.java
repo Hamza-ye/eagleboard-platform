@@ -26,6 +26,7 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.accept.FixedContentNegotiationStrategy;
 import org.springframework.web.accept.HeaderContentNegotiationStrategy;
@@ -45,6 +46,7 @@ import static org.springframework.http.MediaType.parseMediaType;
 @Configuration
 @EnableWebMvc
 @EnableGlobalMethodSecurity( prePostEnabled = true )
+@EnableTransactionManagement(proxyTargetClass = true) // to fix BeanNotOfRequiredTypeException: Bean named X is expected to be of type X but was actually of type 'com.sun.proxy.$Proxy
 public class MvcTestConfig implements WebMvcConfigurer
 {
     @Bean

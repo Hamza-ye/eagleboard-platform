@@ -14,9 +14,9 @@ public class UserSettingInterceptor
     // -------------------------------------------------------------------------
     // Dependencies
     // -------------------------------------------------------------------------
-//
+
 //    private StyleManager styleManager;
-//
+
 //    public void setStyleManager( StyleManager styleManager )
 //    {
 //        this.styleManager = styleManager;

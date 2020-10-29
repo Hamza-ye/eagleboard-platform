@@ -1,14 +1,15 @@
 package com.mass3d.servlet.filter;
 
 import com.mass3d.webapi.utils.ContextUtils;
-import java.io.IOException;
+import org.springframework.http.HttpMethod;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.http.HttpMethod;
+import java.io.IOException;
 
 /**
  * Filter which enforces no cache for HTML pages like

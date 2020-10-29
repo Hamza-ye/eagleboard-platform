@@ -48,9 +48,11 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 @Slf4j
+@Transactional
 public class HibernateIdentifiableObjectStore<T extends BaseIdentifiableObject>
     extends HibernateGenericStore<T> implements GenericDimensionalObjectStore<T>,
     InternalHibernateGenericStore<T> {
@@ -97,43 +99,43 @@ public class HibernateIdentifiableObjectStore<T extends BaseIdentifiableObject>
   // InternalHibernateGenericStore implementation
   // -------------------------------------------------------------------------
 
-  public final Criteria getDataSharingCriteria()
+  public  Criteria getDataSharingCriteria()
   {
     return getExecutableCriteria( getDataSharingDetachedCriteria( currentUserService.getCurrentUserInfo(), AclService.LIKE_READ_DATA ) );
   }
 
   @Override
-  public final Criteria getSharingCriteria( User user )
+  public  Criteria getSharingCriteria( User user )
   {
     return getExecutableCriteria( getSharingDetachedCriteria( UserInfo.fromUser( user ), AclService.LIKE_READ_METADATA ) );
   }
 
   @Override
-  public final DetachedCriteria getSharingDetachedCriteria()
+  public  DetachedCriteria getSharingDetachedCriteria()
   {
     return getSharingDetachedCriteria( currentUserService.getCurrentUserInfo(), AclService.LIKE_READ_METADATA );
   }
 
   @Override
-  public final DetachedCriteria getSharingDetachedCriteria( String access )
+  public  DetachedCriteria getSharingDetachedCriteria( String access )
   {
     return getSharingDetachedCriteria( currentUserService.getCurrentUserInfo(), access );
   }
 
   @Override
-  public final DetachedCriteria getDataSharingDetachedCriteria( String access )
+  public  DetachedCriteria getDataSharingDetachedCriteria( String access )
   {
     return getDataSharingDetachedCriteria( currentUserService.getCurrentUserInfo(), access );
   }
 
   @Override
-  public final DetachedCriteria getSharingDetachedCriteria( User user )
+  public  DetachedCriteria getSharingDetachedCriteria( User user )
   {
     return getSharingDetachedCriteria( UserInfo.fromUser( user ), AclService.LIKE_READ_METADATA );
   }
 
   @Override
-  public final DetachedCriteria getDataSharingDetachedCriteria( User user )
+  public  DetachedCriteria getDataSharingDetachedCriteria( User user )
   {
     return getDataSharingDetachedCriteria( UserInfo.fromUser( user ), AclService.LIKE_READ_DATA );
   }
@@ -269,7 +271,7 @@ public class HibernateIdentifiableObjectStore<T extends BaseIdentifiableObject>
   }
 
   @Override
-  public final void delete( T object, User user )
+  public  void delete( T object, User user )
   {
     String username = user != null ? user.getUsername() : "system-process";
 
@@ -288,7 +290,7 @@ public class HibernateIdentifiableObjectStore<T extends BaseIdentifiableObject>
   }
 
   @Override
-  public final T get( long id )
+  public  T get( long id )
   {
     T object = getSession().get( getClazz(), id );
 

@@ -11,6 +11,7 @@
 
   <artifactId>eagleboard-web-commons</artifactId>
   <packaging>jar</packaging>
+  <name>Eagleboard Common Functionality for Web</name>
 
   <dependencies>
 
@@ -135,5 +136,7 @@
       <artifactId>jfreechart</artifactId>
     </dependency>
   </dependencies>
-
+  <properties>
+    <rootDir>../../</rootDir>
+  </properties>
 </project>
