@@ -17,6 +17,7 @@
     <module>eagleboard-web-api-test</module>
     <module>eagleboard-web-api-mobile</module>
     <module>eagleboard-web-commons-resources</module>
+    <module>eagleboard-web-uaa</module>
   </modules>
 
   <dependencies>
