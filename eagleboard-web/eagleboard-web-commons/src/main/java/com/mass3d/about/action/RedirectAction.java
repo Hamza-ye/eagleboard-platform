@@ -1,5 +1,7 @@
 package com.mass3d.about.action;
 
+import com.mass3d.appmanager.App;
+import com.mass3d.appmanager.AppManager;
 import com.opensymphony.xwork2.Action;
 
 import org.apache.struts2.ServletActionContext;
@@ -16,8 +18,8 @@ public class RedirectAction
     @Autowired
     private SystemSettingManager systemSettingManager;
 
-//    @Autowired
-//    private AppManager appManager;
+    @Autowired
+    private AppManager appManager;
 
     private String redirectUrl;
 
@@ -38,16 +40,16 @@ public class RedirectAction
         {
             if ( startModule.startsWith( "app:" ) )
             {
-//                List<App> apps = appManager.getApps( contextPath );
-//
-//                for ( App app : apps )
-//                {
-//                    if ( app.getShortName().equals( startModule.substring( "app:".length() ) ) )
-//                    {
-//                        redirectUrl = app.getLaunchUrl();
-//                        return SUCCESS;
-//                    }
-//                }
+                List<App> apps = appManager.getApps( contextPath );
+
+                for ( App app : apps )
+                {
+                    if ( app.getShortName().equals( startModule.substring( "app:".length() ) ) )
+                    {
+                        redirectUrl = app.getLaunchUrl();
+                        return SUCCESS;
+                    }
+                }
             }
             else
             {

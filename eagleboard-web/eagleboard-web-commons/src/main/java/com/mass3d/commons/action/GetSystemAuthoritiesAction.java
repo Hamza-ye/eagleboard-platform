@@ -3,6 +3,7 @@ package com.mass3d.commons.action;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.mass3d.appmanager.App;
 import com.mass3d.i18n.I18n;
 import com.mass3d.paging.ActionPagingSupport;
 import com.mass3d.security.authority.SystemAuthoritiesProvider;
@@ -93,10 +94,10 @@ public class GetSystemAuthoritiesAction
         auth = i18n.getString( auth );
 
         // Custom App doesn't have translation for See App authority
-//        if ( auth.startsWith( App.SEE_APP_AUTHORITY_PREFIX ) )
-//        {
-//            auth = auth.replaceFirst( App.SEE_APP_AUTHORITY_PREFIX, "" ).replaceAll( "_", " " ) + " app";
-//        }
+        if ( auth.startsWith( App.SEE_APP_AUTHORITY_PREFIX ) )
+        {
+            auth = auth.replaceFirst( App.SEE_APP_AUTHORITY_PREFIX, "" ).replaceAll( "_", " " ) + " app";
+        }
 
         return auth;
     }

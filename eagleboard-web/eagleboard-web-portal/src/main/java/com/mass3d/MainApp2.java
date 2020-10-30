@@ -7,22 +7,37 @@ import com.mass3d.common.IdentifiableObjectManager;
 import com.mass3d.common.ValueType;
 import com.mass3d.dataelement.DataElement;
 import com.mass3d.dataelement.DataElementService;
+import com.mass3d.external.conf.ConfigurationKey;
+import com.mass3d.external.conf.DefaultDhisConfigurationProvider;
+import com.mass3d.external.conf.DhisConfigurationProvider;
+import com.mass3d.external.location.DefaultLocationManager;
+import com.mass3d.system.startup.StartupListener;
 import com.mass3d.user.CurrentUserService;
 import com.mass3d.user.User;
 import com.mass3d.user.UserAuthorityGroup;
 import com.mass3d.user.UserCredentials;
 import com.mass3d.user.UserService;
+import com.mass3d.webapi.security.config.WebMvcConfig;
+import com.mass3d.webapi.servlet.DhisWebApiWebAppInitializer;
 import io.micrometer.spring.autoconfigure.web.servlet.WebMvcMetricsAutoConfiguration;
 import io.micrometer.spring.autoconfigure.web.tomcat.TomcatMetricsAutoConfiguration;
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.servlet.FilterRegistration;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletRegistration;
+import javax.servlet.SessionTrackingMode;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.orm.hibernate5.support.OpenSessionInViewFilter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -31,6 +46,11 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
+import org.springframework.web.context.ContextLoaderListener;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.DelegatingFilterProxy;
+import org.springframework.web.servlet.DispatcherServlet;
 
 @SpringBootApplication (exclude =
     { WebMvcMetricsAutoConfiguration.class, //SecurityAutoConfiguration.class,
@@ -42,7 +62,8 @@ import org.springframework.util.Assert;
 //@EnableTransactionManagement(proxyTargetClass = true)
 //@ComponentScan(basePackages = { "com.mass3d" }, excludeFilters = { @Filter(type = FilterType.ANNOTATION, value = Configuration.class) })
 //@ContextConfiguration(classes= AnnotationConfigWebContextLoader.class)
-public class MainApp2 extends SpringBootServletInitializer {
+@Slf4j
+public class MainApp2 /*extends SpringBootServletInitializer */{
 
 //  @Autowired
 //  DataElementStore dataElementStore;
@@ -62,13 +83,9 @@ public class MainApp2 extends SpringBootServletInitializer {
   @Autowired
   DataElementService dataElementService;
 
-//  @Override
-//  protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-//    return builder.sources(MainApp.class);
-//  }
-
   public static void main(String[] args) {
     SpringApplication.run(MainApp2.class, args);
+//    SpringApplication.run(new Class[] { MainApp2.class, DhisWebApiWebAppInitializer.class }, args);
   }
 
   protected User createAdminUser( String... authorities )

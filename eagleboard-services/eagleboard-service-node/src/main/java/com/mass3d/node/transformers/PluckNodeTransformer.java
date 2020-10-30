@@ -11,6 +11,11 @@ import com.mass3d.node.types.SimpleNode;
 import com.mass3d.schema.Property;
 import org.springframework.stereotype.Component;
 
+/**
+ * Transforms a collection node with complex nodes to a list with the
+ * the first field values of the includes simple nodes.
+ *
+ */
 @Component
 public class PluckNodeTransformer implements NodeTransformer
 {

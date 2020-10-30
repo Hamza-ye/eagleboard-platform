@@ -1,8 +1,23 @@
 package com.mass3d.dxf2.config;
 
+import static com.google.common.collect.Lists.newArrayList;
+import static com.mass3d.importexport.ImportStrategy.CREATE;
+import static com.mass3d.importexport.ImportStrategy.DELETE;
+import static com.mass3d.importexport.ImportStrategy.UPDATE;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.mass3d.dxf2.metadata.objectbundle.validation.CreationCheck;
+import com.mass3d.dxf2.metadata.objectbundle.validation.DeletionCheck;
+import com.mass3d.dxf2.metadata.objectbundle.validation.DuplicateIdsCheck;
+import com.mass3d.dxf2.metadata.objectbundle.validation.ReferencesCheck;
+import com.mass3d.dxf2.metadata.objectbundle.validation.SchemaCheck;
+import com.mass3d.dxf2.metadata.objectbundle.validation.SecurityCheck;
+import com.mass3d.dxf2.metadata.objectbundle.validation.UniquenessCheck;
+import com.mass3d.dxf2.metadata.objectbundle.validation.UpdateCheck;
+import com.mass3d.dxf2.metadata.objectbundle.validation.ValidationCheck;
+import com.mass3d.dxf2.metadata.objectbundle.validation.ValidationHooksCheck;
 import com.mass3d.dxf2.metadata.sync.exception.MetadataSyncServiceException;
 import com.mass3d.external.conf.ConfigurationPropertyFactoryBean;
 import com.mass3d.importexport.ImportStrategy;
@@ -10,20 +25,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.retry.backoff.ExponentialBackOffPolicy;
 import org.springframework.retry.policy.SimpleRetryPolicy;
 import org.springframework.retry.support.RetryTemplate;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import com.google.common.collect.ImmutableMap;
 
 /**
  * @author Luciano Fiandesio
  */
 @Configuration( "dxf2ServiceConfig" )
-//@ImportResource({"classpath*:META-INF/mass3d/beans.xml"})
-//@EnableTransactionManagement
 public class ServiceConfig
 {
     @Autowired
@@ -59,52 +72,52 @@ public class ServiceConfig
         return retryTemplate;
     }
 
-//    private final static List<Class<? extends ValidationCheck>> CREATE_UPDATE_CHECKS = newArrayList(
-//        DuplicateIdsCheck.class,
-//        ValidationHooksCheck.class,
-//        SecurityCheck.class,
-//        SchemaCheck.class,
-//        UniquenessCheck.class,
+    private final static List<Class<? extends ValidationCheck>> CREATE_UPDATE_CHECKS = newArrayList(
+        DuplicateIdsCheck.class,
+        ValidationHooksCheck.class,
+        SecurityCheck.class,
+        SchemaCheck.class,
+        UniquenessCheck.class,
 //        MandatoryAttributesCheck.class,
 //        UniqueAttributesCheck.class,
-//        ReferencesCheck.class );
-//
-//    private final static List<Class<? extends ValidationCheck>> CREATE_CHECKS = newArrayList(
-//        DuplicateIdsCheck.class,
-//        ValidationHooksCheck.class,
-//        SecurityCheck.class,
-//        CreationCheck.class,
-//        SchemaCheck.class,
-//        UniquenessCheck.class,
+        ReferencesCheck.class );
+
+    private final static List<Class<? extends ValidationCheck>> CREATE_CHECKS = newArrayList(
+        DuplicateIdsCheck.class,
+        ValidationHooksCheck.class,
+        SecurityCheck.class,
+        CreationCheck.class,
+        SchemaCheck.class,
+        UniquenessCheck.class,
 //        MandatoryAttributesCheck.class,
 //        UniqueAttributesCheck.class,
-//        ReferencesCheck.class );
-//
-//    private final static List<Class<? extends ValidationCheck>> UPDATE_CHECKS = newArrayList(
-//        DuplicateIdsCheck.class,
-//        ValidationHooksCheck.class,
-//        SecurityCheck.class,
-//        UpdateCheck.class,
-//        SchemaCheck.class,
-//        UniquenessCheck.class,
+        ReferencesCheck.class );
+
+    private final static List<Class<? extends ValidationCheck>> UPDATE_CHECKS = newArrayList(
+        DuplicateIdsCheck.class,
+        ValidationHooksCheck.class,
+        SecurityCheck.class,
+        UpdateCheck.class,
+        SchemaCheck.class,
+        UniquenessCheck.class,
 //        MandatoryAttributesCheck.class,
 //        UniqueAttributesCheck.class,
-//        ReferencesCheck.class );
-//
-//    private final static List<Class<? extends ValidationCheck>> DELETE_CHECKS = newArrayList(
-//        SecurityCheck.class,
-//        DeletionCheck.class );
-//
-//    @Bean( "validatorMap" )
-//    public Map<ImportStrategy, List<Class<? extends ValidationCheck>>> validatorMap()
-//    {
-//        return ImmutableMap.of(
-//            ImportStrategy.CREATE_AND_UPDATE, CREATE_UPDATE_CHECKS,
-//            CREATE, CREATE_CHECKS,
-//            ImportStrategy.UPDATE, UPDATE_CHECKS,
-//            ImportStrategy.DELETE, DELETE_CHECKS );
-//    }
-//
+        ReferencesCheck.class );
+
+    private final static List<Class<? extends ValidationCheck>> DELETE_CHECKS = newArrayList(
+        SecurityCheck.class,
+        DeletionCheck.class );
+
+    @Bean( "validatorMap" )
+    public Map<ImportStrategy, List<Class<? extends ValidationCheck>>> validatorMap()
+    {
+        return ImmutableMap.of(
+            ImportStrategy.CREATE_AND_UPDATE, CREATE_UPDATE_CHECKS,
+            CREATE, CREATE_CHECKS,
+            ImportStrategy.UPDATE, UPDATE_CHECKS,
+            ImportStrategy.DELETE, DELETE_CHECKS );
+    }
+
 //    /*
 //     * TRACKER EVENT IMPORT VALIDATION
 //     */
@@ -131,7 +144,7 @@ public class ServiceConfig
 //            DataValueAclCheck.class,
 //            ExpirationDaysCheck.class ) );
 //    }
-//
+
 //    @Bean
 //    public Map<ImportStrategy, List<Class<? extends Checker>>> eventUpdateValidatorMap()
 //    {

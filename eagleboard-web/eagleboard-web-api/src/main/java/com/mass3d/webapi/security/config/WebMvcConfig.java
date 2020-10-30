@@ -57,7 +57,7 @@ import static org.springframework.http.MediaType.parseMediaType;
 @Order( 1000 )
 @ComponentScan( basePackages = { "com.mass3d" } )
 @EnableGlobalMethodSecurity( prePostEnabled = true )
-@EnableWebMvc
+//@EnableWebMvc // Ibn Alkalb
 @Slf4j
 public class WebMvcConfig extends DelegatingWebMvcConfiguration
 {

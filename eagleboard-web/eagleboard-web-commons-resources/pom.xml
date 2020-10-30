@@ -11,6 +11,7 @@
   <artifactId>eagleboard-web-commons-resources</artifactId>
   <packaging>war</packaging>
   <name>Eagleboard Common Resources for Web</name>
+
   <properties>
     <rootDir>../../</rootDir>
   </properties>

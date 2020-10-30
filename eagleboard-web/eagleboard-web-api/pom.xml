@@ -14,7 +14,7 @@
   <name>Eagleboard Web API</name>
 
   <build>
-    <finalName>dhis-web-api</finalName>
+    <finalName>eagleboard-web-api</finalName>
   </build>
 
   <dependencies>

@@ -36,7 +36,7 @@ public interface IdentifiableObject
 //
 //    void setAttributeValues(Set<AttributeValue> attributeValues);
 
-    Set<Translation> getTranslations();
+//    Set<Translation> getTranslations();
 
     Set<String> getFavorites();
 

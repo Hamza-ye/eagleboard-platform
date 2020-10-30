@@ -5,7 +5,7 @@
 <struts>
   <include file="dhis-web-commons.xml" />
 
-  <package name="eagleboard-web-uaa" extends="eagleboard-web-commons" namespace="/uaa">
+  <package name="dhis-web-uaa" extends="dhis-web-commons" namespace="/uaa">
   </package>
 
 </struts>
