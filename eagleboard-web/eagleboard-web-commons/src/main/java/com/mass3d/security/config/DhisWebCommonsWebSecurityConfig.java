@@ -45,8 +45,10 @@ import static com.mass3d.webapi.security.config.DhisWebApiWebSecurityConfig.setH
 
 @Configuration
 @Order( 2000 )
-@ImportResource( locations = { "classpath*:/META-INF/dhis/beans.xml", "classpath*:/META-INF/dhis/beans-dataentry.xml",
-    "classpath*:/META-INF/dhis/beans-maintenance-mobile.xml", "classpath*:/META-INF/dhis/beans-approval.xml" } )
+@ImportResource( locations = { "classpath*:/META-INF/mass3d/beans.xml"
+//    , "classpath*:/META-INF/mass3d/beans-dataentry.xml",
+//    "classpath*:/META-INF/mass3d/beans-maintenance-mobile.xml", "classpath*:/META-INF/mass3d/beans-approval.xml"
+} )
 public class DhisWebCommonsWebSecurityConfig
 {
     /**

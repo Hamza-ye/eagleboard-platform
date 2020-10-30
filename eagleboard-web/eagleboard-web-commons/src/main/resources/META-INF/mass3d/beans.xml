@@ -22,87 +22,87 @@
     <property name="accessDecisionManager" ref="accessDecisionManager" />
   </bean>
 
-  <!--<bean id="com.mass3d.webportal.module.ModuleManager" class="com.mass3d.webportal.module.DefaultModuleManager">-->
-    <!--<property name="actionAccessResolver" ref="com.mass3d.security.ActionAccessResolver" />-->
-    <!--<property name="moduleComparator" ref="com.mass3d.webportal.module.ConfigurableModuleComparator" />-->
-    <!--<property name="defaultActionName" value="index" />-->
-    <!--<property name="menuModuleExclusions">-->
-      <!--<set>-->
-        <!--<value>dhis-web-apps</value>-->
-      <!--</set>-->
-    <!--</property>-->
-  <!--</bean>-->
+  <bean id="com.mass3d.webportal.module.ModuleManager" class="com.mass3d.webportal.module.DefaultModuleManager">
+    <property name="actionAccessResolver" ref="com.mass3d.security.ActionAccessResolver" />
+    <property name="moduleComparator" ref="com.mass3d.webportal.module.ConfigurableModuleComparator" />
+    <property name="defaultActionName" value="index" />
+    <property name="menuModuleExclusions">
+      <set>
+        <value>dhis-web-apps</value>
+      </set>
+    </property>
+  </bean>
 
-  <!--<bean id="com.mass3d.webportal.module.ConfigurableModuleComparator"-->
-    <!--class="com.mass3d.webportal.module.ConfigurableModuleComparator">-->
-    <!--<property name="order">-->
-      <!--<list>-->
-        <!--<value>dhis-web-pivot</value>-->
-        <!--<value>dhis-web-visualizer</value>-->
-        <!--<value>dhis-web-mapping</value>-->
-        <!--<value>dhis-web-event-reports</value>-->
-        <!--<value>dhis-web-event-visualizer</value>-->
-        <!--<value>dhis-web-dataentry</value>-->
-        <!--<value>dhis-web-event-capture</value>-->
-        <!--<value>dhis-web-tracker-capture</value>-->
-        <!--<value>dhis-web-maintenance-dataadmin</value>-->
-        <!--<value>dhis-web-maintenance-dataset</value>-->
-        <!--<value>dhis-web-importexport</value>-->
-        <!--<value>dhis-web-maintenance-mobile</value>-->
-        <!--<value>dhis-web-maintenance-organisationunit</value>-->
-        <!--<value>dhis-web-maintenance-program</value>-->
-        <!--<value>dhis-web-maintenance-settings</value>-->
-        <!--<value>dhis-web-maintenance-user</value>-->
-        <!--<value>dhis-web-validationrule</value>-->
-        <!--<value>dhis-web-reporting</value>-->
-        <!--<value>dhis-web-sms</value>-->
-        <!--<value>dhis-web-dashboard</value>-->
-      <!--</list>-->
-    <!--</property>-->
-  <!--</bean>-->
+  <bean id="com.mass3d.webportal.module.ConfigurableModuleComparator"
+    class="com.mass3d.webportal.module.ConfigurableModuleComparator">
+    <property name="order">
+      <list>
+        <value>dhis-web-pivot</value>
+        <value>dhis-web-visualizer</value>
+        <value>dhis-web-mapping</value>
+        <value>dhis-web-event-reports</value>
+        <value>dhis-web-event-visualizer</value>
+        <value>dhis-web-dataentry</value>
+        <value>dhis-web-event-capture</value>
+        <value>dhis-web-tracker-capture</value>
+        <value>dhis-web-maintenance-dataadmin</value>
+        <value>dhis-web-maintenance-dataset</value>
+        <value>dhis-web-importexport</value>
+        <value>dhis-web-maintenance-mobile</value>
+        <value>dhis-web-maintenance-organisationunit</value>
+        <value>dhis-web-maintenance-program</value>
+        <value>dhis-web-maintenance-settings</value>
+        <value>dhis-web-maintenance-user</value>
+        <value>dhis-web-validationrule</value>
+        <value>dhis-web-reporting</value>
+        <value>dhis-web-sms</value>
+        <value>dhis-web-dashboard</value>
+      </list>
+    </property>
+  </bean>
 
-  <!--<bean id="com.mass3d.webportal.module.CurrentModuleDetectorFilter" class="com.mass3d.webportal.module.CurrentModuleDetectorFilter">-->
-    <!--<property name="moduleManager" ref="com.mass3d.webportal.module.ModuleManager" />-->
-  <!--</bean>-->
+  <bean id="com.mass3d.webportal.module.CurrentModuleDetectorFilter" class="com.mass3d.webportal.module.CurrentModuleDetectorFilter">
+    <property name="moduleManager" ref="com.mass3d.webportal.module.ModuleManager" />
+  </bean>
 
-  <!--<bean id="com.mass3d.webportal.interceptor.XWorkPortalParamsInterceptor"-->
-    <!--class="com.mass3d.webportal.interceptor.XWorkPortalParamsInterceptor">-->
-    <!--<property name="standardParams">-->
-      <!--<set>-->
-        <!--<value>page</value>-->
-        <!--<value>menu</value>-->
-        <!--<value>hideMenu</value>-->
-        <!--<value>manifest</value>-->
-      <!--</set>-->
-    <!--</property>-->
-    <!--<property name="commaSeparatedParams">-->
-      <!--<set>-->
-        <!--<value>javascripts</value>-->
-        <!--<value>stylesheets</value>-->
-      <!--</set>-->
-    <!--</property>-->
-  <!--</bean>-->
+  <bean id="com.mass3d.webportal.interceptor.XWorkPortalParamsInterceptor"
+    class="com.mass3d.webportal.interceptor.XWorkPortalParamsInterceptor">
+    <property name="standardParams">
+      <set>
+        <value>page</value>
+        <value>menu</value>
+        <value>hideMenu</value>
+        <value>manifest</value>
+      </set>
+    </property>
+    <property name="commaSeparatedParams">
+      <set>
+        <value>javascripts</value>
+        <value>stylesheets</value>
+      </set>
+    </property>
+  </bean>
 
-  <!--<bean id="com.mass3d.webportal.interceptor.XWorkPortalModuleInterceptor"-->
-    <!--class="com.mass3d.webportal.interceptor.XWorkPortalModuleInterceptor">-->
-    <!--<property name="moduleManager" ref="com.mass3d.webportal.module.ModuleManager"/>-->
-  <!--</bean>-->
+  <bean id="com.mass3d.webportal.interceptor.XWorkPortalModuleInterceptor"
+    class="com.mass3d.webportal.interceptor.XWorkPortalModuleInterceptor">
+    <property name="moduleManager" ref="com.mass3d.webportal.module.ModuleManager"/>
+  </bean>
 
-  <!--<bean id="com.mass3d.webportal.menu.MenuStateManager" class="com.mass3d.webportal.menu.SessionMenuStateManager" />-->
+  <bean id="com.mass3d.webportal.menu.MenuStateManager" class="com.mass3d.webportal.menu.SessionMenuStateManager" />
 
-  <!--<bean id="com.mass3d.webportal.menu.action.SetMenuStateAction" class="com.mass3d.webportal.menu.action.SetMenuStateAction" scope="prototype" />-->
+  <bean id="com.mass3d.webportal.menu.action.SetMenuStateAction" class="com.mass3d.webportal.menu.action.SetMenuStateAction" scope="prototype" />
 
-  <!--<bean id="com.mass3d.webportal.menu.action.GetModulesAction" class="com.mass3d.webportal.menu.action.GetModulesAction" scope="prototype" />-->
+  <bean id="com.mass3d.webportal.menu.action.GetModulesAction" class="com.mass3d.webportal.menu.action.GetModulesAction" scope="prototype" />
 
-  <!--<bean id="com.mass3d.webportal.interceptor.XWorkPortalMenuInterceptor"-->
-    <!--class="com.mass3d.webportal.interceptor.XWorkPortalMenuInterceptor">-->
-    <!--<property name="menuStateManager" ref="com.mass3d.webportal.menu.MenuStateManager"/>-->
-  <!--</bean>-->
+  <bean id="com.mass3d.webportal.interceptor.XWorkPortalMenuInterceptor"
+    class="com.mass3d.webportal.interceptor.XWorkPortalMenuInterceptor">
+    <property name="menuStateManager" ref="com.mass3d.webportal.menu.MenuStateManager"/>
+  </bean>
 
-  <!--<bean id="com.mass3d.webportal.interceptor.XWorkPortalUserInterceptor"-->
-    <!--class="com.mass3d.webportal.interceptor.XWorkPortalUserInterceptor">-->
-    <!--<property name="currentUserService" ref="com.mass3d.user.CurrentUserService" />-->
-  <!--</bean>-->
+  <bean id="com.mass3d.webportal.interceptor.XWorkPortalUserInterceptor"
+    class="com.mass3d.webportal.interceptor.XWorkPortalUserInterceptor">
+    <property name="currentUserService" ref="com.mass3d.user.CurrentUserService" />
+  </bean>
 
   <bean id="org.springframework.mobile.device.DeviceResolver" class="org.springframework.mobile.device.LiteDeviceResolver" />
 
@@ -563,9 +563,9 @@
 
   <bean id="com.mass3d.commons.action.GetPingAction" class="com.mass3d.commons.action.GetPingAction" />
 
-  <bean id="com.mass3d.commons.action.GetAttributesAction" class="com.mass3d.commons.action.GetAttributesAction">
-    <property name="attributeService" ref="com.mass3d.attribute.AttributeService" />
-  </bean>
+  <!--<bean id="com.mass3d.commons.action.GetAttributesAction" class="com.mass3d.commons.action.GetAttributesAction">-->
+    <!--<property name="attributeService" ref="com.mass3d.attribute.AttributeService" />-->
+  <!--</bean>-->
 
   <bean id="com.mass3d.appcache.AppCacheAction" class="com.mass3d.appcache.AppCacheAction" />
 

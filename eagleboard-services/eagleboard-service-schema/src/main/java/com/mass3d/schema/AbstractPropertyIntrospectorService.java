@@ -2,6 +2,15 @@ package com.mass3d.schema;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
+import com.mass3d.common.BaseDimensionalItemObject;
+import com.mass3d.common.BaseDimensionalObject;
+import com.mass3d.common.BaseIdentifiableObject;
+import com.mass3d.common.BaseNameableObject;
+import com.mass3d.common.DimensionalItemObject;
+import com.mass3d.common.DimensionalObject;
+import com.mass3d.common.IdentifiableObject;
+import com.mass3d.common.NameableObject;
+import com.mass3d.hibernate.HibernateMetadata;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -28,15 +37,6 @@ import org.hibernate.type.SetType;
 import org.hibernate.type.SingleColumnType;
 import org.hibernate.type.TextType;
 import org.hibernate.type.Type;
-import com.mass3d.common.BaseDimensionalItemObject;
-import com.mass3d.common.BaseDimensionalObject;
-import com.mass3d.common.BaseIdentifiableObject;
-import com.mass3d.common.BaseNameableObject;
-import com.mass3d.common.DimensionalItemObject;
-import com.mass3d.common.DimensionalObject;
-import com.mass3d.common.IdentifiableObject;
-import com.mass3d.common.NameableObject;
-import com.mass3d.hibernate.HibernateMetadata;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
@@ -124,7 +124,7 @@ public abstract class AbstractPropertyIntrospectorService
             }
             else if ( collectionPersister.isInverse() )
             {
-                if ( collectionType instanceof SetType)
+                if ( collectionType instanceof SetType )
                 {
                     SetType setType = (SetType) collectionType;
                     setType.getAssociatedJoinable( sessionFactoryImplementor );
@@ -162,7 +162,7 @@ public abstract class AbstractPropertyIntrospectorService
     protected Map<String, Property> getPropertiesFromHibernate( Class<?> klass )
     {
         updateJoinTables();
-        SessionFactoryImplementor sessionFactoryImplementor = (SessionFactoryImplementor) sessionFactory;
+        SessionFactoryImplementor sessionFactoryImplementor = ( SessionFactoryImplementor ) sessionFactory;
         MetamodelImplementor metamodelImplementor = sessionFactoryImplementor.getMetamodel();
 
         try
@@ -239,25 +239,25 @@ public abstract class AbstractPropertyIntrospectorService
                 property.setMax( (double) column.getLength() );
                 property.setLength( column.getLength() );
 
-                if ( type instanceof TextType)
+                if ( type instanceof TextType )
                 {
                     property.setMin( 0d );
                     property.setMax( (double) Integer.MAX_VALUE );
                     property.setLength( Integer.MAX_VALUE );
                 }
-                else if ( type instanceof IntegerType)
+                else if ( type instanceof IntegerType )
                 {
                     property.setMin( (double) Integer.MIN_VALUE );
                     property.setMax( (double) Integer.MAX_VALUE );
                     property.setLength( Integer.MAX_VALUE );
                 }
-                else if ( type instanceof LongType)
+                else if ( type instanceof LongType )
                 {
                     property.setMin( (double) Long.MIN_VALUE );
                     property.setMax( (double) Long.MAX_VALUE );
                     property.setLength( Integer.MAX_VALUE );
                 }
-                else if ( type instanceof DoubleType)
+                else if ( type instanceof DoubleType )
                 {
                     property.setMin( -Double.MAX_VALUE );
                     property.setMax( Double.MAX_VALUE );
@@ -265,7 +265,7 @@ public abstract class AbstractPropertyIntrospectorService
                 }
             }
 
-            if ( type instanceof ManyToOneType)
+            if ( type instanceof ManyToOneType )
             {
                 property.setManyToOne( true );
                 property.setRequired( property.isRequired() && !property.isCollection() );
@@ -279,7 +279,7 @@ public abstract class AbstractPropertyIntrospectorService
                     property.setInverseRole( klass.getName() + "." + property.getName() );
                 }
             }
-            else if ( type instanceof OneToOneType)
+            else if ( type instanceof OneToOneType )
             {
                 property.setOneToOne( true );
             }

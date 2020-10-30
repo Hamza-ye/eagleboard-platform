@@ -77,16 +77,16 @@ public class BaseIdentifiableObject
 //     */
 //    protected Map<String, AttributeValue> cacheAttributeValues = new HashMap<>();
 
-    /**
-     * Set of available object translation, normally filtered by locale.
-     */
-    protected Set<Translation> translations = new HashSet<>();
+//    /**
+//     * Set of available object translation, normally filtered by locale.
+//     */
+//    protected Set<Translation> translations = new HashSet<>();
 
-    /**
-     * Cache for object translations, where the cache key is a combination of
-     * locale and translation property, and value is the translated value.
-     */
-    protected Map<String, String> translationCache = new HashMap<>();
+//    /**
+//     * Cache for object translations, where the cache key is a combination of
+//     * locale and translation property, and value is the translated value.
+//     */
+//    protected Map<String, String> translationCache = new HashMap<>();
 
     /**
      * This object is available as external read-only.
@@ -251,7 +251,7 @@ public class BaseIdentifiableObject
     @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
     public String getDisplayName()
     {
-        displayName = getTranslation( TranslationProperty.NAME, displayName );
+        displayName = null; //getTranslation( TranslationProperty.NAME, displayName );
         return displayName != null ? displayName : getName();
     }
 
@@ -335,68 +335,68 @@ public class BaseIdentifiableObject
 //        return cacheAttributeValues.get( attributeUid );
 //    }
 
-    @Override
-    @JsonProperty
-    @JacksonXmlElementWrapper( localName = "translations", namespace = DxfNamespaces.DXF_2_0 )
-    @JacksonXmlProperty( localName = "translation", namespace = DxfNamespaces.DXF_2_0 )
-    public Set<Translation> getTranslations()
-    {
-        return translations != null ? translations : new HashSet<>();
-    }
+//    @Override
+//    @JsonProperty
+//    @JacksonXmlElementWrapper( localName = "translations", namespace = DxfNamespaces.DXF_2_0 )
+//    @JacksonXmlProperty( localName = "translation", namespace = DxfNamespaces.DXF_2_0 )
+//    public Set<Translation> getTranslations()
+//    {
+//        return translations != null ? translations : new HashSet<>();
+//    }
 
-    /**
-     * Clears out cache when setting translations.
-     */
-    public void setTranslations( Set<Translation> translations )
-    {
-        this.translationCache.clear();
-        this.translations = translations;
-    }
+//    /**
+//     * Clears out cache when setting translations.
+//     */
+//    public void setTranslations( Set<Translation> translations )
+//    {
+//        this.translationCache.clear();
+//        this.translations = translations;
+//    }
 
-    /**
-     * Returns a translated value for this object for the given property. The
-     * current locale is read from the user context.
-     *
-     * @param property     the translation property.
-     * @param defaultValue the value to use if there are no translations.
-     * @return a translated value.
-     */
-    protected String getTranslation( TranslationProperty property, String defaultValue )
-    {
-        Locale locale = UserContext.getUserSetting( UserSettingKey.DB_LOCALE, Locale.class );
+//    /**
+//     * Returns a translated value for this object for the given property. The
+//     * current locale is read from the user context.
+//     *
+//     * @param property     the translation property.
+//     * @param defaultValue the value to use if there are no translations.
+//     * @return a translated value.
+//     */
+//    protected String getTranslation( TranslationProperty property, String defaultValue )
+//    {
+//        Locale locale = UserContext.getUserSetting( UserSettingKey.DB_LOCALE, Locale.class );
+//
+//        defaultValue = defaultValue != null ? defaultValue.trim() : null;
+//
+//        if ( locale == null || property == null )
+//        {
+//            return defaultValue;
+//        }
+//
+//        loadTranslationsCacheIfEmpty();
+//
+//        String cacheKey = Translation.getCacheKey( locale.toString(), property );
+//
+//        return translationCache.getOrDefault( cacheKey, defaultValue );
+//    }
 
-        defaultValue = defaultValue != null ? defaultValue.trim() : null;
-
-        if ( locale == null || property == null )
-        {
-            return defaultValue;
-        }
-
-        loadTranslationsCacheIfEmpty();
-
-        String cacheKey = Translation.getCacheKey( locale.toString(), property );
-
-        return translationCache.getOrDefault( cacheKey, defaultValue );
-    }
-
-    /**
-     * Populates the translationsCache map unless it is already populated.
-     */
-    private void loadTranslationsCacheIfEmpty()
-    {
-        if ( translationCache.isEmpty() && translations != null )
-        {
-            for ( Translation translation : translations )
-            {
-                if ( translation.getLocale() != null && translation.getProperty() != null && !StringUtils
-                    .isEmpty( translation.getValue() ) )
-                {
-                    String key = Translation.getCacheKey( translation.getLocale(), translation.getProperty() );
-                    translationCache.put( key, translation.getValue() );
-                }
-            }
-        }
-    }
+//    /**
+//     * Populates the translationsCache map unless it is already populated.
+//     */
+//    private void loadTranslationsCacheIfEmpty()
+//    {
+//        if ( translationCache.isEmpty() && translations != null )
+//        {
+//            for ( Translation translation : translations )
+//            {
+//                if ( translation.getLocale() != null && translation.getProperty() != null && !StringUtils
+//                    .isEmpty( translation.getValue() ) )
+//                {
+//                    String key = Translation.getCacheKey( translation.getLocale(), translation.getProperty() );
+//                    translationCache.put( key, translation.getValue() );
+//                }
+//            }
+//        }
+//    }
 
 //    private void loadAttributeValuesCacheIfEmpty()
 //    {

@@ -98,6 +98,7 @@ public class DefaultResourceBundleManager
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 
         URL url = classLoader.getResource( globalResourceBundleName + EXT_RESOURCE_BUNDLE );
+//        URL url = classLoader.getResource( "i18n_global.properties" );
 
         if ( url == null )
         {

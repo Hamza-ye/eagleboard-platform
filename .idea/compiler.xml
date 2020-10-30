@@ -31,6 +31,8 @@
         <module name="eagleboard-web-api-test" />
         <module name="eagleboard-web-commons" />
         <module name="eagleboard-web-commons-resources" />
+        <module name="eagleboard-web-portal" />
+        <module name="eagleboard-web-uaa" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -63,6 +65,8 @@
       <module name="eagleboard-web-api-test" target="1.8" />
       <module name="eagleboard-web-commons" target="1.8" />
       <module name="eagleboard-web-commons-resources" target="1.8" />
+      <module name="eagleboard-web-portal" target="1.8" />
+      <module name="eagleboard-web-uaa" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -96,6 +100,8 @@
       <module name="eagleboard-web-api-test" options="-parameters" />
       <module name="eagleboard-web-commons" options="-parameters" />
       <module name="eagleboard-web-commons-resources" options="-parameters" />
+      <module name="eagleboard-web-portal" options="-parameters" />
+      <module name="eagleboard-web-uaa" options="-parameters" />
     </option>
   </component>
 </project>

@@ -2,6 +2,7 @@ package com.mass3d.dataelement;
 
 import static com.mass3d.dataset.DataSet.NO_EXPIRY;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
@@ -88,6 +89,7 @@ public class DataElement extends BaseDimensionalItemObject
     /**
      * The data sets which this data element is a member of.
      */
+    @JsonIgnore
     private Set<DataSetElement> dataSetElements = new HashSet<>();
 
     /**

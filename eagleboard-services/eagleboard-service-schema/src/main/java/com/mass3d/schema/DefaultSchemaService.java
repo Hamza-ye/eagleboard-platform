@@ -34,6 +34,9 @@ public class DefaultSchemaService
 {
     private ImmutableList<SchemaDescriptor> descriptors = new ImmutableList.Builder<SchemaDescriptor>().
         add( new MetadataVersionSchemaDescriptor() ).
+        add( new TodoTaskSchemaDescriptor() ).
+        add( new ActivitySchemaDescriptor() ).
+        add( new ProjectSchemaDescriptor() ).
 //        add( new AnalyticsTableHookSchemaDescriptor() ).
 //        add( new AttributeSchemaDescriptor() ).
 //        add( new CategoryComboSchemaDescriptor() ).
@@ -62,8 +65,8 @@ public class DefaultSchemaService
         add( new ExpressionSchemaDescriptor() ).
         add( new FileResourceSchemaDescriptor() ).
 //        add( new IconSchemaDescriptor() ).
-//        add( new IndicatorGroupSchemaDescriptor() ).
-//        add( new IndicatorGroupSetSchemaDescriptor() ).
+        add( new IndicatorGroupSchemaDescriptor() ).
+        add( new IndicatorGroupSetSchemaDescriptor() ).
         add( new IndicatorSchemaDescriptor() ).
         add( new IndicatorTypeSchemaDescriptor() ).
         add( new InterpretationCommentSchemaDescriptor() ).
