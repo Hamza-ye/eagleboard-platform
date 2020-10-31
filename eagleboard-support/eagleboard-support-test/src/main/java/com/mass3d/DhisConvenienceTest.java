@@ -5,10 +5,19 @@ import com.google.common.collect.Sets;
 import com.google.common.hash.Hashing;
 import com.mass3d.activity.Activity;
 import com.mass3d.analytics.AggregationType;
+import com.mass3d.category.Category;
+import com.mass3d.category.CategoryCombo;
+import com.mass3d.category.CategoryOption;
+import com.mass3d.category.CategoryOptionCombo;
+import com.mass3d.category.CategoryOptionGroup;
+import com.mass3d.category.CategoryOptionGroupSet;
+import com.mass3d.category.CategoryService;
+import com.mass3d.common.DataDimensionType;
 import com.mass3d.common.IdentifiableObject;
 import com.mass3d.common.ValueType;
 import com.mass3d.constant.Constant;
 import com.mass3d.dataelement.DataElement;
+import com.mass3d.dataelement.DataElementDomain;
 import com.mass3d.dataelement.DataElementGroup;
 import com.mass3d.dataelement.DataElementGroupSet;
 import com.mass3d.dataset.DataSet;
@@ -58,6 +67,7 @@ import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.springframework.aop.framework.Advised;
 import org.springframework.aop.support.AopUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -100,6 +110,11 @@ public abstract class DhisConvenienceTest
 
 //    @Autowired
     protected RenderService renderService;
+
+    @Autowired( required = false )
+    protected CategoryService internalCategoryService;
+
+    protected static CategoryService categoryService;
 
     static
     {
@@ -303,6 +318,15 @@ public abstract class DhisConvenienceTest
      */
     public static DataElement createDataElement( char uniqueCharacter )
     {
+        return createDataElement( uniqueCharacter, null );
+    }
+
+    /**
+     * @param uniqueCharacter A unique character to identify the object.
+     * @param categoryCombo   The category combo.
+     */
+    public static DataElement createDataElement( char uniqueCharacter, CategoryCombo categoryCombo )
+    {
         DataElement dataElement = new DataElement();
         dataElement.setAutoFields();
 
@@ -312,15 +336,29 @@ public abstract class DhisConvenienceTest
         dataElement.setCode( "DataElementCode" + uniqueCharacter );
         dataElement.setDescription( "DataElementDescription" + uniqueCharacter );
         dataElement.setValueType( ValueType.INTEGER );
+        dataElement.setDomainType( DataElementDomain.AGGREGATE );
         dataElement.setAggregationType( AggregationType.SUM );
+        dataElement.setZeroIsSignificant( false );
+
+        if ( categoryCombo != null )
+        {
+            dataElement.setCategoryCombo( categoryCombo );
+        }
+        else if ( categoryService != null )
+        {
+            dataElement.setCategoryCombo( categoryService.getDefaultCategoryCombo() );
+        }
+
         return dataElement;
     }
 
     /**
      * @param uniqueCharacter A unique character to identify the object.
      * @param valueType       The value type.
+     * @param aggregationType The aggregation type.
      */
-    public static DataElement createDataElement( char uniqueCharacter, ValueType valueType,  AggregationType aggregationType)
+    public static DataElement createDataElement( char uniqueCharacter, ValueType valueType,
+        AggregationType aggregationType )
     {
         DataElement dataElement = createDataElement( uniqueCharacter );
         dataElement.setValueType( valueType );
@@ -328,6 +366,174 @@ public abstract class DhisConvenienceTest
 
         return dataElement;
     }
+
+    /**
+     * @param uniqueCharacter A unique character to identify the object.
+     * @param valueType       The value type.
+     * @param aggregationType The aggregation type.
+     * @param domainType      The domain type.
+     */
+    public static DataElement createDataElement( char uniqueCharacter, ValueType valueType,
+        AggregationType aggregationType, DataElementDomain domainType )
+    {
+        DataElement dataElement = createDataElement( uniqueCharacter );
+        dataElement.setValueType( valueType );
+        dataElement.setAggregationType( aggregationType );
+        dataElement.setDomainType( domainType );
+
+        return dataElement;
+    }
+
+    /**
+     * @param categoryComboUniqueIdentifier A unique character to identify the
+     *                                      category option combo.
+     * @param categories                    the categories category options.
+     * @return CategoryOptionCombo
+     */
+    public static CategoryCombo createCategoryCombo( char categoryComboUniqueIdentifier, Category... categories )
+    {
+        CategoryCombo categoryCombo = new CategoryCombo( "CategoryCombo" + categoryComboUniqueIdentifier,
+            DataDimensionType.DISAGGREGATION );
+        categoryCombo.setAutoFields();
+
+        for ( Category category : categories )
+        {
+            categoryCombo.getCategories().add( category );
+        }
+
+        return categoryCombo;
+    }
+
+    /**
+     * @param categoryComboUniqueIdentifier   A unique character to identify the
+     *                                        category combo.
+     * @param categoryOptionUniqueIdentifiers Unique characters to identify the
+     *                                        category options.
+     * @return CategoryOptionCombo
+     */
+    public static CategoryOptionCombo createCategoryOptionCombo( char categoryComboUniqueIdentifier,
+        char... categoryOptionUniqueIdentifiers )
+    {
+        CategoryOptionCombo categoryOptionCombo = new CategoryOptionCombo();
+        categoryOptionCombo.setAutoFields();
+
+        categoryOptionCombo.setCategoryCombo( new CategoryCombo( "CategoryCombo"
+            + categoryComboUniqueIdentifier, DataDimensionType.DISAGGREGATION ) );
+
+        for ( char identifier : categoryOptionUniqueIdentifiers )
+        {
+            categoryOptionCombo.getCategoryOptions()
+                .add( new CategoryOption( "CategoryOption" + identifier ) );
+        }
+
+        return categoryOptionCombo;
+    }
+
+    /**
+     * @param categoryCombo   the category combo.
+     * @param categoryOptions the category options.
+     * @return CategoryOptionCombo
+     */
+    public static CategoryOptionCombo createCategoryOptionCombo( CategoryCombo categoryCombo,
+        CategoryOption... categoryOptions )
+    {
+        CategoryOptionCombo categoryOptionCombo = new CategoryOptionCombo();
+        categoryOptionCombo.setAutoFields();
+
+        categoryOptionCombo.setCategoryCombo( categoryCombo );
+
+        for ( CategoryOption categoryOption : categoryOptions )
+        {
+            categoryOptionCombo.getCategoryOptions().add( categoryOption );
+            categoryOption.getCategoryOptionCombos().add( categoryOptionCombo );
+        }
+
+        return categoryOptionCombo;
+    }
+
+    public static CategoryOptionCombo createCategoryOptionCombo( char uniqueCharacter )
+    {
+        CategoryOptionCombo coc = new CategoryOptionCombo();
+        coc.setAutoFields();
+
+        coc.setUid( BASE_COC_UID + uniqueCharacter );
+        coc.setName( "CategoryOptionCombo" + uniqueCharacter );
+        coc.setName( "CategoryOptionComboCode" + uniqueCharacter );
+
+        return coc;
+    }
+
+    /**
+     * @param categoryUniqueIdentifier A unique character to identify the category.
+     * @param categoryOptions          the category options.
+     * @return Category
+     */
+    public static Category createCategory( char categoryUniqueIdentifier,
+        CategoryOption... categoryOptions )
+    {
+        Category category = new Category( "Category" + categoryUniqueIdentifier, DataDimensionType.DISAGGREGATION );
+        category.setAutoFields();
+
+        for ( CategoryOption categoryOption : categoryOptions )
+        {
+            category.addCategoryOption( categoryOption );
+        }
+
+        return category;
+    }
+
+    public static CategoryOption createCategoryOption( char uniqueIdentifier )
+    {
+        CategoryOption categoryOption = new CategoryOption( "CategoryOption" + uniqueIdentifier );
+        categoryOption.setAutoFields();
+
+        return categoryOption;
+    }
+
+    /**
+     * @param uniqueIdentifier A unique character to identify the category option
+     *                         group.
+     * @param categoryOptions  the category options.
+     * @return CategoryOptionGroup
+     */
+    public static CategoryOptionGroup createCategoryOptionGroup( char uniqueIdentifier,
+        CategoryOption... categoryOptions )
+    {
+        CategoryOptionGroup categoryOptionGroup = new CategoryOptionGroup( "CategoryOptionGroup" + uniqueIdentifier );
+        categoryOptionGroup.setShortName( "ShortName" + uniqueIdentifier );
+        categoryOptionGroup.setAutoFields();
+
+        categoryOptionGroup.setMembers( new HashSet<>() );
+
+        for ( CategoryOption categoryOption : categoryOptions )
+        {
+            categoryOptionGroup.addCategoryOption( categoryOption );
+        }
+
+        return categoryOptionGroup;
+    }
+
+    /**
+     * @param categoryGroupSetUniqueIdentifier A unique character to identify the
+     *                                         category option group set.
+     * @param categoryOptionGroups             the category option groups.
+     * @return CategoryOptionGroupSet
+     */
+    public static CategoryOptionGroupSet createCategoryOptionGroupSet( char categoryGroupSetUniqueIdentifier,
+        CategoryOptionGroup... categoryOptionGroups )
+    {
+        CategoryOptionGroupSet categoryOptionGroupSet = new CategoryOptionGroupSet(
+            "CategoryOptionGroupSet" + categoryGroupSetUniqueIdentifier );
+        categoryOptionGroupSet.setAutoFields();
+
+        for ( CategoryOptionGroup categoryOptionGroup : categoryOptionGroups )
+        {
+            categoryOptionGroupSet.addCategoryOptionGroup( categoryOptionGroup );
+        }
+
+        return categoryOptionGroupSet;
+    }
+
 
     /**
      * @param uniqueCharacter A unique character to identify the object.

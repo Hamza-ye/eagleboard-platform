@@ -7,125 +7,127 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.google.common.base.MoreObjects;
 import java.util.Objects;
 import com.mass3d.common.DxfNamespaces;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-//@Entity
-//@Table(name = "objecttranslation")
-@JacksonXmlRootElement(localName = "translation", namespace = DxfNamespaces.DXF_2_0)
-public class ObjectTranslation {
+@JacksonXmlRootElement( localName = "translation", namespace = DxfNamespaces.DXF_2_0 )
+public class ObjectTranslation
+{
+    private int id;
 
+    private String locale;
 
-  @Id
-  @GeneratedValue(
-      strategy = GenerationType.AUTO
-  )
-  @Column(name = "objecttranslationid")
-  private int id;
+    private TranslationProperty property;
 
-  private String locale;
+    private String value;
 
-  private TranslationProperty property;
-
-  private String value;
-
-  public ObjectTranslation() {
-  }
-
-  public ObjectTranslation(String locale, TranslationProperty property, String value) {
-    this.locale = locale;
-    this.property = property;
-    this.value = value;
-  }
-
-  /**
-   * Creates a cache key.
-   *
-   * @param locale the locale string, i.e. Locale.toString().
-   * @param property the translation property.
-   * @return a unique cache key valid for a given translated objects, or null if either locale or
-   * property is null.
-   */
-  public static String getCacheKey(String locale, TranslationProperty property) {
-    return locale != null && property != null ? (locale + property.name()) : null;
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, locale, property, value);
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj) {
-      return true;
+    public ObjectTranslation()
+    {
     }
 
-    if (obj == null || getClass() != obj.getClass()) {
-      return false;
+    public ObjectTranslation( String locale, TranslationProperty property, String value )
+    {
+        this.locale = locale;
+        this.property = property;
+        this.value = value;
     }
 
-    final ObjectTranslation other = (ObjectTranslation) obj;
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash( id, locale, property, value );
+    }
 
-    return Objects.equals(this.id, other.id)
-        && Objects.equals(this.locale, other.locale)
-        && Objects.equals(this.property, other.property)
-        && Objects.equals(this.value, other.value);
-  }
+    @Override
+    public boolean equals( Object obj )
+    {
+        if ( this == obj )
+        {
+            return true;
+        }
 
-  //-------------------------------------------------------------------------------
-  // Accessors
-  //-------------------------------------------------------------------------------
+        if ( obj == null || getClass() != obj.getClass() )
+        {
+            return false;
+        }
 
-  @JsonIgnore
-  public int getId() {
-    return id;
-  }
+        final ObjectTranslation other = (ObjectTranslation) obj;
 
-  public void setId(int id) {
-    this.id = id;
-  }
+        return Objects.equals( this.id, other.id )
+            && Objects.equals( this.locale, other.locale )
+            && Objects.equals( this.property, other.property )
+            && Objects.equals( this.value, other.value );
+    }
+    
+    /**
+     * Creates a cache key.
+     * 
+     * @param locale the locale string, i.e. Locale.toString().
+     * @param property the translation property.
+     * @return a unique cache key valid for a given translated objects, or null
+     *         if either locale or property is null.
+     */
+    public static String getCacheKey( String locale, TranslationProperty property )
+    {
+        return locale != null && property != null ? ( locale + property.name() ) : null;
+    }
 
-  @JsonProperty
-  @JacksonXmlProperty(isAttribute = true)
-  public String getLocale() {
-    return locale;
-  }
+    //-------------------------------------------------------------------------------
+    // Accessors
+    //-------------------------------------------------------------------------------
 
-  public void setLocale(String locale) {
-    this.locale = locale;
-  }
+    @JsonIgnore
+    public int getId()
+    {
+        return id;
+    }
 
-  @JsonProperty
-  @JacksonXmlProperty(isAttribute = true)
-  public TranslationProperty getProperty() {
-    return property;
-  }
+    public void setId( int id )
+    {
+        this.id = id;
+    }
 
-  public void setProperty(TranslationProperty property) {
-    this.property = property;
-  }
+    @JsonProperty
+    @JacksonXmlProperty( isAttribute = true )
+    public String getLocale()
+    {
+        return locale;
+    }
 
-  @JsonProperty
-  @JacksonXmlProperty(isAttribute = true)
-  public String getValue() {
-    return value;
-  }
+    public void setLocale( String locale )
+    {
+        this.locale = locale;
+    }
 
-  public void setValue(String value) {
-    this.value = value;
-  }
+    @JsonProperty
+    @JacksonXmlProperty( isAttribute = true )
+    public TranslationProperty getProperty()
+    {
+        return property;
+    }
 
-  @Override
-  public String toString() {
-    return MoreObjects.toStringHelper(this)
-        .add("locale", locale)
-        .add("property", property)
-        .add("value", value)
-        .toString();
-  }
+    public void setProperty( TranslationProperty property )
+    {
+        this.property = property;
+    }
+
+    @JsonProperty
+    @JacksonXmlProperty( isAttribute = true )
+    public String getValue()
+    {
+        return value;
+    }
+
+    public void setValue( String value )
+    {
+        this.value = value;
+    }
+
+    @Override
+    public String toString()
+    {
+        return MoreObjects.toStringHelper( this )
+            .add( "locale", locale )
+            .add( "property", property )
+            .add( "value", value )
+            .toString();
+    }
 }
