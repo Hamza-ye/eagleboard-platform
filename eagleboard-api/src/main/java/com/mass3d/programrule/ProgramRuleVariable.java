@@ -1,0 +1,178 @@
+package com.mass3d.programrule;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import com.mass3d.common.BaseIdentifiableObject;
+import com.mass3d.common.DxfNamespaces;
+import com.mass3d.common.MetadataObject;
+import com.mass3d.dataelement.DataElement;
+import com.mass3d.program.Program;
+import com.mass3d.program.ProgramStage;
+import com.mass3d.trackedentity.TrackedEntityAttribute;
+
+@JacksonXmlRootElement( localName = "programRuleVariable", namespace = DxfNamespaces.DXF_2_0 )
+public class ProgramRuleVariable
+    extends BaseIdentifiableObject implements MetadataObject
+{
+    /**
+     * The program that the variable belongs to
+     */
+    private Program program;
+
+    /**
+     * The source of the variables content. Allowed values are:
+     * dataelement_newest_event_program_stage Get a specific data elements value
+     * from the most recent event in the current enrollment, but within one
+     * program stage. dataelement_uID and programstage_uID needs to be
+     * specified. dataelement_newest_event_program Get a specific data elements
+     * value from the most recent event in the current enrollment, regardless of
+     * program stage.datalement_uID needs to be specified.
+     * dataelement_current_event Get a specific data elements value, but only
+     * within the current event. dataelement_previous_event Get a specific
+     * data elements value, specifically from the event preceding the current
+     * event, if this exists. calculated_value Do not assign the variable a
+     * hard-linked source, it will be populated by rules with assignvariable
+     * actions(i.e. calculation rules). tei_attribute Get a specific attribute
+     * from the current tracked entity. the linked attribute will be used to
+     * lookup the attributes uID value.
+     */
+    private ProgramRuleVariableSourceType sourceType;
+
+    /**
+     * Used for sourceType tei_attribute to determine which attribute to fetch
+     * into the variable.
+     */
+    private TrackedEntityAttribute attribute;
+
+    /**
+     * The data element that is linked to the variable. Must be defined if the
+     * sourceType is one of the following:
+     * <p/>
+     * <ul>
+     * <li>dataelement_newest_event_program_stage</li>
+     * <li>dataelement_newest_event_program</li>
+     * <li>dataelement_current_even</li>
+     * </ul>
+     */
+    private DataElement dataElement;
+
+    /**
+     * If the dataElement or trackedEntityAttribute is connected to an option set,
+     * use this option sets code(and not the name) as value
+     */
+    private boolean useCodeForOptionSet;
+
+    /**
+     * Specification of the program stage that the variable should be fetched
+     * from. Only used for source type dataelement_newest_event_program_stage
+     */
+    private ProgramStage programStage;
+
+    // -------------------------------------------------------------------------
+    // Constructors
+    // -------------------------------------------------------------------------
+
+    public ProgramRuleVariable()
+    {
+
+    }
+
+    public ProgramRuleVariable( String name,
+        Program program,
+        ProgramRuleVariableSourceType sourceType,
+        TrackedEntityAttribute attribute,
+        DataElement dataElement,
+        boolean useCodeForOptionSet,
+        ProgramStage programStage )
+    {
+        this.name = name;
+        this.program = program;
+        this.sourceType = sourceType;
+        this.attribute = attribute;
+        this.dataElement = dataElement;
+        this.useCodeForOptionSet = useCodeForOptionSet;
+        this.programStage = programStage;
+    }
+
+    // -------------------------------------------------------------------------
+    // Getters and setters
+    // -------------------------------------------------------------------------
+
+    @JsonProperty
+    @JsonSerialize( as = BaseIdentifiableObject.class )
+    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
+    public Program getProgram()
+    {
+        return program;
+    }
+
+    public void setProgram( Program program )
+    {
+        this.program = program;
+    }
+
+    @JsonProperty
+    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
+    public boolean getUseCodeForOptionSet()
+    {
+        return useCodeForOptionSet;
+    }
+
+    public void setUseCodeForOptionSet( boolean useCodeForOptionSet )
+    {
+        this.useCodeForOptionSet = useCodeForOptionSet;
+    }
+
+    @JsonProperty
+    @JsonSerialize( as = BaseIdentifiableObject.class )
+    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
+    public ProgramStage getProgramStage()
+    {
+        return programStage;
+    }
+
+    public void setProgramStage( ProgramStage programStage )
+    {
+        this.programStage = programStage;
+    }
+
+    @JsonProperty
+    @JsonSerialize( as = BaseIdentifiableObject.class )
+    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
+    public DataElement getDataElement()
+    {
+        return dataElement;
+    }
+
+    public void setDataElement( DataElement dataElement )
+    {
+        this.dataElement = dataElement;
+    }
+
+    @JsonProperty( "trackedEntityAttribute" )
+    @JsonSerialize( as = BaseIdentifiableObject.class )
+    @JacksonXmlProperty( localName = "trackedEntityAttribute", namespace = DxfNamespaces.DXF_2_0 )
+    public TrackedEntityAttribute getAttribute()
+    {
+        return attribute;
+    }
+
+    public void setAttribute( TrackedEntityAttribute attribute )
+    {
+        this.attribute = attribute;
+    }
+
+    @JsonProperty( "programRuleVariableSourceType" )
+    @JacksonXmlProperty( localName = "programRuleVariableSourceType", namespace = DxfNamespaces.DXF_2_0 )
+    public ProgramRuleVariableSourceType getSourceType()
+    {
+        return sourceType;
+    }
+
+    public void setSourceType( ProgramRuleVariableSourceType sourceType )
+    {
+        this.sourceType = sourceType;
+    }
+}

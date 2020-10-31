@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"
+  [<!ENTITY identifiableProperties SYSTEM "classpath://com/mass3d/common/identifiableProperties.hbm">]
+  >
+
+<hibernate-mapping>
+  <class name="com.mass3d.programrule.ProgramRule" table="programrule">
+
+    <cache usage="read-write" />
+
+    <id name="id" column="programruleid">
+      <generator class="native" />
+    </id>
+    &identifiableProperties;
+
+    <property name="name" column="name" not-null="true" length="230" />
+
+    <property name="description" />
+
+    <property name="translations" type="jblTranslations"/>
+
+    <many-to-one name="program" class="com.mass3d.program.Program"
+      column="programid" foreign-key="fk_programrule_program" not-null="true" />
+
+    <many-to-one name="programStage" class="com.mass3d.program.ProgramStage"
+      column="programstageid" foreign-key="fk_programrule_programstage" />
+
+    <set name="programRuleActions" cascade="all-delete-orphan">
+      <cache usage="read-write"/>
+      <key column="programruleid" />
+      <one-to-many class="com.mass3d.programrule.ProgramRuleAction" />
+    </set>
+
+    <property name="condition" column="rulecondition" type="text" not-null="false" />
+
+    <property name="priority" />
+
+  </class>
+
+</hibernate-mapping>

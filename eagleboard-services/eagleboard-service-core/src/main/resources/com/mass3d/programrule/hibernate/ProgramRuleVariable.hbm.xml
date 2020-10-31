@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"
+  [<!ENTITY identifiableProperties SYSTEM "classpath://com/mass3d/common/identifiableProperties.hbm">]
+  >
+
+<hibernate-mapping>
+  <class name="com.mass3d.programrule.ProgramRuleVariable" table="programrulevariable">
+
+    <cache usage="read-write" />
+
+    <id name="id" column="programrulevariableid">
+      <generator class="native" />
+    </id>
+    &identifiableProperties;
+
+    <property name="name" column="name" not-null="true" length="230" />
+
+    <many-to-one name="program" class="com.mass3d.program.Program"
+      column="programid" foreign-key="fk_programrulevariable_program" not-null="true" />
+
+    <property name="sourceType" column="sourcetype" not-null="true">
+      <type name="org.hibernate.type.EnumType">
+        <param name="enumClass">com.mass3d.programrule.ProgramRuleVariableSourceType</param>
+        <param name="useNamed">true</param>
+        <param name="type">12</param>
+      </type>
+    </property>
+
+    <many-to-one name="attribute" class="com.mass3d.trackedentity.TrackedEntityAttribute"
+      column="trackedentityattributeid" foreign-key="fk_programrulevariable_trackedentityattribute" />
+
+    <many-to-one name="dataElement" class="com.mass3d.dataelement.DataElement"
+      column="dataelementid" foreign-key="fk_programrulevariable_dataelement" />
+
+    <property name="useCodeForOptionSet" column="usecodeforoptionset" />
+
+    <many-to-one name="programStage" class="com.mass3d.program.ProgramStage"
+      column="programstageid" foreign-key="fk_programrulevariable_programstage" />
+
+  </class>
+
+</hibernate-mapping>

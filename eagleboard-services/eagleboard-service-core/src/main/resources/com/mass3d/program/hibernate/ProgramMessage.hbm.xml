@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"
+  [<!ENTITY identifiableProperties SYSTEM "classpath://com/mass3d/common/identifiableProperties.hbm">]
+  >
+
+<hibernate-mapping>
+  <class name="com.mass3d.program.message.ProgramMessage" table="programmessage">
+
+    <id name="id" column="id">
+      <generator class="native" />
+    </id>
+    &identifiableProperties;
+
+    <property name="text" column="text" not-null="true" unique="false" length="500" />
+    <property name="subject" column="subject" not-null="false" unique="false" length="200" />
+    <property name="processedDate" column= "processeddate" type="timestamp" not-null="false"/>
+
+    <property name="translations" type="jblTranslations"/>
+    
+    <set name="deliveryChannels" table="programmessage_deliverychannels" fetch="select">
+      <key column="programmessagedeliverychannelsid" />
+      <element column="deliverychannel">
+        <type name="org.hibernate.type.EnumType">
+          <param name="enumClass">com.mass3d.common.DeliveryChannel</param>
+          <param name="useNamed">true</param>
+          <param name="type">12</param>
+        </type>
+        </element>
+    </set>
+       
+     <property name="messageStatus" length="50">
+      <type name="org.hibernate.type.EnumType">
+        <param name="enumClass">com.mass3d.program.message.ProgramMessageStatus</param>
+        <param name="useNamed">true</param>
+        <param name="type">12</param>
+      </type>
+    </property>
+    
+    <component name="recipients" class="com.mass3d.program.message.ProgramMessageRecipients">
+
+     <many-to-one name="trackedEntityInstance" class="com.mass3d.trackedentity.TrackedEntityInstance"
+      column="trackedEntityInstanceId" foreign-key="fk_programmessage_trackedentityinstanceid" not-null="false" />
+     
+     <many-to-one name="organisationUnit" class="com.mass3d.organisationunit.OrganisationUnit"
+      column="organisationUnitId" foreign-key="fk_programmessage_organisationunitid" not-null="false" />
+
+     <set name="phoneNumbers" table="programmessage_phonenumbers" fetch="join">
+      <key column="programmessagephonenumberid" />
+      <element type="text"  column="phoneNumber" />
+     </set>
+    
+     <set name="emailAddresses" table="programmessage_emailAddresses" fetch="join">
+      <key column="programmessageemailAddressid" />
+      <element type="text" column="email" />
+     </set>
+
+    </component>
+       
+    <many-to-one name="programInstance" class="com.mass3d.program.ProgramInstance"
+      column="programinstanceid" foreign-key="fk_programmessage_programinstanceid" not-null="false" />
+
+    <many-to-one name="programStageInstance" class="com.mass3d.program.ProgramStageInstance"
+      column="programstageinstanceid" foreign-key="fk_programmessage_programstageinstanceid" not-null="false" />
+
+  </class>
+
+</hibernate-mapping>

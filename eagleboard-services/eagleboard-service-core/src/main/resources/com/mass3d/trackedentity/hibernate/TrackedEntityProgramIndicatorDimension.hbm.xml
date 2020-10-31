@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class name="com.mass3d.trackedentity.TrackedEntityProgramIndicatorDimension" table="trackedentityprogramindicatordimension">
+
+    <id name="id" column="trackedentityprogramindicatordimensionid">
+      <generator class="native" />
+    </id>
+
+    <many-to-one name="programIndicator" class="com.mass3d.program.ProgramIndicator" 
+        column="programindicatorid" foreign-key="fk_teprogramindicatordimension_programindicatorid" />
+
+	<!--<many-to-one name="legendSet" class="com.mass3d.legend.LegendSet"-->
+		<!--column="legendsetid" foreign-key="fk_teprogramindicatordimension_legendsetid" />-->
+
+    <property name="filter" type="text" />
+
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"
+  [<!ENTITY identifiableProperties SYSTEM "classpath://com/mass3d/common/identifiableProperties.hbm">]
+  >
+
+<hibernate-mapping>
+  <class name="com.mass3d.program.ProgramStage" table="programstage">
+
+    <cache usage="read-write" />
+
+    <id name="id" column="programstageid">
+      <generator class="native" />
+    </id>
+    &identifiableProperties;
+
+    <property name="name" column="name" length="230" />
+
+    <property name="description" type="text" />
+
+    <property name="formName" type="text" />
+
+    <property name="minDaysFromStart" column="mindaysfromstart" not-null="true" />
+
+    <many-to-one name="program" class="com.mass3d.program.Program" column="programid"
+      foreign-key="fk_programstage_program" />
+
+    <property name="repeatable" column="repeatable" not-null="true" />
+
+    <set name="programStageDataElements" order-by="sort_order" cascade="all-delete-orphan">
+      <key column="programstageid"/>
+      <one-to-many class="com.mass3d.program.ProgramStageDataElement"/>
+    </set>
+
+    <many-to-one name="dataEntryForm" class="com.mass3d.dataentryform.DataEntryForm"
+                 column="dataentryformid" foreign-key="fk_programstage_dataentryform"/>
+
+    <property name="standardInterval"/>
+
+    <set name="programStageSections" order-by="sortOrder" cascade="delete-orphan">
+      <key column="programstageid"/>
+      <one-to-many class="com.mass3d.program.ProgramStageSection"/>
+    </set>
+
+    <property name="executionDateLabel" column="executiondatelabel"/>
+
+    <property name="dueDateLabel" column="duedatelabel"/>
+
+    <set name="notificationTemplates">
+      <key column="programstageid"/>
+      <one-to-many class="com.mass3d.program.notification.ProgramNotificationTemplate"/>
+    </set>
+
+    <property name="autoGenerateEvent" />
+
+    <property name="validationStrategy" column="validationstrategy" length="32">
+      <type name="org.hibernate.type.EnumType">
+        <param name="enumClass">com.mass3d.program.ValidationStrategy</param>
+        <param name="useNamed">true</param>
+        <param name="type">12</param>
+      </type>
+    </property>
+
+    <property name="displayGenerateEventBox" />
+
+    <property name="generatedByEnrollmentDate" />
+
+    <property name="blockEntryForm" />
+
+    <property name="remindCompleted" />
+
+    <property name="allowGenerateNextVisit" />
+
+    <property name="openAfterEnrollment" />
+
+    <property name="reportDateToUse" />
+
+    <property name="preGenerateUID" />
+
+    <!--<property name="style" type="jbObjectStyle" column="style" />-->
+
+    <property name="hideDueDate" />
+
+    <property name="sortOrder" column="sort_order" />
+
+    <property name="translations" type="jblTranslations"/>
+
+    <property name="featureType" column="featuretype">
+      <type name="org.hibernate.type.EnumType">
+        <param name="enumClass">com.mass3d.organisationunit.FeatureType</param>
+        <param name="useNamed">true</param>
+        <param name="type">12</param>
+      </type>
+    </property>
+
+    <property name="enableUserAssignment" column="enableuserassignment" />
+
+    <many-to-one name="periodType" lazy="false" class="com.mass3d.period.PeriodType" column="periodtypeid"
+      foreign-key="fk_programstage_periodtypeid" />
+
+    <!-- Dynamic attribute values -->
+
+    <!--<property name="attributeValues" type="jsbAttributeValues"/>-->
+    <!-- Access properties -->
+
+    <many-to-one name="user" class="com.mass3d.user.User" column="userid" foreign-key="fk_programstage_userid" />
+
+    <property name="publicAccess" length="8" />
+
+    <set name="userGroupAccesses" table="programstageusergroupaccesses" cascade="all-delete-orphan">
+      <cache usage="read-write" />
+      <key column="programid" />
+      <many-to-many class="com.mass3d.user.UserGroupAccess" column="usergroupaccessid" unique="true" />
+    </set>
+
+    <set name="userAccesses" table="programstageuseraccesses" cascade="all-delete-orphan">
+      <cache usage="read-write" />
+      <key column="programstageid" />
+      <many-to-many class="com.mass3d.user.UserAccess" column="useraccessid" unique="true" />
+    </set>
+
+    <many-to-one name="nextScheduleDate" class="com.mass3d.dataelement.DataElement" column="nextscheduledateid"
+      foreign-key="fk_programstage_nextscheduledateid" />
+
+  </class>
+
+</hibernate-mapping>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"
+  [<!ENTITY identifiableProperties SYSTEM "classpath://com/mass3d/common/identifiableProperties.hbm">]
+  >
+
+<hibernate-mapping>
+  <class name="com.mass3d.trackedentityfilter.TrackedEntityInstanceFilter" table="trackedentityinstancefilter">
+
+    <cache usage="read-write" />
+
+    <id name="id" column="trackedentityinstancefilterid">
+      <generator class="native" />
+    </id>
+    &identifiableProperties;
+
+    <property name="name" column="name" not-null="true" length="230" />
+
+    <property name="description" />
+    
+    <property name="sortOrder" />
+    
+    <!--<property name="style" type="jbObjectStyle" />-->
+    
+    <many-to-one name="program" class="com.mass3d.program.Program"
+      column="programid" not-null="true" foreign-key="fk_trackedentityinstancefilter_programid" lazy="false" />
+    
+    <property name="enrollmentStatus" length="50">
+      <type name="org.hibernate.type.EnumType">
+        <param name="enumClass">com.mass3d.program.ProgramStatus</param>
+        <param name="useNamed">true</param>
+        <param name="type">12</param>
+      </type>
+    </property>
+    
+    <property name="followup" />
+    
+    <property name="enrollmentCreatedPeriod" type="jbFilterPeriod" />
+    
+    <property name="eventFilters" type="jlbEventFilter" />
+    
+  </class>
+
+</hibernate-mapping>

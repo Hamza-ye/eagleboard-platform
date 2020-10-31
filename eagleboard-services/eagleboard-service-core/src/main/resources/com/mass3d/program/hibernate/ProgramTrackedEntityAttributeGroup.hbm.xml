@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"
+  [<!ENTITY identifiableProperties SYSTEM "classpath://com/mass3d/common/identifiableProperties.hbm">]
+  >
+
+<hibernate-mapping>
+  <class name="com.mass3d.program.ProgramTrackedEntityAttributeGroup" table="program_attribute_group">
+
+    <id name="id" column="programtrackedentityattributegroupid">
+      <generator class="native" />
+    </id>
+    &identifiableProperties;
+
+    <property name="name" column="name" not-null="true" unique="true" length="230" />
+
+    <property name="shortName" />
+
+    <property name="description" type="text" />
+
+    <set name="attributes" table="programtrackedentityattributegroupmembers" inverse="true">
+      <cache usage="read-write" />
+      <key column="programtrackedentityattributegroupid" foreign-key="fk_programtrackedentityattributegroupmembers_groupid" />
+      <many-to-many class="com.mass3d.program.ProgramTrackedEntityAttribute" column="programtrackedentityattributeid" foreign-key="fk_programtrackedentityattributegroup_attributeid" />
+    </set>
+
+    <property name="uniqunessType" column="uniqunessype" not-null="true" />
+
+    <property name="translations" type="jblTranslations"/>
+
+  </class>
+
+</hibernate-mapping>
