@@ -46,6 +46,8 @@
     <orderEntry type="library" name="Maven: org.geotools:gt-opengis:18.0" level="project" />
     <orderEntry type="library" name="Maven: net.java.dev.jsr-275:jsr-275:1.0-beta-2" level="project" />
     <orderEntry type="library" name="Maven: org.jsmpp:jsmpp:2.3.7" level="project" />
+    <orderEntry type="library" name="Maven: org.hisp.dhis.rules:rule-engine:2.0.10" level="project" />
+    <orderEntry type="library" name="Maven: nl.jqno.equalsverifier:equalsverifier:2.1.6" level="project" />
     <orderEntry type="library" name="Maven: com.cronutils:cron-utils:6.0.2" level="project" />
     <orderEntry type="library" name="Maven: commons-cli:commons-cli:1.4" level="project" />
     <orderEntry type="library" name="Maven: org.jboss.aerogear:aerogear-otp-java:1.0.0.CR1" level="project" />

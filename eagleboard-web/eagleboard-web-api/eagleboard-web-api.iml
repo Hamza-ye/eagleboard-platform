@@ -61,6 +61,8 @@
     <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-api:2.13.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-core:2.13.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-slf4j-impl:2.13.0" level="project" />
+    <orderEntry type="library" name="Maven: org.hisp.dhis.rules:rule-engine:2.0.10" level="project" />
+    <orderEntry type="library" name="Maven: nl.jqno.equalsverifier:equalsverifier:2.1.6" level="project" />
     <orderEntry type="library" name="Maven: com.cronutils:cron-utils:6.0.2" level="project" />
     <orderEntry type="library" name="Maven: commons-cli:commons-cli:1.4" level="project" />
     <orderEntry type="library" name="Maven: org.jboss.aerogear:aerogear-otp-java:1.0.0.CR1" level="project" />
