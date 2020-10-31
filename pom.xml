@@ -322,6 +322,25 @@
         <artifactId>eagleboard-support-audit</artifactId>
         <version>${project.version}</version>
       </dependency>
+      <dependency>
+        <groupId>org.hisp.dhis.rules</groupId>
+        <artifactId>rule-engine</artifactId>
+        <version>2.0.10</version>
+        <exclusions>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.hisp.dhis.parser</groupId>
+            <artifactId>dhis-antlr-expression-parser</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
 
       <dependency>
         <groupId>org.springframework.retry</groupId>

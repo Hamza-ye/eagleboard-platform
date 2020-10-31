@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import com.mass3d.organisationunit.OrganisationUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -79,21 +80,21 @@ public class User
 
     private FileResource avatar;
 
-//    /**
-//     * Organisation units for data input and data capture / write operations.
-//     * TODO move to UserCredentials.
-//     */
-//    private Set<OrganisationUnit> organisationUnits = new HashSet<>();
-//
-//    /**
-//     * Organisation units for data output and data analysis / read operations.
-//     */
-//    private Set<OrganisationUnit> dataViewOrganisationUnits = new HashSet<>();
-//
-//    /**
-//     * Organisation units for tracked entity instance search operations.
-//     */
-//    private Set<OrganisationUnit> teiSearchOrganisationUnits = new HashSet<>();
+    /**
+     * Organisation units for data input and data capture / write operations.
+     * TODO move to UserCredentials.
+     */
+    private Set<OrganisationUnit> organisationUnits = new HashSet<>();
+
+    /**
+     * Organisation units for data output and data analysis / read operations.
+     */
+    private Set<OrganisationUnit> dataViewOrganisationUnits = new HashSet<>();
+
+    /**
+     * Organisation units for tracked entity instance search operations.
+     */
+    private Set<OrganisationUnit> teiSearchOrganisationUnits = new HashSet<>();
 
     /**
      * Ordered favorite apps.
@@ -166,95 +167,95 @@ public class User
      * organisation unit to return is undefined if the user has multiple
      * organisation units.
      */
-//    public OrganisationUnit getOrganisationUnit()
-//    {
-//        return CollectionUtils.isEmpty( organisationUnits ) ? null : organisationUnits.iterator().next();
-//    }
-//
-//    public boolean hasOrganisationUnit()
-//    {
-//        return !CollectionUtils.isEmpty( organisationUnits );
-//    }
-//
-//    // -------------------------------------------------------------------------
-//    // Logic - data view organisation unit
-//    // -------------------------------------------------------------------------
-//
-//    public boolean hasDataViewOrganisationUnit()
-//    {
-//        return !CollectionUtils.isEmpty( dataViewOrganisationUnits );
-//    }
-//
-//    public OrganisationUnit getDataViewOrganisationUnit()
-//    {
-//        return CollectionUtils.isEmpty( dataViewOrganisationUnits ) ? null : dataViewOrganisationUnits.iterator().next();
-//    }
+    public OrganisationUnit getOrganisationUnit()
+    {
+        return CollectionUtils.isEmpty( organisationUnits ) ? null : organisationUnits.iterator().next();
+    }
 
-//    public boolean hasDataViewOrganisationUnitWithFallback()
-//    {
-//        return hasDataViewOrganisationUnit() || hasOrganisationUnit();
-//    }
+    public boolean hasOrganisationUnit()
+    {
+        return !CollectionUtils.isEmpty( organisationUnits );
+    }
 
-//    /**
-//     * Returns the first of the data view organisation units associated with the
-//     * user. If none, returns the first of the data capture organisation units.
-//     * If none, return nulls.
-//     */
-//    public OrganisationUnit getDataViewOrganisationUnitWithFallback()
-//    {
-//        return hasDataViewOrganisationUnit() ? getDataViewOrganisationUnit() : getOrganisationUnit();
-//    }
-//
-//    /**
-//     * Returns the data view organisation units or organisation units if not exist.
-//     */
-//    public Set<OrganisationUnit> getDataViewOrganisationUnitsWithFallback()
-//    {
-//        return hasDataViewOrganisationUnit() ? dataViewOrganisationUnits : organisationUnits;
-//    }
+    // -------------------------------------------------------------------------
+    // Logic - data view organisation unit
+    // -------------------------------------------------------------------------
 
-//    // -------------------------------------------------------------------------
-//    // Logic - tei search organisation unit
-//    // -------------------------------------------------------------------------
-//
-//    public boolean hasTeiSearchOrganisationUnit()
-//    {
-//        return !CollectionUtils.isEmpty( teiSearchOrganisationUnits );
-//    }
-//
-//    public OrganisationUnit getTeiSearchOrganisationUnit()
-//    {
-//        return CollectionUtils.isEmpty( teiSearchOrganisationUnits ) ? null : teiSearchOrganisationUnits.iterator().next();
-//    }
-//
-//    public boolean hasTeiSearchOrganisationUnitWithFallback()
-//    {
-//        return hasTeiSearchOrganisationUnit() || hasOrganisationUnit();
-//    }
-//
-//    /**
-//     * Returns the first of the tei search organisation units associated with the
-//     * user. If none, returns the first of the data capture organisation units.
-//     * If none, return nulls.
-//     */
-//    public OrganisationUnit getTeiSearchOrganisationUnitWithFallback()
-//    {
-//        return hasTeiSearchOrganisationUnit() ? getTeiSearchOrganisationUnit() : getOrganisationUnit();
-//    }
+    public boolean hasDataViewOrganisationUnit()
+    {
+        return !CollectionUtils.isEmpty( dataViewOrganisationUnits );
+    }
 
-//    /**
-//     * Returns the tei search organisation units or organisation units if not exist.
-//     */
-//    public Set<OrganisationUnit> getTeiSearchOrganisationUnitsWithFallback()
-//    {
-//        return hasTeiSearchOrganisationUnit() ? teiSearchOrganisationUnits : organisationUnits;
-//    }
-//
-//
-//    public String getOrganisationUnitsName()
-//    {
-//        return IdentifiableObjectUtils.join( organisationUnits );
-//    }
+    public OrganisationUnit getDataViewOrganisationUnit()
+    {
+        return CollectionUtils.isEmpty( dataViewOrganisationUnits ) ? null : dataViewOrganisationUnits.iterator().next();
+    }
+
+    public boolean hasDataViewOrganisationUnitWithFallback()
+    {
+        return hasDataViewOrganisationUnit() || hasOrganisationUnit();
+    }
+
+    /**
+     * Returns the first of the data view organisation units associated with the
+     * user. If none, returns the first of the data capture organisation units.
+     * If none, return nulls.
+     */
+    public OrganisationUnit getDataViewOrganisationUnitWithFallback()
+    {
+        return hasDataViewOrganisationUnit() ? getDataViewOrganisationUnit() : getOrganisationUnit();
+    }
+
+    /**
+     * Returns the data view organisation units or organisation units if not exist.
+     */
+    public Set<OrganisationUnit> getDataViewOrganisationUnitsWithFallback()
+    {
+        return hasDataViewOrganisationUnit() ? dataViewOrganisationUnits : organisationUnits;
+    }
+
+    // -------------------------------------------------------------------------
+    // Logic - tei search organisation unit
+    // -------------------------------------------------------------------------
+
+    public boolean hasTeiSearchOrganisationUnit()
+    {
+        return !CollectionUtils.isEmpty( teiSearchOrganisationUnits );
+    }
+
+    public OrganisationUnit getTeiSearchOrganisationUnit()
+    {
+        return CollectionUtils.isEmpty( teiSearchOrganisationUnits ) ? null : teiSearchOrganisationUnits.iterator().next();
+    }
+
+    public boolean hasTeiSearchOrganisationUnitWithFallback()
+    {
+        return hasTeiSearchOrganisationUnit() || hasOrganisationUnit();
+    }
+
+    /**
+     * Returns the first of the tei search organisation units associated with the
+     * user. If none, returns the first of the data capture organisation units.
+     * If none, return nulls.
+     */
+    public OrganisationUnit getTeiSearchOrganisationUnitWithFallback()
+    {
+        return hasTeiSearchOrganisationUnit() ? getTeiSearchOrganisationUnit() : getOrganisationUnit();
+    }
+
+    /**
+     * Returns the tei search organisation units or organisation units if not exist.
+     */
+    public Set<OrganisationUnit> getTeiSearchOrganisationUnitsWithFallback()
+    {
+        return hasTeiSearchOrganisationUnit() ? teiSearchOrganisationUnits : organisationUnits;
+    }
+
+
+    public String getOrganisationUnitsName()
+    {
+        return IdentifiableObjectUtils.join( organisationUnits );
+    }
 
     public String getUsername()
     {
@@ -625,34 +626,49 @@ public class User
 //        this.organisationUnits = organisationUnits;
 //        return this;
 //    }
-//
-//    @JsonProperty
-//    @JsonSerialize( contentAs = BaseIdentifiableObject.class )
-//    @JacksonXmlElementWrapper( localName = "dataViewOrganisationUnits", namespace = DxfNamespaces.DXF_2_0 )
-//    @JacksonXmlProperty( localName = "dataViewOrganisationUnit", namespace = DxfNamespaces.DXF_2_0 )
-//    public Set<OrganisationUnit> getDataViewOrganisationUnits()
-//    {
-//        return dataViewOrganisationUnits;
-//    }
 
-//    public void setDataViewOrganisationUnits( Set<OrganisationUnit> dataViewOrganisationUnits )
-//    {
-//        this.dataViewOrganisationUnits = dataViewOrganisationUnits;
-//    }
-//
-//    @JsonProperty
-//    @JsonSerialize( contentAs = BaseIdentifiableObject.class )
-//    @JacksonXmlElementWrapper( localName = "teiSearchOrganisationUnits", namespace = DxfNamespaces.DXF_2_0 )
-//    @JacksonXmlProperty( localName = "teiSearchOrganisationUnit", namespace = DxfNamespaces.DXF_2_0 )
-//    public Set<OrganisationUnit> getTeiSearchOrganisationUnits()
-//    {
-//        return teiSearchOrganisationUnits;
-//    }
-//
-//    public void setTeiSearchOrganisationUnits( Set<OrganisationUnit> teiSearchOrganisationUnits )
-//    {
-//        this.teiSearchOrganisationUnits = teiSearchOrganisationUnits;
-//    }
+    @JsonProperty
+    @JsonSerialize( contentAs = BaseIdentifiableObject.class )
+    @JacksonXmlElementWrapper( localName = "organisationUnits", namespace = DxfNamespaces.DXF_2_0 )
+    @JacksonXmlProperty( localName = "organisationUnit", namespace = DxfNamespaces.DXF_2_0 )
+    public Set<OrganisationUnit> getOrganisationUnits()
+    {
+        return organisationUnits;
+    }
+
+    public User setOrganisationUnits( Set<OrganisationUnit> organisationUnits )
+    {
+        this.organisationUnits = organisationUnits;
+        return this;
+    }
+
+    @JsonProperty
+    @JsonSerialize( contentAs = BaseIdentifiableObject.class )
+    @JacksonXmlElementWrapper( localName = "dataViewOrganisationUnits", namespace = DxfNamespaces.DXF_2_0 )
+    @JacksonXmlProperty( localName = "dataViewOrganisationUnit", namespace = DxfNamespaces.DXF_2_0 )
+    public Set<OrganisationUnit> getDataViewOrganisationUnits()
+    {
+        return dataViewOrganisationUnits;
+    }
+
+    public void setDataViewOrganisationUnits( Set<OrganisationUnit> dataViewOrganisationUnits )
+    {
+        this.dataViewOrganisationUnits = dataViewOrganisationUnits;
+    }
+
+    @JsonProperty
+    @JsonSerialize( contentAs = BaseIdentifiableObject.class )
+    @JacksonXmlElementWrapper( localName = "teiSearchOrganisationUnits", namespace = DxfNamespaces.DXF_2_0 )
+    @JacksonXmlProperty( localName = "teiSearchOrganisationUnit", namespace = DxfNamespaces.DXF_2_0 )
+    public Set<OrganisationUnit> getTeiSearchOrganisationUnits()
+    {
+        return teiSearchOrganisationUnits;
+    }
+
+    public void setTeiSearchOrganisationUnits( Set<OrganisationUnit> teiSearchOrganisationUnits )
+    {
+        this.teiSearchOrganisationUnits = teiSearchOrganisationUnits;
+    }
 
     public List<String> getApps()
     {

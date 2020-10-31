@@ -21,13 +21,13 @@
   <typedef class="com.mass3d.hibernate.jsonb.type.JsonBinaryPlainStringType" name="jbPlainString">
   </typedef>
 
-  <typedef class="com.mass3d.hibernate.jsonb.type.JsonBinaryType" name="jbObjectStyle">
-    <param name="clazz">com.mass3d.common.ObjectStyle</param>
-  </typedef>
+  <!--<typedef class="com.mass3d.hibernate.jsonb.type.JsonBinaryType" name="jbObjectStyle">-->
+    <!--<param name="clazz">com.mass3d.common.ObjectStyle</param>-->
+  <!--</typedef>-->
 
-  <typedef class="com.mass3d.hibernate.jsonb.type.JsonBinaryType" name="jbVisualizationFontStyle">
-    <param name="clazz">com.mass3d.visualization.VisualizationFontStyle</param>
-  </typedef>
+  <!--<typedef class="com.mass3d.hibernate.jsonb.type.JsonBinaryType" name="jbVisualizationFontStyle">-->
+    <!--<param name="clazz">com.mass3d.visualization.VisualizationFontStyle</param>-->
+  <!--</typedef>-->
 
   <typedef class="com.mass3d.hibernate.jsonb.type.JsonBinaryType" name="jbTextPattern">
     <param name="clazz">com.mass3d.textpattern.TextPattern</param>
@@ -63,9 +63,9 @@
     <param name="clazz">com.mass3d.programstagefilter.EventQueryCriteria</param>
   </typedef>
   
-  <typedef class="com.mass3d.hibernate.jsonb.type.JsonListBinaryType" name="jbSeries">
-    <param name="clazz">com.mass3d.visualization.Series</param>
-  </typedef>
+  <!--<typedef class="com.mass3d.hibernate.jsonb.type.JsonListBinaryType" name="jbSeries">-->
+    <!--<param name="clazz">com.mass3d.visualization.Series</param>-->
+  <!--</typedef>-->
   
    <typedef class="com.mass3d.hibernate.jsonb.type.JsonListBinaryType" name="jlbMentions">
     <param name="clazz">com.mass3d.interpretation.Mention</param>

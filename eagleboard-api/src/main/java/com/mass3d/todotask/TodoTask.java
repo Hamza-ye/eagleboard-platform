@@ -16,16 +16,11 @@ import com.mass3d.dataset.DataSet;
 import com.mass3d.interpretation.Interpretation;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.AssociationOverride;
-import javax.persistence.AttributeOverride;
-import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -94,17 +89,17 @@ public class TodoTask
   // Logic
   // -------------------------------------------------------------------------
 
-  public boolean addFieldSet(DataSet dataSet) {
+  public boolean addDataSet(DataSet dataSet) {
     dataSets.add(dataSet);
-    return dataSet.getSources().add(this);
+    return dataSet.getTodoTasks().add(this);
   }
 
-  public void updateFieldSets(Set<DataSet> updates) {
+  public void updateDataSets(Set<DataSet> updates) {
     Set<DataSet> toRemove = Sets.difference(dataSets, updates);
     Set<DataSet> toAdd = Sets.difference(updates, dataSets);
 
-    toRemove.forEach(u -> u.getSources().remove(this));
-    toAdd.forEach(u -> u.getSources().add(this));
+    toRemove.forEach(u -> u.getTodoTasks().remove(this));
+    toAdd.forEach(u -> u.getTodoTasks().add(this));
 
     dataSets.clear();
     dataSets.addAll(updates);
@@ -117,7 +112,7 @@ public class TodoTask
   @JsonProperty
   @JsonSerialize(contentAs = BaseIdentifiableObject.class)
   @JacksonXmlElementWrapper(localName = "dataSets", namespace = DxfNamespaces.DXF_2_0)
-  @JacksonXmlProperty(localName = "fieldSet", namespace = DxfNamespaces.DXF_2_0)
+  @JacksonXmlProperty(localName = "dataSet", namespace = DxfNamespaces.DXF_2_0)
   public Set<DataSet> getDataSets() {
     return dataSets;
   }
