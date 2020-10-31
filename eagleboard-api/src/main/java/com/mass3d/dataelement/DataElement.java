@@ -10,6 +10,8 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
+import com.mass3d.category.CategoryCombo;
+import com.mass3d.category.CategoryOptionCombo;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -75,6 +77,13 @@ public class DataElement extends BaseDimensionalItemObject
      * DataElementDomainType.TRACKER.
      */
     private DataElementDomain domainType;
+
+    /**
+     * A combination of categories to capture data for this data element. Note
+     * that this category combination could be overridden by data set elements
+     * which this data element is part of, see {@link DataSetElement}.
+     */
+    private CategoryCombo categoryCombo;
 
     /**
      * URL for lookup of additional information on the web.
@@ -169,6 +178,67 @@ public class DataElement extends BaseDimensionalItemObject
     }
 
     /**
+     * Returns the resolved category combinations by joining the category
+     * combinations of the data set elements of which this data element is part
+     * of and the category combination linked directly with this data element.
+     * The returned set is immutable, will never be null and will contain at
+     * least one item.
+     */
+    public Set<CategoryCombo> getCategoryCombos()
+    {
+        return ImmutableSet.<CategoryCombo>builder()
+            .addAll( dataSetElements.stream()
+                .filter( DataSetElement::hasCategoryCombo )
+                .map( DataSetElement::getCategoryCombo )
+                .collect( Collectors.toSet() ) )
+            .add( categoryCombo ).build();
+    }
+
+    /**
+     * Returns the category combination of the data set element matching the
+     * given data set for this data element. If not present, returns the
+     * category combination for this data element.
+     */
+    public CategoryCombo getDataElementCategoryCombo( DataSet dataSet )
+    {
+        for ( DataSetElement element : dataSetElements )
+        {
+            if ( dataSet.typedEquals( element.getDataSet() ) && element.hasCategoryCombo() )
+            {
+                return element.getCategoryCombo();
+            }
+        }
+
+        return categoryCombo;
+    }
+
+    /**
+     * Returns the category option combinations of the resolved category
+     * combinations of this data element. The returned set is immutable, will
+     * never be null and will contain at least one item.
+     */
+    public Set<CategoryOptionCombo> getCategoryOptionCombos()
+    {
+        return getCategoryCombos().stream()
+            .map( CategoryCombo::getOptionCombos )
+            .flatMap( Collection::stream )
+            .collect( Collectors.toSet() );
+    }
+
+    /**
+     * Returns the sorted category option combinations of the resolved category
+     * combinations of this data element. The returned list is immutable, will
+     * never be null and will contain at least one item.
+     */
+    public List<CategoryOptionCombo> getSortedCategoryOptionCombos()
+    {
+        List<CategoryOptionCombo> optionCombos = Lists.newArrayList();
+        getCategoryCombos().forEach( cc -> optionCombos.addAll( cc.getSortedOptionCombos() ) );
+        return optionCombos;
+    }
+
+
+    /**
      * Indicates whether the value type of this data element is numeric.
      */
     public boolean isNumericType()
@@ -217,6 +287,22 @@ public class DataElement extends BaseDimensionalItemObject
     {
         return ImmutableSet.copyOf( dataSetElements.stream().map( DataSetElement::getDataSet ).filter(
             Objects::nonNull ).collect( Collectors.toSet() ) );
+    }
+
+    /**
+     * Returns the attribute category options combinations associated with the
+     * data sets of this data element.
+     */
+    public Set<CategoryOptionCombo> getDataSetCategoryOptionCombos()
+    {
+        Set<CategoryOptionCombo> categoryOptionCombos = new HashSet<>();
+
+        for ( DataSet dataSet : getDataSets() )
+        {
+            categoryOptionCombos.addAll( dataSet.getCategoryCombo().getOptionCombos() );
+        }
+
+        return categoryOptionCombos;
     }
 
     /**
@@ -426,6 +512,19 @@ public class DataElement extends BaseDimensionalItemObject
     public void setFormName( String formName )
     {
         this.formName = formName;
+    }
+
+    @JsonProperty( value = "categoryCombo" )
+    @JsonSerialize( as = BaseIdentifiableObject.class )
+    @JacksonXmlProperty( localName = "categoryCombo", namespace = DxfNamespaces.DXF_2_0 )
+    public CategoryCombo getCategoryCombo()
+    {
+        return categoryCombo;
+    }
+
+    public void setCategoryCombo( CategoryCombo categoryCombo )
+    {
+        this.categoryCombo = categoryCombo;
     }
 
     @JsonProperty

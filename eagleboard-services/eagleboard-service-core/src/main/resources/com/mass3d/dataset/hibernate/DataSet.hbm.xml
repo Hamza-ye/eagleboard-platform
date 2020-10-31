@@ -54,12 +54,19 @@
         <!--foreign-key="fk_dataset_dataelementoperandid" />-->
     <!--</set>-->
 
-    <!--<set name="sources" table="datasetsource">-->
-      <!--<cache usage="read-write" />-->
-      <!--<key column="datasetid" foreign-key="fk_datasetsource_datasetid" />-->
-      <!--<many-to-many column="sourceid" class="com.mass3d.organisationunit.OrganisationUnit"-->
-        <!--foreign-key="fk_dataset_organisationunit" />-->
-    <!--</set>-->
+    <set name="sources" table="datasetsource">
+      <cache usage="read-write" />
+      <key column="datasetid" foreign-key="fk_datasetsource_datasetid" />
+      <many-to-many column="sourceid" class="com.mass3d.organisationunit.OrganisationUnit"
+        foreign-key="fk_dataset_organisationunit" />
+    </set>
+
+    <set name="todoTasks" table="datasettodotask">
+      <cache usage="read-write" />
+      <key column="datasetid" foreign-key="fk_datasettodotask_datasetid" />
+      <many-to-many column="todotaskid" class="com.mass3d.todotask.TodoTask"
+        foreign-key="fk_dataset_todotask" />
+    </set>
 
     <!--<set name="sections" order-by="sortorder" inverse="true">-->
       <!--<cache usage="read-write" />-->
@@ -67,8 +74,8 @@
       <!--<one-to-many class="com.mass3d.dataset.Section" />-->
     <!--</set>-->
 
-    <!--<many-to-one name="categoryCombo" class="com.mass3d.category.CategoryCombo"-->
-      <!--column="categorycomboid" not-null="true" foreign-key="fk_dataset_categorycomboid" />-->
+    <many-to-one name="categoryCombo" class="com.mass3d.category.CategoryCombo"
+      column="categorycomboid" not-null="true" foreign-key="fk_dataset_categorycomboid" />
 
     <!--<many-to-one name="dataEntryForm" class="com.mass3d.dataentryform.DataEntryForm"-->
       <!--foreign-key="fk_dataset_dataentryform" cascade="all" />-->
@@ -98,7 +105,7 @@
 
     <!--<property name="openFuturePeriods" column="openfutureperiods" />-->
 
-    <!--<property name="openPeriodsAfterCoEndDate" column="openperiodsaftercoenddate" />-->
+    <property name="openPeriodsAfterCoEndDate" column="openperiodsaftercoenddate" />
 
     <!--<property name="fieldCombinationRequired" />-->
 

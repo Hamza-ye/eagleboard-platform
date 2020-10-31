@@ -19,8 +19,8 @@
     <many-to-one name="dataElement" class="com.mass3d.dataelement.DataElement" column="dataelementid"
       foreign-key="fk_datasetelement_dataelementid" unique-key="datasetelement_unique_key" not-null="true" />
 
-    <!--<many-to-one name="categoryCombo" class="com.mass3d.category.CategoryCombo" column="categorycomboid"-->
-      <!--foreign-key="fk_datasetelement_categorycomboid" />-->
+    <many-to-one name="categoryCombo" class="com.mass3d.category.CategoryCombo" column="categorycomboid"
+      foreign-key="fk_datasetelement_categorycomboid" />
 
   </class>
 

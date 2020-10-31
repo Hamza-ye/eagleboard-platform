@@ -47,6 +47,9 @@
       </type>
     </property>
 
+    <many-to-one name="categoryCombo" class="com.mass3d.category.CategoryCombo"
+      column="categorycomboid" not-null="true" foreign-key="fk_dataelement_categorycomboid" />
+
     <property name="url" />
 
     <set name="groups" table="dataelementgroupmembers" inverse="true">

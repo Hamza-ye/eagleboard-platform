@@ -7,6 +7,9 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
+import com.mass3d.category.CategoryCombo;
+import com.mass3d.organisationunit.OrganisationUnit;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -32,18 +35,13 @@ import com.mass3d.schema.annotation.Property;
 import com.mass3d.schema.annotation.PropertyRange;
 import com.mass3d.security.Authorities;
 import com.mass3d.user.User;
-import javax.persistence.AssociationOverride;
-import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.joda.time.DateTime;
@@ -89,7 +87,20 @@ public class DataSet
       inverseJoinColumns = @JoinColumn(name = "sourceid", referencedColumnName = "todotaskid")
   )
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-  private Set<TodoTask> sources = new HashSet<>();
+  private Set<TodoTask> todoTasks = new HashSet<>();
+
+  @ManyToMany
+  @JoinTable(name = "datasetsource",
+      joinColumns = @JoinColumn(name = "datasetid", referencedColumnName = "datasetid"),
+      inverseJoinColumns = @JoinColumn(name = "sourceid", referencedColumnName = "organisationUnitid")
+  )
+  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+  private Set<OrganisationUnit> sources = new HashSet<>();
+
+  /**
+   * The CategoryCombo used for data attributes.
+   */
+  private CategoryCombo categoryCombo;
 
   private String formName;
   /**
@@ -131,6 +142,12 @@ public class DataSet
    * Days after period end to qualify for timely data submission
    */
   private int timelyDays;
+
+  /**
+   * Number of periods to open for data capture that are after the category
+   * option's end date.
+   */
+  private int openPeriodsAfterCoEndDate;
 
   /**
    * Indicators associated with this data set. Indicators are used for view and output purposes,
@@ -185,58 +202,119 @@ public class DataSet
   // Logic
   // -------------------------------------------------------------------------
 
-  public boolean addDataSetElement(DataSetElement dataSetElement) {
-    dataSetElement.getDataElement().getDataSetElements().add(dataSetElement);
-    return dataSetElements.add(dataSetElement);
+  public void addOrganisationUnit( OrganisationUnit organisationUnit )
+  {
+    sources.add( organisationUnit );
+    organisationUnit.getDataSets().add( this );
+  }
+
+  public boolean removeOrganisationUnit( OrganisationUnit organisationUnit )
+  {
+    sources.remove( organisationUnit );
+    return organisationUnit.getDataSets().remove( this );
+  }
+
+  public void removeAllOrganisationUnits()
+  {
+    for ( OrganisationUnit unit : sources )
+    {
+      unit.getDataSets().remove( this );
+    }
+
+    sources.clear();
+  }
+
+  public void updateOrganisationUnits( Set<OrganisationUnit> updates )
+  {
+    Set<OrganisationUnit> toRemove = Sets.difference( sources, updates );
+    Set<OrganisationUnit> toAdd = Sets.difference( updates, sources );
+
+    toRemove.forEach( u -> u.getDataSets().remove( this ) );
+    toAdd.forEach( u -> u.getDataSets().add( this ) );
+
+    sources.clear();
+    sources.addAll( updates );
+  }
+
+  public boolean hasOrganisationUnit( OrganisationUnit unit )
+  {
+    return sources.contains( unit );
+  }
+
+  public boolean addDataSetElement( DataSetElement element )
+  {
+    element.getDataElement().getDataSetElements().add( element );
+    return dataSetElements.add( element );
   }
 
   /**
-   * Adds a data set element using this element set, the given data element
+   * Adds a data set element using this data set, the given data element and
+   * no category combo.
    *
    * @param dataElement the data element.
    */
-  public boolean addDataSetElement(DataElement dataElement) {
-    DataSetElement dataSetElement = new DataSetElement(this, dataElement);
-    dataElement.getDataSetElements().add(dataSetElement);
-    return dataSetElements.add(dataSetElement);
+  public boolean addDataSetElement( DataElement dataElement )
+  {
+    DataSetElement element = new DataSetElement( this, dataElement, null );
+    dataElement.getDataSetElements().add( element );
+    return dataSetElements.add( element );
   }
 
+  /**
+   * Adds a data set element using this data set, the given data element and
+   * the given category combo.
+   *
+   * @param dataElement   the data element.
+   * @param categoryCombo the category combination.
+   */
+  public boolean addDataSetElement( DataElement dataElement, CategoryCombo categoryCombo )
+  {
+    DataSetElement element = new DataSetElement( this, dataElement, categoryCombo );
+    dataElement.getDataSetElements().add( element );
+    return dataSetElements.add( element );
+  }
+
+  public boolean removeDataSetElement( DataSetElement element )
+  {
+    dataSetElements.remove( element );
+    return element.getDataElement().getDataSetElements().remove( element );
+  }
+
+  public void removeDataSetElement( DataElement dataElement )
+  {
+    Iterator<DataSetElement> elements = dataSetElements.iterator();
+
+    while ( elements.hasNext() )
+    {
+      DataSetElement element = elements.next();
+
+      DataSetElement other = new DataSetElement( this, dataElement );
+
+      if ( element.objectEquals( other ) )
+      {
+        elements.remove();
+        element.getDataElement().getDataSetElements().remove( element );
+      }
+    }
+  }
+
+  public void removeAllDataSetElements()
+  {
+    for ( DataSetElement element : dataSetElements )
+    {
+      element.getDataElement().getDataSetElements().remove( element );
+    }
+
+    dataSetElements.clear();
+  }
 
   public Set<DataElement> getDataElements() {
     return ImmutableSet.copyOf(dataSetElements.stream().map(e -> e.getDataElement()).collect(Collectors
         .toSet()));
   }
 
-  public boolean removeDataSetElement(DataSetElement dataSetElement) {
-    dataSetElements.remove(dataSetElement);
-    return dataSetElement.getDataElement().getDataSetElements().remove(dataSetElement);
-  }
-
-  public void removeDataSetElement(DataElement dataElement) {
-    Iterator<DataSetElement> elements = dataSetElements.iterator();
-
-    while (elements.hasNext()) {
-      DataSetElement element = elements.next();
-
-      DataSetElement other = new DataSetElement(this, dataElement);
-
-      if (element.objectEquals(other)) {
-        elements.remove();
-        element.getDataElement().getDataSetElements().remove(element);
-      }
-    }
-  }
-
-  public void removeAllDataSetElements() {
-    for (DataSetElement element : dataSetElements) {
-      element.getDataElement().getDataSetElements().remove(element);
-    }
-
-    dataSetElements.clear();
-  }
-
   public boolean removeTodoTask(TodoTask todoTask) {
-    sources.remove(todoTask);
+    todoTasks.remove(todoTask);
     return todoTask.getDataSets().remove(this);
   }
 
@@ -313,6 +391,32 @@ public class DataSet
     this.dataInputPeriods = dataInputPeriods;
   }
 
+  @JsonProperty( value = "organisationUnits" )
+  @JsonSerialize( contentAs = BaseIdentifiableObject.class )
+  @JacksonXmlElementWrapper( localName = "organisationUnits", namespace = DxfNamespaces.DXF_2_0 )
+  @JacksonXmlProperty( localName = "organisationUnit", namespace = DxfNamespaces.DXF_2_0 )
+  public Set<OrganisationUnit> getSources()
+  {
+    return sources;
+  }
+
+  public void setSources( Set<OrganisationUnit> sources )
+  {
+    this.sources = sources;
+  }
+
+  @JsonProperty
+  @JsonSerialize( as = BaseIdentifiableObject.class )
+  @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
+  public CategoryCombo getCategoryCombo()
+  {
+    return categoryCombo;
+  }
+
+  public void setCategoryCombo( CategoryCombo categoryCombo )
+  {
+    this.categoryCombo = categoryCombo;
+  }
 
   @JsonProperty
   @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
@@ -351,12 +455,12 @@ public class DataSet
   @JsonSerialize(contentAs = BaseIdentifiableObject.class)
   @JacksonXmlElementWrapper(localName = "todoTasks", namespace = DxfNamespaces.DXF_2_0)
   @JacksonXmlProperty(localName = "todoTask", namespace = DxfNamespaces.DXF_2_0)
-  public Set<TodoTask> getSources() {
-    return sources;
+  public Set<TodoTask> getTodoTasks() {
+    return todoTasks;
   }
 
-  public void setSources(Set<TodoTask> sources) {
-    this.sources = sources;
+  public void setTodoTasks(Set<TodoTask> todoTasks) {
+    this.todoTasks = todoTasks;
   }
 
   @JsonProperty
@@ -382,6 +486,18 @@ public class DataSet
 
   public void setInterpretations(Set<Interpretation> interpretations) {
     this.interpretations = interpretations;
+  }
+
+  @JsonProperty
+  @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
+  public int getOpenPeriodsAfterCoEndDate()
+  {
+    return openPeriodsAfterCoEndDate;
+  }
+
+  public void setOpenPeriodsAfterCoEndDate( int openPeriodsAfterCoEndDate )
+  {
+    this.openPeriodsAfterCoEndDate = openPeriodsAfterCoEndDate;
   }
 
   @JsonProperty

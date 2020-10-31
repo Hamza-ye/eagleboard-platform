@@ -139,7 +139,7 @@ public class DataSetDeletionHandler
 //    {
 //        for ( DataSet dataSet : unit.getDataSets() )
 //        {
-//            dataSet.getSources().remove( unit );
+//            dataSet.getTodoTasks().remove( unit );
 //            idObjectManager.updateNoAcl( dataSet );
 //        }
 //    }

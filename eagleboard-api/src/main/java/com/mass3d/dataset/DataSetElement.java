@@ -1,6 +1,12 @@
 package com.mass3d.dataset;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.mass3d.category.CategoryCombo;
+import com.mass3d.common.BaseIdentifiableObject;
+import com.mass3d.common.DxfNamespaces;
 import com.mass3d.common.EmbeddedObject;
 import com.mass3d.dataelement.DataElement;
 import java.util.Objects;
@@ -43,7 +49,7 @@ public class DataSetElement implements EmbeddedObject {
   /**
    * Category combination, potentially null.
    */
-//  private DataElementCategoryCombo categoryCombo;
+  private CategoryCombo categoryCombo;
 
   // -------------------------------------------------------------------------
   // Constructors
@@ -57,14 +63,33 @@ public class DataSetElement implements EmbeddedObject {
     this.dataElement = dataElement;
   }
 
-//  public DataSetElement( DataSet dataSet, DataElement dataelement, DataElementCategoryCombo categoryCombo )
-//  {
-//    this.dataSet = dataSet;
-//    this.dataelement = dataelement;
-//    this.categoryCombo = categoryCombo;
-//  }
+  public DataSetElement( DataSet dataSet, DataElement dataElement, CategoryCombo categoryCombo )
+  {
+    this.dataSet = dataSet;
+    this.dataElement = dataElement;
+    this.categoryCombo = categoryCombo;
+  }
 
-// -------------------------------------------------------------------------
+  // -------------------------------------------------------------------------
+  // Logic
+  // -------------------------------------------------------------------------
+
+  /**
+   * Returns the category combination of this data set element, if null,
+   * then returns the category combination of the data element of this data
+   * set element.
+   */
+  public CategoryCombo getResolvedCategoryCombo()
+  {
+    return hasCategoryCombo() ? getCategoryCombo() : dataElement.getCategoryCombo();
+  }
+
+  public boolean hasCategoryCombo()
+  {
+    return categoryCombo != null;
+  }
+
+  // -------------------------------------------------------------------------
   // Hash code and equals
   // -------------------------------------------------------------------------
 
@@ -102,7 +127,7 @@ public class DataSetElement implements EmbeddedObject {
         "\"class\":\"" + getClass() + "\", " +
         "\"dataSet\":\"" + dataSet + "\", " +
         "\"dataelement\":\"" + dataElement + "\" " +
-//        "\"categoryCombo\":\"" + categoryCombo + "\" " +
+        "\"categoryCombo\":\"" + categoryCombo + "\" " +
         "}";
   }
 
@@ -133,6 +158,24 @@ public class DataSetElement implements EmbeddedObject {
 
   public void setDataElement(DataElement dataElement) {
     this.dataElement = dataElement;
+  }
+
+  /**
+   * Category combination of this data set element. Can be null, use
+   * {@link #getResolvedCategoryCombo} to get fall back to category
+   * combination of data element.
+   */
+  @JsonProperty
+  @JsonSerialize( as = BaseIdentifiableObject.class )
+  @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
+  public CategoryCombo getCategoryCombo()
+  {
+    return categoryCombo;
+  }
+
+  public void setCategoryCombo( CategoryCombo categoryCombo )
+  {
+    this.categoryCombo = categoryCombo;
   }
 
 }

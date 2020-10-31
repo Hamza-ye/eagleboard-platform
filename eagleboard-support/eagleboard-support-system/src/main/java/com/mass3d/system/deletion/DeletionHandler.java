@@ -1,10 +1,17 @@
 package com.mass3d.system.deletion;
 
 import com.mass3d.activity.Activity;
+import com.mass3d.category.Category;
+import com.mass3d.category.CategoryCombo;
+import com.mass3d.category.CategoryOption;
+import com.mass3d.category.CategoryOptionCombo;
+import com.mass3d.category.CategoryOptionGroup;
+import com.mass3d.category.CategoryOptionGroupSet;
 import com.mass3d.constant.Constant;
 import com.mass3d.dataelement.DataElement;
 import com.mass3d.dataelement.DataElementGroup;
 import com.mass3d.dataelement.DataElementGroupSet;
+import com.mass3d.dataentryform.DataEntryForm;
 import com.mass3d.dataset.DataSet;
 import com.mass3d.datavalue.DataValue;
 import com.mass3d.deduplication.PotentialDuplicate;
@@ -25,16 +32,49 @@ import com.mass3d.option.Option;
 import com.mass3d.option.OptionGroup;
 import com.mass3d.option.OptionGroupSet;
 import com.mass3d.option.OptionSet;
+import com.mass3d.organisationunit.OrganisationUnit;
+import com.mass3d.organisationunit.OrganisationUnitGroup;
+import com.mass3d.organisationunit.OrganisationUnitGroupSet;
+import com.mass3d.organisationunit.OrganisationUnitLevel;
 import com.mass3d.period.Period;
 import com.mass3d.period.RelativePeriods;
+import com.mass3d.program.Program;
+import com.mass3d.program.ProgramExpression;
+import com.mass3d.program.ProgramIndicator;
+import com.mass3d.program.ProgramIndicatorGroup;
+import com.mass3d.program.ProgramInstance;
+import com.mass3d.program.ProgramStage;
+import com.mass3d.program.ProgramStageDataElement;
+import com.mass3d.program.ProgramStageInstance;
+import com.mass3d.program.ProgramStageSection;
+import com.mass3d.program.ProgramTrackedEntityAttribute;
+import com.mass3d.program.ProgramTrackedEntityAttributeGroup;
+import com.mass3d.program.message.ProgramMessage;
+import com.mass3d.program.notification.ProgramNotificationTemplate;
+import com.mass3d.programrule.ProgramRule;
+import com.mass3d.programrule.ProgramRuleAction;
+import com.mass3d.programrule.ProgramRuleVariable;
 import com.mass3d.project.Project;
+import com.mass3d.relationship.Relationship;
+import com.mass3d.relationship.RelationshipType;
 import com.mass3d.scheduling.JobConfiguration;
+import com.mass3d.security.oauth2.OAuth2Client;
 import com.mass3d.todotask.TodoTask;
+import com.mass3d.trackedentity.TrackedEntityAttribute;
+import com.mass3d.trackedentity.TrackedEntityInstance;
+import com.mass3d.trackedentity.TrackedEntityType;
+import com.mass3d.trackedentityattributevalue.TrackedEntityAttributeValue;
+import com.mass3d.trackedentitycomment.TrackedEntityComment;
+import com.mass3d.trackedentityfilter.TrackedEntityInstanceFilter;
 import com.mass3d.user.User;
 import com.mass3d.user.UserAuthorityGroup;
 import com.mass3d.user.UserCredentials;
 import com.mass3d.user.UserGroup;
 import com.mass3d.user.UserSetting;
+import com.mass3d.validation.ValidationResult;
+import com.mass3d.validation.ValidationRule;
+import com.mass3d.validation.ValidationRuleGroup;
+import com.mass3d.validation.notification.ValidationNotificationTemplate;
 import com.mass3d.version.Version;
 
 /**
@@ -134,50 +174,50 @@ public abstract class DeletionHandler {
     return null;
   }
 
-//    public void deleteCategory( Category category )
-//    {
-//    }
-//
-//    public String allowDeleteCategory( Category category )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteCategoryOption( CategoryOption categoryOption )
-//    {
-//    }
-//
-//    public String allowDeleteCategoryOption( CategoryOption categoryOption )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteCategoryCombo( CategoryCombo categoryCombo )
-//    {
-//    }
-//
-//    public String allowDeleteCategoryCombo( CategoryCombo categoryCombo )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteCategoryOptionCombo( CategoryOptionCombo categoryOptionCombo )
-//    {
-//    }
-//
-//    public String allowDeleteCategoryOptionCombo( CategoryOptionCombo categoryOptionCombo )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteProgramMessage( ProgramMessage programMessage )
-//    {
-//    }
-//
-//    public String allowDeleteProgramMessage( ProgramMessage programMessage )
-//    {
-//        return null;
-//    }
+    public void deleteCategory( Category category )
+    {
+    }
+
+    public String allowDeleteCategory( Category category )
+    {
+        return null;
+    }
+
+    public void deleteCategoryOption( CategoryOption categoryOption )
+    {
+    }
+
+    public String allowDeleteCategoryOption( CategoryOption categoryOption )
+    {
+        return null;
+    }
+
+    public void deleteCategoryCombo( CategoryCombo categoryCombo )
+    {
+    }
+
+    public String allowDeleteCategoryCombo( CategoryCombo categoryCombo )
+    {
+        return null;
+    }
+
+    public void deleteCategoryOptionCombo( CategoryOptionCombo categoryOptionCombo )
+    {
+    }
+
+    public String allowDeleteCategoryOptionCombo( CategoryOptionCombo categoryOptionCombo )
+    {
+        return null;
+    }
+
+    public void deleteProgramMessage( ProgramMessage programMessage )
+    {
+    }
+
+    public String allowDeleteProgramMessage( ProgramMessage programMessage )
+    {
+        return null;
+    }
 
   public void deleteDataSet(DataSet dataSet) {
   }
@@ -307,87 +347,87 @@ public abstract class DeletionHandler {
 //        return null;
 //    }
 //
-//    public void deleteValidationRule( ValidationRule validationRule )
-//    {
-//    }
+    public void deleteValidationRule( ValidationRule validationRule )
+    {
+    }
 
-//    public String allowDeleteValidationRule( ValidationRule validationRule )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteValidationRuleGroup( ValidationRuleGroup validationRuleGroup )
-//    {
-//    }
-//
-//    public String allowDeleteValidationRuleGroup( ValidationRuleGroup validationRuleGroup )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteValidationResult( ValidationResult validationResult )
-//    {
-//    }
-//
-//    public String allowDeleteValidationResult( ValidationResult validationResult )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteDataEntryForm( DataEntryForm form )
-//    {
-//    }
-//
-//    public String allowDeleteValidationNotificationTemplate( ValidationNotificationTemplate vrnt )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteValidationNotificationTemplate( ValidationNotificationTemplate vrnt )
-//    {
-//    }
-//
-//    public String allowDeleteDataEntryForm( DataEntryForm form )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteOrganisationUnit( OrganisationUnit unit )
-//    {
-//    }
-//
-//    public String allowDeleteOrganisationUnit( OrganisationUnit unit )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteOrganisationUnitGroup( OrganisationUnitGroup group )
-//    {
-//    }
-//
-//    public String allowDeleteOrganisationUnitGroup( OrganisationUnitGroup group )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteOrganisationUnitGroupSet( OrganisationUnitGroupSet groupSet )
-//    {
-//    }
-//
-//    public String allowDeleteOrganisationUnitGroupSet( OrganisationUnitGroupSet groupSet )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteOrganisationUnitLevel( OrganisationUnitLevel level )
-//    {
-//    }
-//
-//    public String allowDeleteOrganisationUnitLevel( OrganisationUnitLevel level )
-//    {
-//        return null;
-//    }
-//
+    public String allowDeleteValidationRule( ValidationRule validationRule )
+    {
+        return null;
+    }
+
+    public void deleteValidationRuleGroup( ValidationRuleGroup validationRuleGroup )
+    {
+    }
+
+    public String allowDeleteValidationRuleGroup( ValidationRuleGroup validationRuleGroup )
+    {
+        return null;
+    }
+
+    public void deleteValidationResult( ValidationResult validationResult )
+    {
+    }
+
+    public String allowDeleteValidationResult( ValidationResult validationResult )
+    {
+        return null;
+    }
+
+    public void deleteDataEntryForm( DataEntryForm form )
+    {
+    }
+
+    public String allowDeleteValidationNotificationTemplate( ValidationNotificationTemplate vrnt )
+    {
+        return null;
+    }
+
+    public void deleteValidationNotificationTemplate( ValidationNotificationTemplate vrnt )
+    {
+    }
+
+    public String allowDeleteDataEntryForm( DataEntryForm form )
+    {
+        return null;
+    }
+
+    public void deleteOrganisationUnit( OrganisationUnit unit )
+    {
+    }
+
+    public String allowDeleteOrganisationUnit( OrganisationUnit unit )
+    {
+        return null;
+    }
+
+    public void deleteOrganisationUnitGroup( OrganisationUnitGroup group )
+    {
+    }
+
+    public String allowDeleteOrganisationUnitGroup( OrganisationUnitGroup group )
+    {
+        return null;
+    }
+
+    public void deleteOrganisationUnitGroupSet( OrganisationUnitGroupSet groupSet )
+    {
+    }
+
+    public String allowDeleteOrganisationUnitGroupSet( OrganisationUnitGroupSet groupSet )
+    {
+        return null;
+    }
+
+    public void deleteOrganisationUnitLevel( OrganisationUnitLevel level )
+    {
+    }
+
+    public String allowDeleteOrganisationUnitLevel( OrganisationUnitLevel level )
+    {
+        return null;
+    }
+
 //    public void deleteReport( Report report )
 //    {
 //    }
@@ -491,148 +531,148 @@ public abstract class DeletionHandler {
     return null;
   }
 
-//    public void deleteTrackedEntityInstance( TrackedEntityInstance entityInstance )
-//    {
-//    }
-//
-//    public String allowDeleteTrackedEntityInstance( TrackedEntityInstance entityInstance )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteTrackedEntityComment( TrackedEntityComment entityComment )
-//    {
-//    }
+    public void deleteTrackedEntityInstance( TrackedEntityInstance entityInstance )
+    {
+    }
 
-//    public String allowDeleteTrackedEntityComment( TrackedEntityComment entityComment )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteTrackedEntityAttribute( TrackedEntityAttribute attribute )
-//    {
-//    }
-//
-//    public String allowDeleteTrackedEntityAttribute( TrackedEntityAttribute attribute )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteTrackedEntityAttributeValue( TrackedEntityAttributeValue attributeValue )
-//    {
-//    }
-//
-//    public String allowDeleteTrackedEntityAttributeValue( TrackedEntityAttributeValue attributeValue )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteRelationship( Relationship relationship )
-//    {
-//    }
-//
-//    public String allowDeleteRelationship( Relationship relationship )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteRelationshipType( RelationshipType relationshipType )
-//    {
-//    }
-//
-//    public String allowDeleteRelationshipType( RelationshipType relationshipType )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteProgram( Program program )
-//    {
-//    }
-//
-//    public String allowDeleteProgram( Program program )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteProgramInstance( ProgramInstance programInstance )
-//    {
-//    }
-//
-//    public String allowDeleteProgramInstance( ProgramInstance programInstance )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteProgramStage( ProgramStage programStage )
-//    {
-//    }
-//
-//    public String allowDeleteProgramStage( ProgramStage programStage )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteProgramStageSection( ProgramStageSection programStageSection )
-//    {
-//    }
-//
-//    public String allowDeleteProgramStageSection( ProgramStageSection programStageSection )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteProgramStageInstance( ProgramStageInstance programStageInstance )
-//    {
-//    }
-//
-//    public String allowDeleteProgramStageInstance( ProgramStageInstance programStageInstance )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteProgramNotificationTemplate( ProgramNotificationTemplate programNotificationTemplate )
-//    {
-//    }
-//
-//    public void allowDeleteProgramNotificationTemplate( ProgramNotificationTemplate programNotificationTemplate )
-//    {
-//    }
-//
-//    public void deleteProgramRule( ProgramRule programRule )
-//    {
-//    }
-//
-//    public String allowDeleteProgramRule( ProgramRule programRule )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteProgramRuleVariable( ProgramRuleVariable programRuleVariable )
-//    {
-//    }
-//
-//    public String allowDeleteProgramRuleVariable( ProgramRuleVariable programRuleVariable )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteProgramRuleAction( ProgramRuleAction programRuleAction )
-//    {
-//    }
-//
-//    public String allowDeleteProgramRuleAction( ProgramRuleAction programRuleAction )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteProgramStageDataElement( ProgramStageDataElement programStageDataElement )
-//    {
-//    }
-//
-//    public String allowDeleteProgramStageDataElement( ProgramStageDataElement programStageDataElement )
-//    {
-//        return null;
-//    }
+    public String allowDeleteTrackedEntityInstance( TrackedEntityInstance entityInstance )
+    {
+        return null;
+    }
+
+    public void deleteTrackedEntityComment( TrackedEntityComment entityComment )
+    {
+    }
+
+    public String allowDeleteTrackedEntityComment( TrackedEntityComment entityComment )
+    {
+        return null;
+    }
+
+    public void deleteTrackedEntityAttribute( TrackedEntityAttribute attribute )
+    {
+    }
+
+    public String allowDeleteTrackedEntityAttribute( TrackedEntityAttribute attribute )
+    {
+        return null;
+    }
+
+    public void deleteTrackedEntityAttributeValue( TrackedEntityAttributeValue attributeValue )
+    {
+    }
+
+    public String allowDeleteTrackedEntityAttributeValue( TrackedEntityAttributeValue attributeValue )
+    {
+        return null;
+    }
+
+    public void deleteRelationship( Relationship relationship )
+    {
+    }
+
+    public String allowDeleteRelationship( Relationship relationship )
+    {
+        return null;
+    }
+
+    public void deleteRelationshipType( RelationshipType relationshipType )
+    {
+    }
+
+    public String allowDeleteRelationshipType( RelationshipType relationshipType )
+    {
+        return null;
+    }
+
+    public void deleteProgram( Program program )
+    {
+    }
+
+    public String allowDeleteProgram( Program program )
+    {
+        return null;
+    }
+
+    public void deleteProgramInstance( ProgramInstance programInstance )
+    {
+    }
+
+    public String allowDeleteProgramInstance( ProgramInstance programInstance )
+    {
+        return null;
+    }
+
+    public void deleteProgramStage( ProgramStage programStage )
+    {
+    }
+
+    public String allowDeleteProgramStage( ProgramStage programStage )
+    {
+        return null;
+    }
+
+    public void deleteProgramStageSection( ProgramStageSection programStageSection )
+    {
+    }
+
+    public String allowDeleteProgramStageSection( ProgramStageSection programStageSection )
+    {
+        return null;
+    }
+
+    public void deleteProgramStageInstance( ProgramStageInstance programStageInstance )
+    {
+    }
+
+    public String allowDeleteProgramStageInstance( ProgramStageInstance programStageInstance )
+    {
+        return null;
+    }
+
+    public void deleteProgramNotificationTemplate( ProgramNotificationTemplate programNotificationTemplate )
+    {
+    }
+
+    public void allowDeleteProgramNotificationTemplate( ProgramNotificationTemplate programNotificationTemplate )
+    {
+    }
+
+    public void deleteProgramRule( ProgramRule programRule )
+    {
+    }
+
+    public String allowDeleteProgramRule( ProgramRule programRule )
+    {
+        return null;
+    }
+
+    public void deleteProgramRuleVariable( ProgramRuleVariable programRuleVariable )
+    {
+    }
+
+    public String allowDeleteProgramRuleVariable( ProgramRuleVariable programRuleVariable )
+    {
+        return null;
+    }
+
+    public void deleteProgramRuleAction( ProgramRuleAction programRuleAction )
+    {
+    }
+
+    public String allowDeleteProgramRuleAction( ProgramRuleAction programRuleAction )
+    {
+        return null;
+    }
+
+    public void deleteProgramStageDataElement( ProgramStageDataElement programStageDataElement )
+    {
+    }
+
+    public String allowDeleteProgramStageDataElement( ProgramStageDataElement programStageDataElement )
+    {
+        return null;
+    }
 
   public void deleteEventDataValue(EventDataValue eventDataValue) {
   }
@@ -641,32 +681,32 @@ public abstract class DeletionHandler {
     return null;
   }
 
-//    public void deleteProgramIndicator( ProgramIndicator programIndicator )
-//    {
-//    }
-//
-//    public String allowDeleteProgramIndicator( ProgramIndicator programIndicator )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteProgramIndicatorGroup( ProgramIndicatorGroup programIndicatorGroup )
-//    {
-//    }
-//
-//    public String allowDeleteProgramIndicatorGroup( ProgramIndicatorGroup programIndicatorGroup )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteProgramExpression( ProgramExpression programExpression )
-//    {
-//    }
-//
-//    public String allowDeleteProgramExpression( ProgramExpression programExpression )
-//    {
-//        return null;
-//    }
+    public void deleteProgramIndicator( ProgramIndicator programIndicator )
+    {
+    }
+
+    public String allowDeleteProgramIndicator( ProgramIndicator programIndicator )
+    {
+        return null;
+    }
+
+    public void deleteProgramIndicatorGroup( ProgramIndicatorGroup programIndicatorGroup )
+    {
+    }
+
+    public String allowDeleteProgramIndicatorGroup( ProgramIndicatorGroup programIndicatorGroup )
+    {
+        return null;
+    }
+
+    public void deleteProgramExpression( ProgramExpression programExpression )
+    {
+    }
+
+    public String allowDeleteProgramExpression( ProgramExpression programExpression )
+    {
+        return null;
+    }
 
   public void deleteConstant(Constant constant) {
   }
@@ -752,33 +792,33 @@ public abstract class DeletionHandler {
 //    {
 //        return null;
 //    }
-//
-//    public void deleteCategoryOptionGroup( CategoryOptionGroup categoryOptionGroup )
-//    {
-//    }
-//
-//    public String allowDeleteCategoryOptionGroup( CategoryOptionGroup categoryOptionGroup )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteCategoryOptionGroupSet( CategoryOptionGroupSet categoryOptionGroupSet )
-//    {
-//    }
-//
-//    public String allowDeleteCategoryOptionGroupSet( CategoryOptionGroupSet categoryOptionGroupSet )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteTrackedEntityType( TrackedEntityType trackedEntityType )
-//    {
-//    }
-//
-//    public String allowDeleteTrackedEntityType( TrackedEntityType trackedEntityType )
-//    {
-//        return null;
-//    }
+
+    public void deleteCategoryOptionGroup( CategoryOptionGroup categoryOptionGroup )
+    {
+    }
+
+    public String allowDeleteCategoryOptionGroup( CategoryOptionGroup categoryOptionGroup )
+    {
+        return null;
+    }
+
+    public void deleteCategoryOptionGroupSet( CategoryOptionGroupSet categoryOptionGroupSet )
+    {
+    }
+
+    public String allowDeleteCategoryOptionGroupSet( CategoryOptionGroupSet categoryOptionGroupSet )
+    {
+        return null;
+    }
+
+    public void deleteTrackedEntityType( TrackedEntityType trackedEntityType )
+    {
+    }
+
+    public String allowDeleteTrackedEntityType( TrackedEntityType trackedEntityType )
+    {
+        return null;
+    }
 //
 //    public void deleteEventReport( EventReport eventReport )
 //    {
@@ -798,33 +838,33 @@ public abstract class DeletionHandler {
 //        return null;
 //    }
 //
-//    public void deleteOAuth2Client( OAuth2Client oAuth2Client )
-//    {
-//    }
-//
-//    public String allowDeleteOAuth2Client( OAuth2Client oAuth2Client )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteProgramTrackedEntityAttribute( ProgramTrackedEntityAttribute attribute )
-//    {
-//    }
-//
-//    public String allowDeleteProgramTrackedEntityAttribute( ProgramTrackedEntityAttribute attribute )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteProgramTrackedEntityAttributeGroup( ProgramTrackedEntityAttributeGroup color )
-//    {
-//    }
-//
-//    public String allowDeleteProgramTrackedEntityAttributeGroup( ProgramTrackedEntityAttributeGroup group )
-//    {
-//        return null;
-//    }
-//
+    public void deleteOAuth2Client( OAuth2Client oAuth2Client )
+    {
+    }
+
+    public String allowDeleteOAuth2Client( OAuth2Client oAuth2Client )
+    {
+        return null;
+    }
+
+    public void deleteProgramTrackedEntityAttribute( ProgramTrackedEntityAttribute attribute )
+    {
+    }
+
+    public String allowDeleteProgramTrackedEntityAttribute( ProgramTrackedEntityAttribute attribute )
+    {
+        return null;
+    }
+
+    public void deleteProgramTrackedEntityAttributeGroup( ProgramTrackedEntityAttributeGroup color )
+    {
+    }
+
+    public String allowDeleteProgramTrackedEntityAttributeGroup( ProgramTrackedEntityAttributeGroup group )
+    {
+        return null;
+    }
+
 //    public void deletePushAnalysis( PushAnalysis pushAnalysis )
 //    {
 //    }
@@ -875,14 +915,14 @@ public abstract class DeletionHandler {
   public void deleteFileResource(FileResource fileResource) {
   }
 
-//    public String allowDeleteTrackedEntityInstanceFilter( TrackedEntityInstanceFilter filter )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteTrackedEntityInstanceFilter( TrackedEntityInstanceFilter filter )
-//    {
-//    }
+    public String allowDeleteTrackedEntityInstanceFilter( TrackedEntityInstanceFilter filter )
+    {
+        return null;
+    }
+
+    public void deleteTrackedEntityInstanceFilter( TrackedEntityInstanceFilter filter )
+    {
+    }
 
   public String allowDeleteVersion(Version version) {
     return null;
