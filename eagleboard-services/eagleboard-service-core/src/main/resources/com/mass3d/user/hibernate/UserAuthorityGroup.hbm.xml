@@ -19,7 +19,7 @@
 
     <property name="description" />
 
-    <!--<property name="translations" type="jblTranslations"/>-->
+    <property name="translations" type="jblTranslations"/>
 
     <set name="members" table="userrolemembers" inverse="true">
       <key column="userroleid" />

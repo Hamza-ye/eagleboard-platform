@@ -1,6 +1,7 @@
 package com.mass3d.common;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mass3d.attribute.AttributeValue;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -14,7 +15,7 @@ import com.mass3d.user.UserGroupAccess;
 public interface IdentifiableObject
     extends LinkableObject, Comparable<IdentifiableObject>, Serializable
 {
-//    String[] I18N_PROPERTIES = { TranslationProperty.NAME.getName() };
+    String[] I18N_PROPERTIES = { TranslationProperty.NAME.getName() };
 
     long getId();
 
@@ -32,9 +33,9 @@ public interface IdentifiableObject
 
     User getLastUpdatedBy();
 
-//    Set<AttributeValue> getAttributeValues();
-//
-//    void setAttributeValues(Set<AttributeValue> attributeValues);
+    Set<AttributeValue> getAttributeValues();
+
+    void setAttributeValues(Set<AttributeValue> attributeValues);
 
     Set<Translation> getTranslations();
 

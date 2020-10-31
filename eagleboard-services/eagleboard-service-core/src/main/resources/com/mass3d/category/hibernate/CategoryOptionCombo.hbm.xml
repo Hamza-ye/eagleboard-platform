@@ -26,7 +26,7 @@
         foreign-key="fk_categoryoptioncombo_categoryoptionid" />
     </set>
 
-    <!--<property name="attributeValues" type="jsbAttributeValues"/>-->
+    <property name="attributeValues" type="jsbAttributeValues"/>
 
     <property name="ignoreApproval" column="ignoreapproval" />
 

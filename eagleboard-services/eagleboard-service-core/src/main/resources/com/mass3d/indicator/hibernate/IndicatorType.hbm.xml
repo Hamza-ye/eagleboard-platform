@@ -21,7 +21,7 @@
 
     <property name="number" column="indicatornumber" />
 
-    <!--<property name="translations" type="jblTranslations"/>-->
+    <property name="translations" type="jblTranslations"/>
 
   </class>
 

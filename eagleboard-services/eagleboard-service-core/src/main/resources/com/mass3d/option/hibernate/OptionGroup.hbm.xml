@@ -19,7 +19,7 @@
 
     <property name="shortName" column="shortname" not-null="true" unique="true" length="50" />
 
-    <!--<property name="translations" type="jblTranslations"/>-->
+    <property name="translations" type="jblTranslations"/>
 
     <set name="members" table="optiongroupmembers" cascade="all">
       <cache usage="read-write" />

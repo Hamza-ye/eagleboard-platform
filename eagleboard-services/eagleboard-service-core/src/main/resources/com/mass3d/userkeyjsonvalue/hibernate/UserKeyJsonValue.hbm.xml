@@ -26,12 +26,12 @@
       unique-key="userkeyjsonvalue_unique_key_on_user_and_namespace" />
     <!-- set not-null -->
 
-    <!--<property name="jbPlainValue" type="jbPlainString" column="jbvalue" access="property" />-->
+    <property name="jbPlainValue" type="jbPlainString" column="jbvalue" access="property" />
 
-    <!--<property name="encryptedValue" column="encrypted_value" type="Aes128EncryptedString" access="property" />-->
-    <property name="jbPlainValue" type="string" column="jbvalue" access="property" />
+    <property name="encryptedValue" column="encrypted_value" type="Aes128EncryptedString" access="property" />
+    <!--<property name="jbPlainValue" type="string" column="jbvalue" access="property" />-->
 
-    <property name="encryptedValue" column="encrypted_value" type="string" access="property" />
+    <!--<property name="encryptedValue" column="encrypted_value" type="string" access="property" />-->
 
     <property name="encrypted" column="encrypted" type="boolean" not-null="false" />
 

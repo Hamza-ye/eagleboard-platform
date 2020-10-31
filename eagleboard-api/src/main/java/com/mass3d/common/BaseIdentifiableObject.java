@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import com.mass3d.attribute.Attribute;
+import com.mass3d.attribute.AttributeValue;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -66,16 +68,16 @@ public class BaseIdentifiableObject
      */
     protected Date lastUpdated;
 
-//    /**
-//     * Set of the dynamic attributes values that belong to this data element.
-//     */
-//    @AuditAttribute
-//    protected Set<AttributeValue> attributeValues = new HashSet<>();
+    /**
+     * Set of the dynamic attributes values that belong to this data element.
+     */
+    @AuditAttribute
+    protected Set<AttributeValue> attributeValues = new HashSet<>();
 
-//    /**
-//     * Cache of attribute values which allows for lookup by attribute identifier.
-//     */
-//    protected Map<String, AttributeValue> cacheAttributeValues = new HashMap<>();
+    /**
+     * Cache of attribute values which allows for lookup by attribute identifier.
+     */
+    protected Map<String, AttributeValue> cacheAttributeValues = new HashMap<>();
 
     /**
      * Set of available object translation, normally filtered by locale.
@@ -307,33 +309,33 @@ public class BaseIdentifiableObject
         this.lastUpdated = lastUpdated;
     }
 
-//    @Override
-//    @JsonProperty( "attributeValues" )
-//    @JacksonXmlElementWrapper( localName = "attributeValues", namespace = DxfNamespaces.DXF_2_0 )
-//    @JacksonXmlProperty( localName = "attributeValue", namespace = DxfNamespaces.DXF_2_0 )
-//    public Set<AttributeValue> getAttributeValues()
-//    {
-//        return attributeValues;
-//    }
-//
-//    @Override
-//    public void setAttributeValues( Set<AttributeValue> attributeValues )
-//    {
-//        cacheAttributeValues.clear();
-//        this.attributeValues = attributeValues;
-//    }
+    @Override
+    @JsonProperty( "attributeValues" )
+    @JacksonXmlElementWrapper( localName = "attributeValues", namespace = DxfNamespaces.DXF_2_0 )
+    @JacksonXmlProperty( localName = "attributeValue", namespace = DxfNamespaces.DXF_2_0 )
+    public Set<AttributeValue> getAttributeValues()
+    {
+        return attributeValues;
+    }
 
-//    public AttributeValue getAttributeValue( Attribute attribute )
-//    {
-//        loadAttributeValuesCacheIfEmpty();
-//        return cacheAttributeValues.get( attribute.getUid() );
-//    }
-//
-//    public AttributeValue getAttributeValue( String attributeUid )
-//    {
-//        loadAttributeValuesCacheIfEmpty();
-//        return cacheAttributeValues.get( attributeUid );
-//    }
+    @Override
+    public void setAttributeValues( Set<AttributeValue> attributeValues )
+    {
+        cacheAttributeValues.clear();
+        this.attributeValues = attributeValues;
+    }
+
+    public AttributeValue getAttributeValue( Attribute attribute )
+    {
+        loadAttributeValuesCacheIfEmpty();
+        return cacheAttributeValues.get( attribute.getUid() );
+    }
+
+    public AttributeValue getAttributeValue( String attributeUid )
+    {
+        loadAttributeValuesCacheIfEmpty();
+        return cacheAttributeValues.get( attributeUid );
+    }
 
     @Override
     @JsonProperty
@@ -398,13 +400,13 @@ public class BaseIdentifiableObject
         }
     }
 
-//    private void loadAttributeValuesCacheIfEmpty()
-//    {
-//        if ( cacheAttributeValues.isEmpty() && attributeValues != null )
-//        {
-//            attributeValues.forEach( av -> cacheAttributeValues.put( av.getAttribute().getUid(), av ) );
-//        }
-//    }
+    private void loadAttributeValuesCacheIfEmpty()
+    {
+        if ( cacheAttributeValues.isEmpty() && attributeValues != null )
+        {
+            attributeValues.forEach( av -> cacheAttributeValues.put( av.getAttribute().getUid(), av ) );
+        }
+    }
 
     @Override
     @JsonProperty
@@ -673,16 +675,16 @@ public class BaseIdentifiableObject
         {
             return id > 0 ? String.valueOf( id ) : null;
         }
-//        else if ( idScheme.is( IdentifiableProperty.ATTRIBUTE ) )
-//        {
-//            for ( AttributeValue attributeValue : attributeValues )
-//            {
-//                if ( idScheme.getAttribute().equals( attributeValue.getAttribute().getUid() ) )
-//                {
-//                    return attributeValue.getValue();
-//                }
-//            }
-//        }
+        else if ( idScheme.is( IdentifiableProperty.ATTRIBUTE ) )
+        {
+            for ( AttributeValue attributeValue : attributeValues )
+            {
+                if ( idScheme.getAttribute().equals( attributeValue.getAttribute().getUid() ) )
+                {
+                    return attributeValue.getValue();
+                }
+            }
+        }
 
         return null;
     }

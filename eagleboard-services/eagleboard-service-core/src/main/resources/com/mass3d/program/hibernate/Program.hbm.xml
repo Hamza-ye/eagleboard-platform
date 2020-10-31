@@ -136,7 +136,7 @@
 
     <!-- Dynamic attribute values -->
 
-    <!--<property name="attributeValues" type="jsbAttributeValues"/>-->
+    <property name="attributeValues" type="jsbAttributeValues"/>
 
     <!-- Access properties -->
 

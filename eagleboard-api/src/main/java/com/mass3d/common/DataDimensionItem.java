@@ -8,7 +8,12 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mass3d.dataelement.DataElement;
+import com.mass3d.dataelement.DataElementOperand;
 import com.mass3d.indicator.Indicator;
+import com.mass3d.program.ProgramDataElementDimensionItem;
+import com.mass3d.program.ProgramIndicator;
+import com.mass3d.program.ProgramTrackedEntityAttributeDimensionItem;
+import com.mass3d.validation.ValidationRule;
 import java.util.Map;
 import java.util.Set;
 import javax.persistence.Column;
@@ -27,21 +32,25 @@ public class DataDimensionItem {
       .
           add(Indicator.class).
           add(DataElement.class).
-//        add( DataElementOperand.class ).
-    add(ReportingRate.class).
-//        add( ProgramIndicator.class ).
-//        add( ProgramDataElementDimensionItem.class ).add( ProgramTrackedEntityAttributeDimensionItem.class ).add( ValidationRule.class ).
-    build();
+          add(DataElementOperand.class).
+          add(ReportingRate.class).
+          add(ProgramIndicator.class).
+          add(ProgramDataElementDimensionItem.class).
+          add(ProgramTrackedEntityAttributeDimensionItem.class).add(ValidationRule.class).
+          build();
 
   public static final Map<DataDimensionItemType, Class<? extends NameableObject>> DATA_DIMENSION_TYPE_CLASS_MAP = ImmutableMap.<DataDimensionItemType, Class<? extends NameableObject>>builder()
       .
           put(DataDimensionItemType.INDICATOR, Indicator.class).
-        put( DataDimensionItemType.DATA_ELEMENT, DataElement.class ).
-//        put( DataDimensionItemType.DATA_ELEMENT_OPERAND, DataElementOperand.class ).
-    put(DataDimensionItemType.REPORTING_RATE, ReportingRate.class).
-//        put( DataDimensionItemType.PROGRAM_INDICATOR, ProgramIndicator.class ).put( DataDimensionItemType.PROGRAM_DATA_ELEMENT, ProgramDataElementDimensionItem.class ).
-//        put( DataDimensionItemType.PROGRAM_ATTRIBUTE, ProgramTrackedEntityAttributeDimensionItem.class ).put( DataDimensionItemType.VALIDATION_RULE, ValidationRule.class).
-    build();
+          put(DataDimensionItemType.DATA_ELEMENT, DataElement.class).
+          put(DataDimensionItemType.DATA_ELEMENT_OPERAND, DataElementOperand.class).
+          put(DataDimensionItemType.REPORTING_RATE, ReportingRate.class).
+          put(DataDimensionItemType.PROGRAM_INDICATOR, ProgramIndicator.class).
+          put(DataDimensionItemType.PROGRAM_DATA_ELEMENT, ProgramDataElementDimensionItem.class).
+          put(DataDimensionItemType.PROGRAM_ATTRIBUTE,
+              ProgramTrackedEntityAttributeDimensionItem.class).
+          put(DataDimensionItemType.VALIDATION_RULE, ValidationRule.class).
+          build();
 
   @Id
   @GeneratedValue(
@@ -65,16 +74,16 @@ public class DataDimensionItem {
   @JoinColumn(name = "indicatorid")
   private Indicator indicator;
 
-//
-//    private DataElementOperand dataElementOperand;
+  //
+  private DataElementOperand dataElementOperand;
 
   private ReportingRate reportingRate;
 
-//    private ProgramIndicator programIndicator;
-//
-//    private ProgramDataElementDimensionItem programDataElement;
-//
-//    private ProgramTrackedEntityAttributeDimensionItem programAttribute;
+  private ProgramIndicator programIndicator;
+
+  private ProgramDataElementDimensionItem programDataElement;
+
+  private ProgramTrackedEntityAttributeDimensionItem programAttribute;
 
   // -------------------------------------------------------------------------
   // Constructor
@@ -90,31 +99,20 @@ public class DataDimensionItem {
       dimension.setDataElement((DataElement) object);
     } else if (Indicator.class.isAssignableFrom(object.getClass())) {
       dimension.setIndicator((Indicator) object);
-    }
-        else if ( DataElement.class.isAssignableFrom( object.getClass() ) )
-        {
-            dimension.setDataElement( (DataElement) object );
-        }
-//        else if ( DataElementOperand.class.isAssignableFrom( object.getClass() ) )
-//        {
-//            dimension.setDataElementOperand( (DataElementOperand) object );
-//        }
-    else if (ReportingRate.class.isAssignableFrom(object.getClass())) {
+    } else if (DataElement.class.isAssignableFrom(object.getClass())) {
+      dimension.setDataElement((DataElement) object);
+    } else if (DataElementOperand.class.isAssignableFrom(object.getClass())) {
+      dimension.setDataElementOperand((DataElementOperand) object);
+    } else if (ReportingRate.class.isAssignableFrom(object.getClass())) {
       dimension.setReportingRate((ReportingRate) object);
-    }
-//        else if ( ProgramIndicator.class.isAssignableFrom( object.getClass() ) )
-//        {
-//            dimension.setProgramIndicator( (ProgramIndicator) object );
-//        }
-//        else if ( ProgramDataElementDimensionItem.class.isAssignableFrom( object.getClass() ) )
-//        {
-//            dimension.setProgramDataElement( (ProgramDataElementDimensionItem) object );
-//        }
-//        else if ( ProgramTrackedEntityAttributeDimensionItem.class.isAssignableFrom( object.getClass() ) )
-//        {
-//            dimension.setProgramAttribute( (ProgramTrackedEntityAttributeDimensionItem) object );
-//        }
-    else {
+    } else if (ProgramIndicator.class.isAssignableFrom(object.getClass())) {
+      dimension.setProgramIndicator((ProgramIndicator) object);
+    } else if (ProgramDataElementDimensionItem.class.isAssignableFrom(object.getClass())) {
+      dimension.setProgramDataElement((ProgramDataElementDimensionItem) object);
+    } else if (ProgramTrackedEntityAttributeDimensionItem.class
+        .isAssignableFrom(object.getClass())) {
+      dimension.setProgramAttribute((ProgramTrackedEntityAttributeDimensionItem) object);
+    } else {
       throw new IllegalArgumentException(
           "Not a valid data dimension: " + object.getClass().getSimpleName() + ", " + object);
     }
@@ -131,26 +129,17 @@ public class DataDimensionItem {
       return dataElement;
     } else if (indicator != null) {
       return indicator;
-    }
-//        else if ( dataElementOperand != null )
-//        {
-//            return dataElementOperand;
-//        }
-    else if (reportingRate != null) {
+    } else if (dataElementOperand != null) {
+      return dataElementOperand;
+    } else if (reportingRate != null) {
       return reportingRate;
+    } else if (programIndicator != null) {
+      return programIndicator;
+    } else if (programDataElement != null) {
+      return programDataElement;
+    } else if (programAttribute != null) {
+      return programAttribute;
     }
-//        else if ( programIndicator != null )
-//        {
-//            return programIndicator;
-//        }
-//        else if ( programDataElement != null )
-//        {
-//            return programDataElement;
-//        }
-//        else if ( programAttribute != null )
-//        {
-//            return programAttribute;
-//        }
 
     return null;
   }
@@ -162,26 +151,17 @@ public class DataDimensionItem {
       return DataDimensionItemType.DATA_ELEMENT;
     } else if (indicator != null) {
       return DataDimensionItemType.INDICATOR;
-    }
-//        else if ( dataElementOperand != null )
-//        {
-//            return DataDimensionItemType.DATA_ELEMENT_OPERAND;
-//        }
-    else if (reportingRate != null) {
+    } else if (dataElementOperand != null) {
+      return DataDimensionItemType.DATA_ELEMENT_OPERAND;
+    } else if (reportingRate != null) {
       return DataDimensionItemType.REPORTING_RATE;
+    } else if (programIndicator != null) {
+      return DataDimensionItemType.PROGRAM_INDICATOR;
+    } else if (programDataElement != null) {
+      return DataDimensionItemType.PROGRAM_DATA_ELEMENT;
+    } else if (programAttribute != null) {
+      return DataDimensionItemType.PROGRAM_ATTRIBUTE;
     }
-//        else if ( programIndicator != null )
-//        {
-//            return DataDimensionItemType.PROGRAM_INDICATOR;
-//        }
-//        else if ( programDataElement != null )
-//        {
-//            return DataDimensionItemType.PROGRAM_DATA_ELEMENT;
-//        }
-//        else if ( programAttribute != null )
-//        {
-//            return DataDimensionItemType.PROGRAM_ATTRIBUTE;
-//        }
 
     return null;
   }
@@ -253,31 +233,27 @@ public class DataDimensionItem {
     this.indicator = indicator;
   }
 
-    @JsonProperty
-    @JsonSerialize( as = BaseNameableObject.class )
-    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
-    public DataElement getDataElement()
-    {
-        return dataElement;
-    }
+  @JsonProperty
+  @JsonSerialize(as = BaseNameableObject.class)
+  @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
+  public DataElement getDataElement() {
+    return dataElement;
+  }
 
-    public void setDataElement( DataElement dataElement )
-    {
-        this.dataElement = dataElement;
-    }
-//
-//    @JsonProperty
-//    @JsonSerialize( as = BaseNameableObject.class )
-//    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
-//    public DataElementOperand getDataElementOperand()
-//    {
-//        return dataElementOperand;
-//    }
-//
-//    public void setDataElementOperand( DataElementOperand dataElementOperand )
-//    {
-//        this.dataElementOperand = dataElementOperand;
-//    }
+  public void setDataElement(DataElement dataElement) {
+    this.dataElement = dataElement;
+  }
+
+  @JsonProperty
+  @JsonSerialize(as = BaseNameableObject.class)
+  @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
+  public DataElementOperand getDataElementOperand() {
+    return dataElementOperand;
+  }
+
+  public void setDataElementOperand(DataElementOperand dataElementOperand) {
+    this.dataElementOperand = dataElementOperand;
+  }
 
   @JsonProperty
   @JsonSerialize(as = BaseNameableObject.class)
@@ -290,42 +266,36 @@ public class DataDimensionItem {
     this.reportingRate = reportingRate;
   }
 
-//    @JsonProperty
-//    @JsonSerialize( as = BaseNameableObject.class )
-//    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
-//    public ProgramIndicator getProgramIndicator()
-//    {
-//        return programIndicator;
-//    }
-//
-//    public void setProgramIndicator( ProgramIndicator programIndicator )
-//    {
-//        this.programIndicator = programIndicator;
-//    }
-//
-//    @JsonProperty
-//    @JsonSerialize( as = BaseNameableObject.class )
-//    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
-//    public ProgramDataElementDimensionItem getProgramDataElement()
-//    {
-//        return programDataElement;
-//    }
-//
-//    public void setProgramDataElement( ProgramDataElementDimensionItem programDataElement )
-//    {
-//        this.programDataElement = programDataElement;
-//    }
-//
-//    @JsonProperty
-//    @JsonSerialize( as = BaseNameableObject.class )
-//    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
-//    public ProgramTrackedEntityAttributeDimensionItem getProgramAttribute()
-//    {
-//        return programAttribute;
-//    }
-//
-//    public void setProgramAttribute( ProgramTrackedEntityAttributeDimensionItem programAttribute )
-//    {
-//        this.programAttribute = programAttribute;
-//    }
+  @JsonProperty
+  @JsonSerialize(as = BaseNameableObject.class)
+  @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
+  public ProgramIndicator getProgramIndicator() {
+    return programIndicator;
+  }
+
+  public void setProgramIndicator(ProgramIndicator programIndicator) {
+    this.programIndicator = programIndicator;
+  }
+
+  @JsonProperty
+  @JsonSerialize(as = BaseNameableObject.class)
+  @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
+  public ProgramDataElementDimensionItem getProgramDataElement() {
+    return programDataElement;
+  }
+
+  public void setProgramDataElement(ProgramDataElementDimensionItem programDataElement) {
+    this.programDataElement = programDataElement;
+  }
+
+  @JsonProperty
+  @JsonSerialize(as = BaseNameableObject.class)
+  @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
+  public ProgramTrackedEntityAttributeDimensionItem getProgramAttribute() {
+    return programAttribute;
+  }
+
+  public void setProgramAttribute(ProgramTrackedEntityAttributeDimensionItem programAttribute) {
+    this.programAttribute = programAttribute;
+  }
 }

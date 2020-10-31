@@ -29,7 +29,7 @@
 
     <property name="fieldMask" />
 
-    <!--<property name="translations" type="jblTranslations"/>-->
+    <property name="translations" type="jblTranslations"/>
 
     <property name="valueType" length="50" not-null="true">
       <type name="org.hibernate.type.EnumType">
@@ -78,6 +78,9 @@
 
     <many-to-one name="commentOptionSet" class="com.mass3d.option.OptionSet" column="commentoptionsetid"
       foreign-key="fk_dataelement_commentoptionsetid" />
+
+    <!-- Dynamic attribute values -->
+    <property name="attributeValues" type="jsbAttributeValues"/>
 
     <!-- Access properties -->
     <many-to-one name="user" class="com.mass3d.user.User" column="userid" foreign-key="fk_dataelement_userid" />

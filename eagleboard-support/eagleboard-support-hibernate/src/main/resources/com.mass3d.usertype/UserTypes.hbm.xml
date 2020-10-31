@@ -83,8 +83,8 @@
     <param name="clazz">com.mass3d.programrule.ProgramRuleActionEvaluationEnvironment</param>
   </typedef>
 
-  <!--<typedef class="com.mass3d.hibernate.jsonb.type.JsonAttributeValueBinaryType" name="jsbAttributeValues">-->
-    <!--<param name="clazz">com.mass3d.attribute.AttributeValue</param>-->
-  <!--</typedef>-->
+  <typedef class="com.mass3d.hibernate.jsonb.type.JsonAttributeValueBinaryType" name="jsbAttributeValues">
+    <param name="clazz">com.mass3d.attribute.AttributeValue</param>
+  </typedef>
 
 </hibernate-mapping>

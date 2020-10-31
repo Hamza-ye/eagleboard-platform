@@ -27,7 +27,7 @@
 
     <property name="decimals" />
 
-    <!--<property name="translations" type="jblTranslations"/>-->
+    <property name="translations" type="jblTranslations"/>
 
     <many-to-one name="indicatorType" class="com.mass3d.indicator.IndicatorType" column="indicatortypeid"
       foreign-key="fk_indicator_indicatortypeid" not-null="true" />
@@ -86,7 +86,7 @@
     </set>
 
     <!-- Dynamic attribute values -->
-    <!--<property name="attributeValues" type="jsbAttributeValues"/>-->
+    <property name="attributeValues" type="jsbAttributeValues"/>
 
   </class>
 

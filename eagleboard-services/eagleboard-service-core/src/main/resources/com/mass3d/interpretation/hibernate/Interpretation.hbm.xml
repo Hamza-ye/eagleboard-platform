@@ -86,7 +86,7 @@
       <many-to-many class="com.mass3d.user.UserAccess" column="useraccessid" unique="true" />
     </set>
     
-    <!--<property name="mentions" type="jlbMentions" />-->
+    <property name="mentions" type="jlbMentions" />
 
   </class>
 

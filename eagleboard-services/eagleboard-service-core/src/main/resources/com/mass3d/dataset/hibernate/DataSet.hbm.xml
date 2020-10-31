@@ -123,7 +123,7 @@
     <!---->
     <!--<property name="compulsoryFieldsCompleteOnly" />-->
 
-    <!--<property name="translations" type="jblTranslations"/>-->
+    <property name="translations" type="jblTranslations"/>
 
     <!--<list name="legendSets" table="datasetlegendsets">-->
       <!--<cache usage="read-write" />-->
@@ -134,7 +134,7 @@
 
     <!-- Dynamic attribute values -->
 
-    <!--<property name="attributeValues" type="jsbAttributeValues"/>-->
+    <property name="attributeValues" type="jsbAttributeValues"/>
 
     <!-- Access properties -->
     <many-to-one name="user" class="com.mass3d.user.User" column="userid" foreign-key="fk_dataset_userid" />

@@ -27,10 +27,10 @@
 
     <property name="attachment" />
 
-    <!--<property name="translations" type="jblTranslations"/>-->
+    <property name="translations" type="jblTranslations"/>
 
     <!-- Dynamic attribute values -->
-    <!--<property name="attributeValues" type="jsbAttributeValues"/>-->
+    <property name="attributeValues" type="jsbAttributeValues"/>
 
     <!-- Access properties -->
     <property name="externalAccess" />

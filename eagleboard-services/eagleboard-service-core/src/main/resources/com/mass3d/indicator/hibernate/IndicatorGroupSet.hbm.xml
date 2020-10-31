@@ -21,7 +21,7 @@
 
     <!--<property name="compulsory" />-->
 
-    <!--<property name="translations" type="jblTranslations"/>-->
+    <property name="translations" type="jblTranslations"/>
 
     <list name="members" table="indicatorgroupsetmembers">
       <cache usage="read-write" />

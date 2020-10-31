@@ -92,7 +92,7 @@ public class Interpretation
   )
   private Set<User> likedBy = new HashSet<>();
 
-//  private List<Mention> mentions = new ArrayList<>();
+  private List<Mention> mentions = new ArrayList<>();
 
   // -------------------------------------------------------------------------
   // Constructors
@@ -277,21 +277,21 @@ public class Interpretation
     this.likedBy = likedBy;
   }
 
-//  @JsonProperty("mentions")
-//  @JacksonXmlElementWrapper(localName = "mentions", namespace = DxfNamespaces.DXF_2_0)
-//  @JacksonXmlProperty(localName = "mentions", namespace = DxfNamespaces.DXF_2_0)
-//  public List<Mention> getMentions() {
-//    return mentions;
-//  }
-//
-//  public void setMentions(List<Mention> mentions) {
-//    this.mentions = mentions;
-//  }
-//
-//  @JsonIgnore
-//  public void setMentionsFromUsers(Set<User> users) {
-//    this.mentions = MentionUtils.convertUsersToMentions(users);
-//  }
+  @JsonProperty("mentions")
+  @JacksonXmlElementWrapper(localName = "mentions", namespace = DxfNamespaces.DXF_2_0)
+  @JacksonXmlProperty(localName = "mentions", namespace = DxfNamespaces.DXF_2_0)
+  public List<Mention> getMentions() {
+    return mentions;
+  }
+
+  public void setMentions(List<Mention> mentions) {
+    this.mentions = mentions;
+  }
+
+  @JsonIgnore
+  public void setMentionsFromUsers(Set<User> users) {
+    this.mentions = MentionUtils.convertUsersToMentions(users);
+  }
 
   @JsonProperty
   @JsonSerialize(as = BaseIdentifiableObject.class)

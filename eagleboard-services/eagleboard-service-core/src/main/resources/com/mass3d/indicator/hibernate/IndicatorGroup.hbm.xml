@@ -19,7 +19,7 @@
 
     <property name="description" type="text" />
 
-    <!--<property name="translations" type="jblTranslations"/>-->
+    <property name="translations" type="jblTranslations"/>
 
     <set name="members" table="indicatorgroupmembers">
       <cache usage="read-write" />
@@ -46,7 +46,7 @@
     </set>
 
     <!-- Dynamic attribute values -->
-    <!--<property name="attributeValues" type="jsbAttributeValues"/>-->
+    <property name="attributeValues" type="jsbAttributeValues"/>
 
     <join table="indicatorgroupsetmembers" inverse="true">
       <key column="indicatorgroupid" />

@@ -20,7 +20,7 @@
 
     <property name="name" column="name" not-null="true" unique="false" length="230" />
 
-    <!--<property name="translations" type="jblTranslations"/>-->
+    <property name="translations" type="jblTranslations"/>
 
     <set name="members" table="usergroupmembers">
       <cache usage="read-write" />
@@ -57,7 +57,7 @@
     </set>
 
     <!-- Dynamic attribute values -->
-    <!--<property name="attributeValues" type="jsbAttributeValues"/>-->
+    <property name="attributeValues" type="jsbAttributeValues"/>
 
 
   </class>

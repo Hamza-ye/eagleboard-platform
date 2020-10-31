@@ -100,7 +100,7 @@
 
     <!-- Dynamic attribute values -->
 
-    <!--<property name="attributeValues" type="jsbAttributeValues"/>-->
+    <property name="attributeValues" type="jsbAttributeValues"/>
 
     <list name="apps" table="userapps">
       <cache usage="read-write" />

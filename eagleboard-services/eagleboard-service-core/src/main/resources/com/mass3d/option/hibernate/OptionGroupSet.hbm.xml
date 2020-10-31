@@ -21,7 +21,7 @@
 
     <property name="dataDimension" column="datadimension" not-null="true" />
 
-    <!--<property name="translations" type="jblTranslations"/>-->
+    <property name="translations" type="jblTranslations"/>
 
     <list name="members" table="optiongroupsetmembers">
       <cache usage="read-write" />

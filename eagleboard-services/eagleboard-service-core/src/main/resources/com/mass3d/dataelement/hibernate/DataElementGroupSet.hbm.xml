@@ -23,7 +23,7 @@
 
     <property name="dataDimension" column="datadimension" not-null="true" />
 
-    <!--<property name="translations" type="jblTranslations"/>-->
+    <property name="translations" type="jblTranslations"/>
 
     <list name="members" table="dataelementgroupsetmembers">
       <cache usage="read-write" />
@@ -52,7 +52,7 @@
 
     <!-- Dynamic attribute values -->
 
-    <!--<property name="attributeValues" type="jsbAttributeValues"/>-->
+    <property name="attributeValues" type="jsbAttributeValues"/>
 
   </class>
 
