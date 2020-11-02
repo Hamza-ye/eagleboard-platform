@@ -1,0 +1,1 @@
+package com.mass3d.attribute.hibernate;
