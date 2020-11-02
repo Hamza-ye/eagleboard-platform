@@ -1,65 +1,27 @@
 package com.mass3d.datastatistics;
 
-/*
- * Copyright (c) 2004-2020, University of Oslo
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- * Redistributions of source code must retain the above copyright notice, this
- * list of conditions and the following disclaimer.
- *
- * Redistributions in binary form must reproduce the above copyright notice,
- * this list of conditions and the following disclaimer in the documentation
- * and/or other materials provided with the distribution.
- * Neither the name of the HISP project nor the names of its contributors may
- * be used to endorse or promote products derived from this software without
- * specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
- * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import org.hisp.dhis.analytics.SortOrder;
-import org.hisp.dhis.common.IdentifiableObjectManager;
-import org.hisp.dhis.dashboard.Dashboard;
-import org.hisp.dhis.datasummary.DataSummary;
-import org.hisp.dhis.datavalue.DataValueService;
-import org.hisp.dhis.eventchart.EventChart;
-import org.hisp.dhis.eventreport.EventReport;
-import org.hisp.dhis.indicator.Indicator;
-import org.hisp.dhis.program.ProgramStageInstanceService;
-import org.hisp.dhis.statistics.StatisticsProvider;
-import org.hisp.dhis.user.User;
-import org.hisp.dhis.user.UserInvitationStatus;
-import org.hisp.dhis.user.UserQueryParams;
-import org.hisp.dhis.user.UserService;
-import org.hisp.dhis.visualization.Visualization;
-import org.hisp.dhis.visualization.VisualizationStore;
+import com.mass3d.analytics.SortOrder;
+import com.mass3d.common.IdentifiableObjectManager;
+import com.mass3d.datasummary.DataSummary;
+import com.mass3d.datavalue.DataValueService;
+import com.mass3d.indicator.Indicator;
+import com.mass3d.statistics.StatisticsProvider;
+import com.mass3d.user.User;
+import com.mass3d.user.UserInvitationStatus;
+import com.mass3d.user.UserQueryParams;
+import com.mass3d.user.UserService;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * @author Yrjan A. F. Fraschetti
- * @author Julie Hill Roa
- */
-@Service( "org.hisp.dhis.datastatistics.DataStatisticsService" )
+@Service( "com.mass3d.datastatistics.DataStatisticsService" )
 @Transactional
 public class DefaultDataStatisticsService
     implements DataStatisticsService
@@ -82,11 +44,11 @@ public class DefaultDataStatisticsService
     @Autowired
     private StatisticsProvider statisticsProvider;
 
-    @Autowired
-    private ProgramStageInstanceService programStageInstanceService;
-
-    @Autowired
-    private VisualizationStore visualizationStore;
+//    @Autowired
+//    private ProgramStageInstanceService programStageInstanceService;
+//
+//    @Autowired
+//    private VisualizationStore visualizationStore;
 
     // -------------------------------------------------------------------------
     // DataStatisticsService implementation
@@ -117,13 +79,13 @@ public class DefaultDataStatisticsService
         long diff = now.getTime() - startDate.getTime();
         int days = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 
-        double savedCharts = visualizationStore.countChartsCreated( startDate );
-        double savedReportTables = visualizationStore.countPivotTablesCreated( startDate );
-        double savedMaps = idObjectManager.getCountByCreated( org.hisp.dhis.mapping.Map.class, startDate );
-        double savedVisualizations = idObjectManager.getCountByCreated( Visualization.class, startDate );
-        double savedEventReports = idObjectManager.getCountByCreated( EventReport.class, startDate );
-        double savedEventCharts = idObjectManager.getCountByCreated( EventChart.class, startDate );
-        double savedDashboards = idObjectManager.getCountByCreated( Dashboard.class, startDate );
+//        double savedCharts = visualizationStore.countChartsCreated( startDate );
+//        double savedReportTables = visualizationStore.countPivotTablesCreated( startDate );
+//        double savedMaps = idObjectManager.getCountByCreated( com.mass3d.mapping.Map.class, startDate );
+//        double savedVisualizations = idObjectManager.getCountByCreated( Visualization.class, startDate );
+//        double savedEventReports = idObjectManager.getCountByCreated( EventReport.class, startDate );
+//        double savedEventCharts = idObjectManager.getCountByCreated( EventChart.class, startDate );
+//        double savedDashboards = idObjectManager.getCountByCreated( Dashboard.class, startDate );
         double savedIndicators = idObjectManager.getCountByCreated( Indicator.class, startDate );
         double savedDataValues = dataValueService.getDataValueCount( days );
         int activeUsers = userService.getActiveUsersCount( 1 );
@@ -141,8 +103,11 @@ public class DefaultDataStatisticsService
             eventCountMap.get( DataStatisticsEventType.DASHBOARD_VIEW ),
             eventCountMap.get( DataStatisticsEventType.DATA_SET_REPORT_VIEW ),
             eventCountMap.get( DataStatisticsEventType.TOTAL_VIEW ),
-            savedMaps, savedCharts, savedReportTables, savedVisualizations, savedEventReports,
-            savedEventCharts, savedDashboards, savedIndicators, savedDataValues, activeUsers, users );
+//            savedMaps, savedCharts, savedReportTables, savedVisualizations, savedEventReports,
+//            savedEventCharts, savedDashboards,
+            null, null, null, null, null,
+            null, null,
+            savedIndicators, savedDataValues, activeUsers, users );
 
         return dataStatistics;
     }
@@ -222,10 +187,10 @@ public class DefaultDataStatisticsService
         /* event count */
         Map<Integer, Long> eventCount = new HashMap<>(  );
 
-        eventCount.put( 0, programStageInstanceService.getProgramStageInstanceCount( 0 ) );
-        eventCount.put( 1, programStageInstanceService.getProgramStageInstanceCount( 1 ) );
-        eventCount.put( 7, programStageInstanceService.getProgramStageInstanceCount( 7 ) );
-        eventCount.put( 30, programStageInstanceService.getProgramStageInstanceCount( 30 ) );
+//        eventCount.put( 0, programStageInstanceService.getProgramStageInstanceCount( 0 ) );
+//        eventCount.put( 1, programStageInstanceService.getProgramStageInstanceCount( 1 ) );
+//        eventCount.put( 7, programStageInstanceService.getProgramStageInstanceCount( 7 ) );
+//        eventCount.put( 30, programStageInstanceService.getProgramStageInstanceCount( 30 ) );
 
         statistics.setEventCount( eventCount );
 

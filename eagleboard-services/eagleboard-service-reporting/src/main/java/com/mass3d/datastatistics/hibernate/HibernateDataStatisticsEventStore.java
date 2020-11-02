@@ -20,9 +20,6 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
-/**
- * @author Julie Hill Roa
- */
 @Repository( "com.mass3d.datastatistics.DataStatisticsEventStore" )
 public class HibernateDataStatisticsEventStore
     extends HibernateGenericStore<DataStatisticsEvent>
