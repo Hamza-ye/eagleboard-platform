@@ -98,7 +98,7 @@ public class HibernateGenericStore<T>
      *
      * @return the current session.
      */
-    protected final Session getSession()
+    protected  Session getSession()
     {
         return sessionFactory.getCurrentSession();
     }
@@ -111,7 +111,7 @@ public class HibernateGenericStore<T>
      * @return a Query instance with return type is the object type T of the store class
      */
     @SuppressWarnings( "unchecked" )
-    protected final Query<T> getQuery( String hql )
+    protected  Query<T> getQuery( String hql )
     {
         return getSession()
             .createQuery( hql )
@@ -126,7 +126,7 @@ public class HibernateGenericStore<T>
      * @return a Query instance with return type specified in the Query<Y>
      */
     @SuppressWarnings( "unchecked" )
-    protected final <V> Query<V> getTypedQuery( String hql )
+    protected  <V> Query<V> getTypedQuery( String hql )
     {
         return getSession()
             .createQuery( hql )
@@ -141,7 +141,7 @@ public class HibernateGenericStore<T>
      * @return a Criteria instance.
      */
     @Deprecated
-    public final Criteria getCriteria()
+    public  Criteria getCriteria()
     {
         DetachedCriteria criteria = DetachedCriteria.forClass( getClazz() );
 
@@ -158,7 +158,7 @@ public class HibernateGenericStore<T>
     {
     }
 
-    public final Criteria getExecutableCriteria( DetachedCriteria detachedCriteria )
+    public  Criteria getExecutableCriteria( DetachedCriteria detachedCriteria )
     {
         return detachedCriteria.getExecutableCriteria( getSession() )
             .setCacheable( cacheable );
@@ -217,7 +217,7 @@ public class HibernateGenericStore<T>
      *
      * @return list result
      */
-    protected final List<T> getList( TypedQuery<T> typedQuery )
+    protected  List<T> getList( TypedQuery<T> typedQuery )
     {
         return typedQuery.getResultList();
     }
@@ -228,7 +228,7 @@ public class HibernateGenericStore<T>
      * @param parameters JpaQueryParameters
      * @return list objects
      */
-    protected final List<T> getList( CriteriaBuilder builder, JpaQueryParameters<T> parameters )
+    protected  List<T> getList( CriteriaBuilder builder, JpaQueryParameters<T> parameters )
     {
         return getTypedQuery( builder, parameters ).getResultList();
     }
@@ -238,7 +238,7 @@ public class HibernateGenericStore<T>
      *
      * @return executable TypedQuery
      */
-    protected final TypedQuery<T> getTypedQuery( CriteriaBuilder builder, JpaQueryParameters<T> parameters )
+    protected  TypedQuery<T> getTypedQuery( CriteriaBuilder builder, JpaQueryParameters<T> parameters )
     {
         List<Function<Root<T>, Predicate>> predicateProviders = parameters.getPredicates();
         List<Function<Root<T>, Order>> orderProviders = parameters.getOrders();
@@ -284,7 +284,7 @@ public class HibernateGenericStore<T>
      * @param parameters JpaQueryParameters
      * @return number of objects
      */
-    protected final Long getCount( CriteriaBuilder builder, JpaQueryParameters<T> parameters )
+    protected  Long getCount( CriteriaBuilder builder, JpaQueryParameters<T> parameters )
     {
         CriteriaQuery<Long> query = builder.createQuery( Long.class );
 
@@ -344,7 +344,7 @@ public class HibernateGenericStore<T>
      * @return a NativeQuery<T> instance.
      */
     @SuppressWarnings( "unchecked" )
-    protected final NativeQuery<T> getSqlQuery( String sql )
+    protected  NativeQuery<T> getSqlQuery( String sql )
     {
         return getSession().createNativeQuery( sql )
             .setCacheable( cacheable ).setHint( QueryHints.CACHEABLE, cacheable );
@@ -356,7 +356,7 @@ public class HibernateGenericStore<T>
      * @param sql the SQL query String.
      * @return a NativeQuery<T> instance.
      */
-    protected final NativeQuery<?> getUntypedSqlQuery( String sql )
+    protected  NativeQuery<?> getUntypedSqlQuery( String sql )
     {
         return getSession().createNativeQuery( sql )
             .setCacheable( cacheable ).setHint( QueryHints.CACHEABLE, cacheable );
