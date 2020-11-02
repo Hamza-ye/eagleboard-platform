@@ -103,7 +103,7 @@ public class DefaultSchemaService
         add( new RelationshipTypeSchemaDescriptor() ).
 //        add( new ReportSchemaDescriptor() ).
 //        add( new ReportTableSchemaDescriptor() ).
-//        add( new SectionSchemaDescriptor() ).
+        add( new SectionSchemaDescriptor() ).
 //        add( new SqlViewSchemaDescriptor() ).
         add( new TrackedEntityAttributeSchemaDescriptor() ).
         add( new TrackedEntityAttributeValueSchemaDescriptor() ).

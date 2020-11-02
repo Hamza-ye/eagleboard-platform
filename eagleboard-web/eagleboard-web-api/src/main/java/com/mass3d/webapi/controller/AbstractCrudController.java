@@ -5,6 +5,7 @@ import com.google.common.base.Enums;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
+import com.mass3d.attribute.AttributeService;
 import org.cache2k.Cache;
 import org.cache2k.Cache2kBuilder;
 import com.mass3d.cache.HibernateCacheManager;
@@ -169,8 +170,8 @@ public abstract class AbstractCrudController<T extends IdentifiableObject>
     @Autowired
     protected PatchService patchService;
 
-//    @Autowired
-//    protected AttributeService attributeService;
+    @Autowired
+    protected AttributeService attributeService;
 
     @Autowired
     protected ObjectMapper jsonMapper;
@@ -229,7 +230,7 @@ public abstract class AbstractCrudController<T extends IdentifiableObject>
 
         handleLinksAndAccess( entities, fields, false );
 
-//        handleAttributeValues( entities, fields );
+        handleAttributeValues( entities, fields );
 
         linkService.generatePagerLinks( pager, getEntityClass() );
 
@@ -502,7 +503,7 @@ public abstract class AbstractCrudController<T extends IdentifiableObject>
 
         handleLinksAndAccess( entities, fields, true );
 
-//        handleAttributeValues( entities, fields );
+        handleAttributeValues( entities, fields );
 
         for ( T entity : entities )
         {
@@ -1227,16 +1228,16 @@ public abstract class AbstractCrudController<T extends IdentifiableObject>
         }
     }
 
-//    protected void handleAttributeValues( List<T> entityList, List<String> fields )
-//    {
-//        List<String> hasAttributeValues = fields.stream().filter( field -> field.contains( "attributeValues" ) )
-//            .collect( Collectors.toList() );
-//
-//        if ( !hasAttributeValues.isEmpty() )
-//        {
-//            attributeService.generateAttributes( entityList );
-//        }
-//    }
+    protected void handleAttributeValues( List<T> entityList, List<String> fields )
+    {
+        List<String> hasAttributeValues = fields.stream().filter( field -> field.contains( "attributeValues" ) )
+            .collect( Collectors.toList() );
+
+        if ( !hasAttributeValues.isEmpty() )
+        {
+            attributeService.generateAttributes( entityList );
+        }
+    }
 
     private InclusionStrategy.Include getInclusionStrategy( String inclusionStrategy )
     {
