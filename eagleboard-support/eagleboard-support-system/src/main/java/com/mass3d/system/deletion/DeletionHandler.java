@@ -1,6 +1,8 @@
 package com.mass3d.system.deletion;
 
 import com.mass3d.activity.Activity;
+import com.mass3d.attribute.Attribute;
+import com.mass3d.attribute.AttributeValue;
 import com.mass3d.category.Category;
 import com.mass3d.category.CategoryCombo;
 import com.mass3d.category.CategoryOption;
@@ -99,23 +101,23 @@ public abstract class DeletionHandler {
   // Public methods
   // -------------------------------------------------------------------------
 
-//    public void deleteAttribute( Attribute attribute )
-//    {
-//    }
-//
-//    public String allowDeleteAttribute( Attribute attribute )
-//    {
-//        return null;
-//    }
-//
-//    public void deleteAttributeValue( AttributeValue attributeValue )
-//    {
-//    }
-//
-//    public String allowDeleteAttributeValue( AttributeValue attributeValue )
-//    {
-//        return null;
-//    }
+    public void deleteAttribute( Attribute attribute )
+    {
+    }
+
+    public String allowDeleteAttribute( Attribute attribute )
+    {
+        return null;
+    }
+
+    public void deleteAttributeValue( AttributeValue attributeValue )
+    {
+    }
+
+    public String allowDeleteAttributeValue( AttributeValue attributeValue )
+    {
+        return null;
+    }
 //
 //    public void deleteDataApproval( DataApproval dataApproval )
 //    {

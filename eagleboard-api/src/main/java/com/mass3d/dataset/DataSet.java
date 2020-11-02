@@ -8,7 +8,13 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.mass3d.category.Category;
 import com.mass3d.category.CategoryCombo;
+import com.mass3d.category.CategoryOption;
+import com.mass3d.category.CategoryOptionCombo;
+import com.mass3d.category.CategoryOptionGroupSet;
+import com.mass3d.dataelement.DataElementOperand;
+import com.mass3d.dataentryform.DataEntryForm;
 import com.mass3d.organisationunit.OrganisationUnit;
 import java.util.Date;
 import java.util.HashSet;
@@ -166,6 +172,22 @@ public class DataSet
    */
   @OneToMany(mappedBy = "dataSet")
   private Set<Interpretation> interpretations = new HashSet<>();
+
+  /**
+   * The DataElementOperands for which data must be entered in order for the
+   * DataSet to be considered as complete.
+   */
+  private Set<DataElementOperand> compulsoryDataElementOperands = new HashSet<>();
+
+  /**
+   * The Sections associated with the DataSet.
+   */
+  private Set<Section> sections = new HashSet<>();
+
+  /**
+   * Indicating custom data entry form, can be null.
+   */
+  private DataEntryForm dataEntryForm;
 
   // -------------------------------------------------------------------------
   // Constructors
@@ -328,6 +350,98 @@ public class DataSet
     return indicator.getDataSets().remove(this);
   }
 
+  public void addCompulsoryDataElementOperand( DataElementOperand dataElementOperand )
+  {
+    compulsoryDataElementOperands.add( dataElementOperand );
+  }
+
+  public void removeCompulsoryDataElementOperand( DataElementOperand dataElementOperand )
+  {
+    compulsoryDataElementOperands.remove( dataElementOperand );
+  }
+
+  public boolean hasDataEntryForm()
+  {
+    return dataEntryForm != null && dataEntryForm.hasForm();
+  }
+
+  public boolean hasSections()
+  {
+    return sections != null && sections.size() > 0;
+  }
+
+  @JsonProperty
+  @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
+  public FormType getFormType()
+  {
+    if ( hasDataEntryForm() )
+    {
+      return FormType.CUSTOM;
+    }
+
+    if ( hasSections() )
+    {
+      return FormType.SECTION;
+    }
+
+    return FormType.DEFAULT;
+  }
+
+  public Set<DataElement> getDataElementsInSections()
+  {
+    Set<DataElement> dataElements = new HashSet<>();
+
+    for ( Section section : sections )
+    {
+      dataElements.addAll( section.getDataElements() );
+    }
+
+    return dataElements;
+  }
+
+  public Set<CategoryOptionCombo> getDataElementOptionCombos()
+  {
+    Set<CategoryOptionCombo> optionCombos = new HashSet<>();
+
+    for ( DataSetElement element : dataSetElements )
+    {
+      optionCombos.addAll( element.getResolvedCategoryCombo().getOptionCombos() );
+    }
+
+    return optionCombos;
+  }
+
+  /**
+   * Returns a set of category option group sets which are linked to this data
+   * set through its category combination.
+   */
+  public Set<CategoryOptionGroupSet> getCategoryOptionGroupSets()
+  {
+    Set<CategoryOptionGroupSet> groupSets = new HashSet<>();
+
+    if ( categoryCombo != null )
+    {
+      for ( Category category : categoryCombo.getCategories() )
+      {
+        for ( CategoryOption categoryOption : category.getCategoryOptions() )
+        {
+          groupSets.addAll( categoryOption.getGroupSets() );
+        }
+      }
+    }
+
+    return groupSets;
+  }
+
+  /**
+   * Indicates whether this data set has a category combination which is different
+   * from the default category combination.
+   */
+  public boolean hasCategoryCombo()
+  {
+    return categoryCombo != null && !CategoryCombo.DEFAULT_CATEGORY_COMBO_NAME.equals( categoryCombo.getName() );
+  }
+
   /**
    * Indicates whether the data set is locked for data entry based on the expiry days.
    *
@@ -391,6 +505,18 @@ public class DataSet
     this.dataInputPeriods = dataInputPeriods;
   }
 
+  @JsonProperty
+  @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
+  public DataEntryForm getDataEntryForm()
+  {
+    return dataEntryForm;
+  }
+
+  public void setDataEntryForm( DataEntryForm dataEntryForm )
+  {
+    this.dataEntryForm = dataEntryForm;
+  }
+
   @JsonProperty( value = "organisationUnits" )
   @JsonSerialize( contentAs = BaseIdentifiableObject.class )
   @JacksonXmlElementWrapper( localName = "organisationUnits", namespace = DxfNamespaces.DXF_2_0 )
@@ -406,6 +532,33 @@ public class DataSet
   }
 
   @JsonProperty
+  @JacksonXmlElementWrapper( localName = "compulsoryDataElementOperands", namespace = DxfNamespaces.DXF_2_0 )
+  @JacksonXmlProperty( localName = "compulsoryDataElementOperand", namespace = DxfNamespaces.DXF_2_0 )
+  public Set<DataElementOperand> getCompulsoryDataElementOperands()
+  {
+    return compulsoryDataElementOperands;
+  }
+
+  public void setCompulsoryDataElementOperands( Set<DataElementOperand> compulsoryDataElementOperands )
+  {
+    this.compulsoryDataElementOperands = compulsoryDataElementOperands;
+  }
+
+  @JsonProperty
+  @JsonSerialize( contentAs = BaseIdentifiableObject.class )
+  @JacksonXmlElementWrapper( localName = "sections", namespace = DxfNamespaces.DXF_2_0 )
+  @JacksonXmlProperty( localName = "section", namespace = DxfNamespaces.DXF_2_0 )
+  public Set<Section> getSections()
+  {
+    return sections;
+  }
+
+  public void setSections( Set<Section> sections )
+  {
+    this.sections = sections;
+  }
+
+  @JsonProperty
   @JsonSerialize( as = BaseIdentifiableObject.class )
   @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
   public CategoryCombo getCategoryCombo()
@@ -416,16 +569,6 @@ public class DataSet
   public void setCategoryCombo( CategoryCombo categoryCombo )
   {
     this.categoryCombo = categoryCombo;
-  }
-
-  @JsonProperty
-  @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
-  public String getFormName() {
-    return formName;
-  }
-
-  public void setFormName(String formName) {
-    this.formName = formName;
   }
 
   @JsonProperty
@@ -537,5 +680,20 @@ public class DataSet
   public int increaseVersion() {
     return ++version;
   }
+
+  @Override
+  @JsonProperty
+  @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
+  public String getFormName()
+  {
+    return formName;
+  }
+
+  @Override
+  public void setFormName( String formName )
+  {
+    this.formName = formName;
+  }
+
 
 }

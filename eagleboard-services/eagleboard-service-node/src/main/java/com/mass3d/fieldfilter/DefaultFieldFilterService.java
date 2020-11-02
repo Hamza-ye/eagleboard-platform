@@ -4,6 +4,9 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.mass3d.attribute.Attribute;
+import com.mass3d.attribute.AttributeService;
+import com.mass3d.attribute.AttributeValue;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -65,7 +68,7 @@ public class DefaultFieldFilterService implements FieldFilterService
 
     private final CurrentUserService currentUserService;
 
-//    private final AttributeService attributeService;
+    private final AttributeService attributeService;
 
     private final Set<NodeTransformer> nodeTransformers;
 
@@ -87,14 +90,14 @@ public class DefaultFieldFilterService implements FieldFilterService
         SchemaService schemaService,
         AclService aclService,
         CurrentUserService currentUserService,
-//        AttributeService attributeService,
+        AttributeService attributeService,
         @Autowired( required = false ) Set<NodeTransformer> nodeTransformers )
     {
         this.fieldParser = fieldParser;
         this.schemaService = schemaService;
         this.aclService = aclService;
         this.currentUserService = currentUserService;
-//        this.attributeService = attributeService;
+        this.attributeService = attributeService;
         this.nodeTransformers = nodeTransformers == null ? new HashSet<>() : nodeTransformers;
     }
 
@@ -244,11 +247,11 @@ public class DefaultFieldFilterService implements FieldFilterService
             ((BaseIdentifiableObject) object).setAccess( aclService.getAccess( (IdentifiableObject) object, user ) );
         }
 
-//        if ( fieldMap.containsKey( "attribute" ) && AttributeValue.class.isAssignableFrom( object.getClass() ) )
-//        {
-//            AttributeValue attributeValue = (AttributeValue) object;
-//            attributeValue.setAttribute( attributeService.getAttribute( attributeValue.getAttribute().getUid() ) );
-//        }
+        if ( fieldMap.containsKey( "attribute" ) && AttributeValue.class.isAssignableFrom( object.getClass() ) )
+        {
+            AttributeValue attributeValue = (AttributeValue) object;
+            attributeValue.setAttribute( attributeService.getAttribute( attributeValue.getAttribute().getUid() ) );
+        }
 
         for ( String fieldKey : fieldMap.keySet() )
         {
@@ -649,18 +652,18 @@ public class DefaultFieldFilterService implements FieldFilterService
         return IdentifiableObject.class.isAssignableFrom( klass );
     }
 
-//    /**
-//     * {@link AttributeValue} is saved as JSONB, and it contains only Attribute's uid
-//     * If fields parameter requires more than just Attribute's uid
-//     * then we need to get full {@link Attribute} object ( from cache )
-//     * e.g. fields=id,name,attributeValues[value,attribute[id,name,description]]
-//     */
+    /**
+     * {@link AttributeValue} is saved as JSONB, and it contains only Attribute's uid
+     * If fields parameter requires more than just Attribute's uid
+     * then we need to get full {@link Attribute} object ( from cache )
+     * e.g. fields=id,name,attributeValues[value,attribute[id,name,description]]
+     */
     private Object handleJsonbObjectProperties( Class<?> klass, Class<?> propertyClass, Object returnObject )
     {
-//        if ( AttributeValue.class.isAssignableFrom( klass ) && Attribute.class.isAssignableFrom( propertyClass ) )
-//        {
-//            returnObject = attributeService.getAttribute( ((Attribute) returnObject).getUid() );
-//        }
+        if ( AttributeValue.class.isAssignableFrom( klass ) && Attribute.class.isAssignableFrom( propertyClass ) )
+        {
+            returnObject = attributeService.getAttribute( ((Attribute) returnObject).getUid() );
+        }
 
         return returnObject;
     }

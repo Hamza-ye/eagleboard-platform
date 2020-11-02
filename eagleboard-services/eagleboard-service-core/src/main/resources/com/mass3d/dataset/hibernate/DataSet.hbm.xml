@@ -47,12 +47,12 @@
         foreign-key="fk_dataset_indicatorid" />
     </set>
 
-    <!--<set name="compulsoryDataElementOperands" table="datasetoperands" cascade="all-delete-orphan">-->
-      <!--<cache usage="read-write" />-->
-      <!--<key column="datasetid" foreign-key="fk_datasetoperands_datasetid" />-->
-      <!--<many-to-many class="com.mass3d.dataelement.DataElementOperand" column="dataelementoperandid"-->
-        <!--foreign-key="fk_dataset_dataelementoperandid" />-->
-    <!--</set>-->
+    <set name="compulsoryDataElementOperands" table="datasetoperands" cascade="all-delete-orphan">
+      <cache usage="read-write" />
+      <key column="datasetid" foreign-key="fk_datasetoperands_datasetid" />
+      <many-to-many class="com.mass3d.dataelement.DataElementOperand" column="dataelementoperandid"
+        foreign-key="fk_dataset_dataelementoperandid" />
+    </set>
 
     <set name="sources" table="datasetsource">
       <cache usage="read-write" />
@@ -68,17 +68,17 @@
         foreign-key="fk_dataset_todotask" />
     </set>
 
-    <!--<set name="sections" order-by="sortorder" inverse="true">-->
-      <!--<cache usage="read-write" />-->
-      <!--<key column="datasetid" />-->
-      <!--<one-to-many class="com.mass3d.dataset.Section" />-->
-    <!--</set>-->
+    <set name="sections" order-by="sortorder" inverse="true">
+      <cache usage="read-write" />
+      <key column="datasetid" />
+      <one-to-many class="com.mass3d.dataset.Section" />
+    </set>
 
     <many-to-one name="categoryCombo" class="com.mass3d.category.CategoryCombo"
       column="categorycomboid" not-null="true" foreign-key="fk_dataset_categorycomboid" />
 
-    <!--<many-to-one name="dataEntryForm" class="com.mass3d.dataentryform.DataEntryForm"-->
-      <!--foreign-key="fk_dataset_dataentryform" cascade="all" />-->
+    <many-to-one name="dataEntryForm" class="com.mass3d.dataentryform.DataEntryForm"
+      foreign-key="fk_dataset_dataentryform" cascade="all" />
 
     <property name="mobile" not-null="true" />
 
