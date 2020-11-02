@@ -9,6 +9,10 @@ import com.mass3d.indicator.IndicatorGroup;
 import com.mass3d.indicator.IndicatorGroupSet;
 import com.mass3d.indicator.IndicatorType;
 import com.mass3d.option.OptionSet;
+import com.mass3d.program.ProgramExpression;
+import com.mass3d.program.ProgramIndicatorGroup;
+import com.mass3d.program.notification.ProgramNotificationInstance;
+import com.mass3d.program.notification.ProgramNotificationTemplate;
 import com.mass3d.scheduling.JobConfiguration;
 import com.mass3d.security.acl.AclService;
 import com.mass3d.user.CurrentUserService;
@@ -72,11 +76,6 @@ public class StoreConfig {
 //        return new HibernateIdentifiableObjectStore<>( sessionFactory,
 //            jdbcTemplate, publisher, PredictorGroup.class, currentUserService, aclService, true );
 //    }
-//  @Bean("com.mass3d.fileresource.FileResourceStore")
-//  public HibernateIdentifiableObjectStore<FileResource> fileResourceStore() {
-//    return new HibernateIdentifiableObjectStore<>(sessionFactory, jdbcTemplate,
-//        publisher, FileResource.class, currentUserService, aclService, true);
-//  }
 
   @Bean("com.mass3d.expression.ExpressionStore")
   public HibernateGenericStore<Expression> expressionStore() {
@@ -134,12 +133,12 @@ public class StoreConfig {
 //            LegendSet.class, currentUserService, aclService, true );
 //    }
 
-//    @Bean( "com.mass3d.program.ProgramIndicatorGroupStore" )
-//    public HibernateIdentifiableObjectStore<ProgramIndicatorGroup> programIndicatorGroupStore()
-//    {
-//        return new HibernateIdentifiableObjectStore<>( sessionFactory, jdbcTemplate, publisher,
-//            ProgramIndicatorGroup.class, currentUserService, aclService, true );
-//    }
+    @Bean( "com.mass3d.program.ProgramIndicatorGroupStore" )
+    public HibernateIdentifiableObjectStore<ProgramIndicatorGroup> programIndicatorGroupStore()
+    {
+        return new HibernateIdentifiableObjectStore<>( sessionFactory, jdbcTemplate, publisher,
+            ProgramIndicatorGroup.class, currentUserService, aclService, true );
+    }
 
 //    @Bean( "com.mass3d.report.ReportStore" )
 //    public HibernateIdentifiableObjectStore<Report> reportStore()
@@ -176,12 +175,12 @@ public class StoreConfig {
 //            jdbcTemplate, publisher, Dashboard.class, currentUserService, aclService, true );
 //    }
 //
-//    @Bean( "com.mass3d.program.ProgramExpressionStore" )
-//    public HibernateGenericStore<ProgramExpression> programExpressionStore()
-//    {
-//        return new HibernateGenericStore<>( sessionFactory, jdbcTemplate, publisher,
-//            ProgramExpression.class, true );
-//    }
+    @Bean( "com.mass3d.program.ProgramExpressionStore" )
+    public HibernateGenericStore<ProgramExpression> programExpressionStore()
+    {
+        return new HibernateGenericStore<>( sessionFactory, jdbcTemplate, publisher,
+            ProgramExpression.class, true );
+    }
 //
 //    @Bean( "com.mass3d.eventreport.EventReportStore" )
 //    public HibernateAnalyticalObjectStore<EventReport> eventReportStore()
@@ -197,17 +196,17 @@ public class StoreConfig {
 //            jdbcTemplate, publisher, EventChart.class, currentUserService, aclService, true );
 //    }
 
-//    @Bean( "com.mass3d.program.notification.ProgramNotificationStore" )
-//    public HibernateIdentifiableObjectStore<ProgramNotificationTemplate> programNotificationStore()
-//    {
-//        return new HibernateIdentifiableObjectStore<>( sessionFactory, jdbcTemplate, publisher,
-//            ProgramNotificationTemplate.class, currentUserService, aclService, true );
-//    }
-//
-//    @Bean( "com.mass3d.program.notification.ProgramNotificationInstanceStore" )
-//    public HibernateIdentifiableObjectStore<ProgramNotificationInstance> programNotificationInstanceStore()
-//    {
-//        return new HibernateIdentifiableObjectStore<>( sessionFactory, jdbcTemplate, publisher,
-//            ProgramNotificationInstance.class, currentUserService, aclService, true );
-//    }
+    @Bean( "com.mass3d.program.notification.ProgramNotificationStore" )
+    public HibernateIdentifiableObjectStore<ProgramNotificationTemplate> programNotificationStore()
+    {
+        return new HibernateIdentifiableObjectStore<>( sessionFactory, jdbcTemplate, publisher,
+            ProgramNotificationTemplate.class, currentUserService, aclService, true );
+    }
+
+    @Bean( "com.mass3d.program.notification.ProgramNotificationInstanceStore" )
+    public HibernateIdentifiableObjectStore<ProgramNotificationInstance> programNotificationInstanceStore()
+    {
+        return new HibernateIdentifiableObjectStore<>( sessionFactory, jdbcTemplate, publisher,
+            ProgramNotificationInstance.class, currentUserService, aclService, true );
+    }
 }

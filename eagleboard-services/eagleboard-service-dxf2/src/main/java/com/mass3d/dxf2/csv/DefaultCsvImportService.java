@@ -1,6 +1,8 @@
 package com.mass3d.dxf2.csv;
 
-import com.csvreader.CsvReader;
+
+import static com.mass3d.util.DateUtils.getMediumDate;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -10,10 +12,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+
 import org.apache.commons.lang3.StringUtils;
 import com.mass3d.analytics.AggregationType;
+import com.mass3d.category.Category;
+import com.mass3d.category.CategoryCombo;
+import com.mass3d.category.CategoryOption;
+import com.mass3d.category.CategoryOptionGroup;
+import com.mass3d.category.CategoryService;
 import com.mass3d.common.BaseIdentifiableObject;
 import com.mass3d.common.CodeGenerator;
+import com.mass3d.common.DataDimensionType;
 import com.mass3d.common.ListMap;
 import com.mass3d.common.ValueType;
 import com.mass3d.commons.collection.CachingMap;
@@ -22,6 +31,9 @@ import com.mass3d.dataelement.DataElementDomain;
 import com.mass3d.dataelement.DataElementGroup;
 import com.mass3d.dataelement.DataElementGroupService;
 import com.mass3d.dxf2.metadata.Metadata;
+import com.mass3d.expression.Expression;
+import com.mass3d.expression.MissingValueStrategy;
+import com.mass3d.expression.Operator;
 import com.mass3d.indicator.Indicator;
 import com.mass3d.indicator.IndicatorGroup;
 import com.mass3d.indicator.IndicatorGroupService;
@@ -30,19 +42,30 @@ import com.mass3d.option.OptionGroup;
 import com.mass3d.option.OptionGroupSet;
 import com.mass3d.option.OptionService;
 import com.mass3d.option.OptionSet;
+import com.mass3d.organisationunit.FeatureType;
+import com.mass3d.organisationunit.OrganisationUnit;
+import com.mass3d.organisationunit.OrganisationUnitGroup;
+import com.mass3d.organisationunit.OrganisationUnitGroupService;
+import com.mass3d.period.MonthlyPeriodType;
+import com.mass3d.period.PeriodType;
 import com.mass3d.system.util.CsvUtils;
+import com.mass3d.validation.Importance;
+import com.mass3d.validation.ValidationRule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.csvreader.CsvReader;
+
 
 @Service ( "com.mass3d.dxf2.csv.CsvImportService" )
 public class DefaultCsvImportService
     implements CsvImportService
 {
-//    @Autowired
-//    private CategoryService categoryService;
-//
-//    @Autowired
-//    private OrganisationUnitGroupService organisationUnitGroupService;
+    @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
+    private OrganisationUnitGroupService organisationUnitGroupService;
 
     @Autowired
     private DataElementGroupService dataElementGroupService;
@@ -90,28 +113,37 @@ public class DefaultCsvImportService
                 metadata.setIndicatorGroups( indicatorGroupMembersFromCsv( reader ) );
                 break;
             case CATEGORY_OPTION:
-//                metadata.setCategoryOptions( categoryOptionsFromCsv( reader ) );
+                metadata.setCategoryOptions( categoryOptionsFromCsv( reader ) );
                 break;
             case CATEGORY:
-//                metadata.setCategories( categoriesFromCsv( reader ) );
+                metadata.setCategories( categoriesFromCsv( reader ) );
                 break;
             case CATEGORY_COMBO:
-//                metadata.setCategoryCombos( categoryCombosFromCsv( reader ) );
+                metadata.setCategoryCombos( categoryCombosFromCsv( reader ) );
                 break;
             case CATEGORY_OPTION_GROUP:
-//                metadata.setCategoryOptionGroups( categoryOptionGroupsFromCsv( reader ) );
+                metadata.setCategoryOptionGroups( categoryOptionGroupsFromCsv( reader ) );
                 break;
             case ORGANISATION_UNIT:
-//                metadata.setTodoTasks( orgUnitsFromCsv( reader ) );
+                metadata.setOrganisationUnits( orgUnitsFromCsv( reader ) );
                 break;
             case ORGANISATION_UNIT_GROUP:
-//                metadata.setOrganisationUnitGroups( orgUnitGroupsFromCsv( reader ) );
+                metadata.setOrganisationUnitGroups( orgUnitGroupsFromCsv( reader ) );
                 break;
             case ORGANISATION_UNIT_GROUP_MEMBERSHIP:
-//                metadata.setOrganisationUnitGroups( orgUnitGroupMembersFromCsv( reader ) );
+                metadata.setOrganisationUnitGroups( orgUnitGroupMembersFromCsv( reader ) );
+                break;
+            case TODOTASK:
+//                metadata.setTodoTasks( todoTasksFromCsv( reader ) );
+                break;
+            case ACTIVITY:
+//                metadata.setActivities( activitiesFromCsv( reader ) );
+                break;
+            case PROJECT:
+//                metadata.setProjects( projectsFromCsv( reader ) );
                 break;
             case VALIDATION_RULE:
-//                metadata.setValidationRules( validationRulesFromCsv( reader ) );
+                metadata.setValidationRules( validationRulesFromCsv( reader ) );
                 break;
             case OPTION_SET:
                 setOptionSetsFromCsv( reader, metadata );
@@ -139,7 +171,7 @@ public class DefaultCsvImportService
     private List<DataElement> dataElementsFromCsv( CsvReader reader )
         throws IOException
     {
-//        CategoryCombo categoryCombo = categoryService.getDefaultCategoryCombo();
+        CategoryCombo categoryCombo = categoryService.getDefaultCategoryCombo();
 
         List<DataElement> list = new ArrayList<>();
 
@@ -167,16 +199,16 @@ public class DefaultCsvImportService
                 String commentOptionSetUid = getSafe( values, 13, null, 11 );
                 object.setAutoFields();
 
-//                CategoryCombo cc = new CategoryCombo();
-//                cc.setUid( categoryComboUid );
-//                cc.setAutoFields();
-//
-//                if ( categoryComboUid == null )
-//                {
-//                    cc.setUid( categoryCombo.getUid() );
-//                }
-//
-//                object.setCategoryCombo( cc );
+                CategoryCombo cc = new CategoryCombo();
+                cc.setUid( categoryComboUid );
+                cc.setAutoFields();
+
+                if ( categoryComboUid == null )
+                {
+                    cc.setUid( categoryCombo.getUid() );
+                }
+
+                object.setCategoryCombo( cc );
 
                 if ( optionSetUid != null )
                 {
@@ -293,249 +325,253 @@ public class DefaultCsvImportService
         return new ArrayList<>( uidMap.values() );
     }
 
-//    private List<CategoryOption> categoryOptionsFromCsv( CsvReader reader )
-//        throws IOException
-//    {
-//        List<CategoryOption> list = new ArrayList<>();
-//
-//        while ( reader.readRecord() )
-//        {
-//            String[] values = reader.getValues();
-//
-//            if ( values != null && values.length > 0 )
-//            {
-//                CategoryOption object = new CategoryOption();
-//                setIdentifiableObject( object, values );
-//                object.setShortName( getSafe( values, 3, object.getName(), 50 ) );
-//                list.add( object );
-//            }
-//        }
-//
-//        return list;
-//    }
-//
-//    private List<Category> categoriesFromCsv( CsvReader reader )
-//        throws IOException
-//    {
-//        List<Category> list = new ArrayList<>();
-//
-//        while ( reader.readRecord() )
-//        {
-//            String[] values = reader.getValues();
-//
-//            if ( values != null && values.length > 0 )
-//            {
-//                Category object = new Category();
-//                setIdentifiableObject( object, values );
-//                object.setDescription( getSafe( values, 3, null, 255 ) );
-//                object.setDataDimensionType( DataDimensionType.valueOf( getSafe( values, 4, DataDimensionType.DISAGGREGATION.toString(), 40 ) ) );
-//                object.setDataDimension( Boolean
-//                    .valueOf( getSafe( values, 5, Boolean.FALSE.toString(), 40 ) ) );
-//                list.add( object );
-//            }
-//        }
-//
-//        return list;
-//    }
-//
-//    private List<CategoryCombo> categoryCombosFromCsv( CsvReader reader )
-//        throws IOException
-//    {
-//        List<CategoryCombo> list = new ArrayList<>();
-//
-//        while ( reader.readRecord() )
-//        {
-//            String[] values = reader.getValues();
-//
-//            if ( values != null && values.length > 0 )
-//            {
-//                CategoryCombo object = new CategoryCombo();
-//                setIdentifiableObject( object, values );
-//                object.setDataDimensionType( DataDimensionType.valueOf( getSafe( values, 3, DataDimensionType.DISAGGREGATION.toString(), 40 ) ) );
-//                object.setSkipTotal( Boolean
-//                    .valueOf( getSafe( values, 4, Boolean.FALSE.toString(), 40 ) ) );
-//                list.add( object );
-//            }
-//        }
-//
-//        return list;
-//    }
-//
-//    private List<CategoryOptionGroup> categoryOptionGroupsFromCsv( CsvReader reader )
-//        throws IOException
-//    {
-//        List<CategoryOptionGroup> list = new ArrayList<>();
-//
-//        while ( reader.readRecord() )
-//        {
-//            String[] values = reader.getValues();
-//
-//            if ( values != null && values.length > 0 )
-//            {
-//                CategoryOptionGroup object = new CategoryOptionGroup();
-//                setIdentifiableObject( object, values );
-//                object.setShortName( getSafe( values, 3, object.getName(), 50 ) );
-//                list.add( object );
-//            }
-//        }
-//
-//        return list;
-//    }
-//
-//    private List<ValidationRule> validationRulesFromCsv( CsvReader reader )
-//        throws IOException
-//    {
-//        List<ValidationRule> list = new ArrayList<>();
-//
-//        while ( reader.readRecord() )
-//        {
-//            String[] values = reader.getValues();
-//
-//            if ( values != null && values.length > 0 )
-//            {
-//                Expression leftSide = new Expression();
-//                Expression rightSide = new Expression();
-//
-//                ValidationRule object = new ValidationRule();
-//                setIdentifiableObject( object, values );
-//                object.setDescription( getSafe( values, 3, null, 255 ) );
-//                object.setInstruction( getSafe( values, 4, null, 255 ) );
-//                object.setImportance( Importance.valueOf( getSafe( values, 5, Importance.MEDIUM.toString(), 255 ) ) );
-//                // Index 6 was rule type which has been removed from the data model
-//                object.setOperator( Operator.safeValueOf( getSafe( values, 7, Operator.equal_to.toString(), 255 ) ) );
-//                object.setPeriodType( PeriodType.getByNameIgnoreCase( getSafe( values, 8, MonthlyPeriodType.NAME, 255 ) ) );
-//
-//                leftSide.setExpression( getSafe( values, 9, null, 255 ) );
-//                leftSide.setDescription( getSafe( values, 10, null, 255 ) );
-//                leftSide.setMissingValueStrategy( MissingValueStrategy
-//                    .safeValueOf( getSafe( values, 11, MissingValueStrategy.NEVER_SKIP.toString(), 50 ) ) );
-//
-//                rightSide.setExpression( getSafe( values, 12, null, 255 ) );
-//                rightSide.setDescription( getSafe( values, 13, null, 255 ) );
-//                rightSide.setMissingValueStrategy( MissingValueStrategy
-//                    .safeValueOf( getSafe( values, 14, MissingValueStrategy.NEVER_SKIP.toString(), 50 ) ) );
-//
-//                object.setLeftSide( leftSide );
-//                object.setRightSide( rightSide );
-//                object.setAutoFields();
-//
-//                list.add( object );
-//            }
-//        }
-//
-//        return list;
-//    }
-//
-//    private void setGeometry( OrganisationUnit ou, FeatureType featureType, String coordinates )
-//        throws IOException
-//    {
-//        if ( !( featureType == FeatureType.NONE)  && StringUtils.isNotBlank( coordinates ) )
-//        {
-//            ou.setGeometryAsJson( String.format( JSON_GEOM_TEMPL, featureType.value(), coordinates ) );
-//        }
-//    }
-//
-//    private List<OrganisationUnit> orgUnitsFromCsv( CsvReader reader )
-//        throws IOException
-//    {
-//        List<OrganisationUnit> list = new ArrayList<>();
-//
-//        while ( reader.readRecord() )
-//        {
-//            String[] values = reader.getValues();
-//
-//            if ( values != null && values.length > 0 )
-//            {
-//                OrganisationUnit object = new OrganisationUnit();
-//                setIdentifiableObject( object, values );
-//                String parentUid = getSafe( values, 3, null, 230 ); // Could be UID, code, name
-//                object.setShortName( getSafe( values, 4, object.getName(), 50 ) );
-//                object.setDescription( getSafe( values, 5, null, null ) );
-//                object.setOpeningDate( getMediumDate( getSafe( values, 6, "1970-01-01", null ) ) );
-//                object.setClosedDate( getMediumDate( getSafe( values, 7, null, null ) ) );
-//                object.setComment( getSafe( values, 8, null, null ) );
-//                setGeometry( object, FeatureType.valueOf( getSafe( values, 9, "NONE", 50 ) ),
-//                    getSafe( values, 10, null, null ) );
-//                object.setUrl( getSafe( values, 11, null, 255 ) );
-//                object.setContactPerson( getSafe( values, 12, null, 255 ) );
-//                object.setAddress( getSafe( values, 13, null, 255 ) );
-//                object.setEmail( getSafe( values, 14, null, 150 ) );
-//                object.setPhoneNumber( getSafe( values, 15, null, 150 ) );
-//                object.setAutoFields();
-//
-//                if ( parentUid != null )
-//                {
-//                    OrganisationUnit parent = new OrganisationUnit();
-//                    parent.setUid( parentUid );
-//                    object.setParent( parent );
-//                }
-//
-//                list.add( object );
-//            }
-//        }
-//
-//        return list;
-//    }
-//
-//    private List<OrganisationUnitGroup> orgUnitGroupsFromCsv( CsvReader reader )
-//        throws IOException
-//    {
-//        List<OrganisationUnitGroup> list = new ArrayList<>();
-//
-//        while ( reader.readRecord() )
-//        {
-//            String[] values = reader.getValues();
-//
-//            if ( values != null && values.length > 0 )
-//            {
-//                OrganisationUnitGroup object = new OrganisationUnitGroup();
-//                setIdentifiableObject( object, values );
-//                object.setAutoFields();
-//                object.setShortName( getSafe( values, 3, object.getName(), 50 ) );
-//                list.add( object );
-//            }
-//        }
-//
-//        return list;
-//    }
-//
-//    private List<OrganisationUnitGroup> orgUnitGroupMembersFromCsv( CsvReader reader )
-//        throws IOException
-//    {
-//        CachingMap<String, OrganisationUnitGroup> uidMap = new CachingMap<>();
-//
-//        while ( reader.readRecord() )
-//        {
-//            String[] values = reader.getValues();
-//
-//            if ( values != null && values.length > 0 )
-//            {
-//                String groupUid = values[0];
-//                String memberUid = values[1];
-//
-//                OrganisationUnitGroup persistedGroup = organisationUnitGroupService.getOrganisationUnitGroup( groupUid );
-//
-//                if ( persistedGroup != null )
-//                {
-//
-//                    OrganisationUnitGroup group = uidMap.get( groupUid, () -> {
-//                        OrganisationUnitGroup nonPersistedGroup = new OrganisationUnitGroup();
-//
-//                        nonPersistedGroup.setUid( persistedGroup.getUid() );
-//                        nonPersistedGroup.setName( persistedGroup.getName() );
-//
-//                        return nonPersistedGroup;
-//                    } );
-//
-//                    OrganisationUnit member = new OrganisationUnit();
-//                    member.setUid( memberUid );
-//                    group.addOrganisationUnit( member );
-//                }
-//            }
-//        }
-//
-//        return new ArrayList<>( uidMap.values() );
-//    }
+    private List<CategoryOption> categoryOptionsFromCsv( CsvReader reader )
+        throws IOException
+    {
+        List<CategoryOption> list = new ArrayList<>();
+
+        while ( reader.readRecord() )
+        {
+            String[] values = reader.getValues();
+
+            if ( values != null && values.length > 0 )
+            {
+                CategoryOption object = new CategoryOption();
+                setIdentifiableObject( object, values );
+                object.setShortName( getSafe( values, 3, object.getName(), 50 ) );
+                list.add( object );
+            }
+        }
+
+        return list;
+    }
+
+    private List<Category> categoriesFromCsv( CsvReader reader )
+        throws IOException
+    {
+        List<Category> list = new ArrayList<>();
+
+        while ( reader.readRecord() )
+        {
+            String[] values = reader.getValues();
+
+            if ( values != null && values.length > 0 )
+            {
+                Category object = new Category();
+                setIdentifiableObject( object, values );
+                object.setDescription( getSafe( values, 3, null, 255 ) );
+                object.setDataDimensionType( DataDimensionType.valueOf( getSafe( values, 4, DataDimensionType.DISAGGREGATION.toString(), 40 ) ) );
+                object.setDataDimension( Boolean
+                    .valueOf( getSafe( values, 5, Boolean.FALSE.toString(), 40 ) ) );
+                list.add( object );
+            }
+        }
+
+        return list;
+    }
+
+    private List<CategoryCombo> categoryCombosFromCsv( CsvReader reader )
+        throws IOException
+    {
+        List<CategoryCombo> list = new ArrayList<>();
+
+        while ( reader.readRecord() )
+        {
+            String[] values = reader.getValues();
+
+            if ( values != null && values.length > 0 )
+            {
+                CategoryCombo object = new CategoryCombo();
+                setIdentifiableObject( object, values );
+                object.setDataDimensionType( DataDimensionType
+                    .valueOf( getSafe( values, 3, DataDimensionType.DISAGGREGATION.toString(), 40 ) ) );
+                object.setSkipTotal( Boolean
+                    .valueOf( getSafe( values, 4, Boolean.FALSE.toString(), 40 ) ) );
+                list.add( object );
+            }
+        }
+
+        return list;
+    }
+
+    private List<CategoryOptionGroup> categoryOptionGroupsFromCsv( CsvReader reader )
+        throws IOException
+    {
+        List<CategoryOptionGroup> list = new ArrayList<>();
+
+        while ( reader.readRecord() )
+        {
+            String[] values = reader.getValues();
+
+            if ( values != null && values.length > 0 )
+            {
+                CategoryOptionGroup object = new CategoryOptionGroup();
+                setIdentifiableObject( object, values );
+                object.setShortName( getSafe( values, 3, object.getName(), 50 ) );
+                list.add( object );
+            }
+        }
+
+        return list;
+    }
+
+    private List<ValidationRule> validationRulesFromCsv( CsvReader reader )
+        throws IOException
+    {
+        List<ValidationRule> list = new ArrayList<>();
+
+        while ( reader.readRecord() )
+        {
+            String[] values = reader.getValues();
+
+            if ( values != null && values.length > 0 )
+            {
+                Expression leftSide = new Expression();
+                Expression rightSide = new Expression();
+
+                ValidationRule object = new ValidationRule();
+                setIdentifiableObject( object, values );
+                object.setDescription( getSafe( values, 3, null, 255 ) );
+                object.setInstruction( getSafe( values, 4, null, 255 ) );
+                object.setImportance( Importance
+                    .valueOf( getSafe( values, 5, Importance.MEDIUM.toString(), 255 ) ) );
+                // Index 6 was rule type which has been removed from the data model
+                object.setOperator( Operator
+                    .safeValueOf( getSafe( values, 7, Operator.equal_to.toString(), 255 ) ) );
+                object.setPeriodType( PeriodType
+                    .getByNameIgnoreCase( getSafe( values, 8, MonthlyPeriodType.NAME, 255 ) ) );
+
+                leftSide.setExpression( getSafe( values, 9, null, 255 ) );
+                leftSide.setDescription( getSafe( values, 10, null, 255 ) );
+                leftSide.setMissingValueStrategy( MissingValueStrategy
+                    .safeValueOf( getSafe( values, 11, MissingValueStrategy.NEVER_SKIP.toString(), 50 ) ) );
+
+                rightSide.setExpression( getSafe( values, 12, null, 255 ) );
+                rightSide.setDescription( getSafe( values, 13, null, 255 ) );
+                rightSide.setMissingValueStrategy( MissingValueStrategy
+                    .safeValueOf( getSafe( values, 14, MissingValueStrategy.NEVER_SKIP.toString(), 50 ) ) );
+
+                object.setLeftSide( leftSide );
+                object.setRightSide( rightSide );
+                object.setAutoFields();
+
+                list.add( object );
+            }
+        }
+
+        return list;
+    }
+
+    private void setGeometry( OrganisationUnit ou, FeatureType featureType, String coordinates )
+        throws IOException
+    {
+        if ( !( featureType == FeatureType.NONE)  && StringUtils.isNotBlank( coordinates ) )
+        {
+            ou.setGeometryAsJson( String.format( JSON_GEOM_TEMPL, featureType.value(), coordinates ) );
+        }
+    }
+
+    private List<OrganisationUnit> orgUnitsFromCsv( CsvReader reader )
+        throws IOException
+    {
+        List<OrganisationUnit> list = new ArrayList<>();
+
+        while ( reader.readRecord() )
+        {
+            String[] values = reader.getValues();
+
+            if ( values != null && values.length > 0 )
+            {
+                OrganisationUnit object = new OrganisationUnit();
+                setIdentifiableObject( object, values );
+                String parentUid = getSafe( values, 3, null, 230 ); // Could be UID, code, name
+                object.setShortName( getSafe( values, 4, object.getName(), 50 ) );
+                object.setDescription( getSafe( values, 5, null, null ) );
+                object.setOpeningDate( getMediumDate( getSafe( values, 6, "1970-01-01", null ) ) );
+                object.setClosedDate( getMediumDate( getSafe( values, 7, null, null ) ) );
+                object.setComment( getSafe( values, 8, null, null ) );
+                setGeometry( object, FeatureType.valueOf( getSafe( values, 9, "NONE", 50 ) ),
+                    getSafe( values, 10, null, null ) );
+                object.setUrl( getSafe( values, 11, null, 255 ) );
+                object.setContactPerson( getSafe( values, 12, null, 255 ) );
+                object.setAddress( getSafe( values, 13, null, 255 ) );
+                object.setEmail( getSafe( values, 14, null, 150 ) );
+                object.setPhoneNumber( getSafe( values, 15, null, 150 ) );
+                object.setAutoFields();
+
+                if ( parentUid != null )
+                {
+                    OrganisationUnit parent = new OrganisationUnit();
+                    parent.setUid( parentUid );
+                    object.setParent( parent );
+                }
+
+                list.add( object );
+            }
+        }
+
+        return list;
+    }
+
+    private List<OrganisationUnitGroup> orgUnitGroupsFromCsv( CsvReader reader )
+        throws IOException
+    {
+        List<OrganisationUnitGroup> list = new ArrayList<>();
+
+        while ( reader.readRecord() )
+        {
+            String[] values = reader.getValues();
+
+            if ( values != null && values.length > 0 )
+            {
+                OrganisationUnitGroup object = new OrganisationUnitGroup();
+                setIdentifiableObject( object, values );
+                object.setAutoFields();
+                object.setShortName( getSafe( values, 3, object.getName(), 50 ) );
+                list.add( object );
+            }
+        }
+
+        return list;
+    }
+
+    private List<OrganisationUnitGroup> orgUnitGroupMembersFromCsv( CsvReader reader )
+        throws IOException
+    {
+        CachingMap<String, OrganisationUnitGroup> uidMap = new CachingMap<>();
+
+        while ( reader.readRecord() )
+        {
+            String[] values = reader.getValues();
+
+            if ( values != null && values.length > 0 )
+            {
+                String groupUid = values[0];
+                String memberUid = values[1];
+
+                OrganisationUnitGroup persistedGroup = organisationUnitGroupService.getOrganisationUnitGroup( groupUid );
+
+                if ( persistedGroup != null )
+                {
+
+                    OrganisationUnitGroup group = uidMap.get( groupUid, () -> {
+                        OrganisationUnitGroup nonPersistedGroup = new OrganisationUnitGroup();
+
+                        nonPersistedGroup.setUid( persistedGroup.getUid() );
+                        nonPersistedGroup.setName( persistedGroup.getName() );
+
+                        return nonPersistedGroup;
+                    } );
+
+                    OrganisationUnit member = new OrganisationUnit();
+                    member.setUid( memberUid );
+                    group.addOrganisationUnit( member );
+                }
+            }
+        }
+
+        return new ArrayList<>( uidMap.values() );
+    }
 
     /**
      * Option set format:

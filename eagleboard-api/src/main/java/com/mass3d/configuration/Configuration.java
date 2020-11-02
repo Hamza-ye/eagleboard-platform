@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import com.mass3d.organisationunit.OrganisationUnit;
+import com.mass3d.organisationunit.OrganisationUnitLevel;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -40,7 +42,7 @@ public class Configuration
     
     private UserGroup feedbackRecipients;
     
-//    private OrganisationUnitLevel offlineOrganisationUnitLevel;
+    private OrganisationUnitLevel offlineOrganisationUnitLevel;
 
     private IndicatorGroup infrastructuralIndicators;
 
@@ -50,7 +52,7 @@ public class Configuration
     
     private UserAuthorityGroup selfRegistrationRole;
     
-//    private OrganisationUnit selfRegistrationOrgUnit;
+    private OrganisationUnit selfRegistrationOrgUnit;
     
     private Set<String> corsWhitelist = new HashSet<>();
     
@@ -115,18 +117,18 @@ public class Configuration
         this.feedbackRecipients = feedbackRecipients;
     }
 
-//    @JsonProperty
-//    @JsonSerialize( as = BaseIdentifiableObject.class )
-//    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
-//    public OrganisationUnitLevel getOfflineOrganisationUnitLevel()
-//    {
-//        return offlineOrganisationUnitLevel;
-//    }
+    @JsonProperty
+    @JsonSerialize( as = BaseIdentifiableObject.class )
+    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
+    public OrganisationUnitLevel getOfflineOrganisationUnitLevel()
+    {
+        return offlineOrganisationUnitLevel;
+    }
     
-//    public void setOfflineOrganisationUnitLevel( OrganisationUnitLevel offlineOrganisationUnitLevel )
-//    {
-//        this.offlineOrganisationUnitLevel = offlineOrganisationUnitLevel;
-//    }
+    public void setOfflineOrganisationUnitLevel( OrganisationUnitLevel offlineOrganisationUnitLevel )
+    {
+        this.offlineOrganisationUnitLevel = offlineOrganisationUnitLevel;
+    }
 
     @JsonProperty
     @JsonSerialize( as = BaseIdentifiableObject.class )
@@ -181,18 +183,18 @@ public class Configuration
         this.selfRegistrationRole = selfRegistrationRole;
     }
 
-//    @JsonProperty
-//    @JsonSerialize( as = BaseIdentifiableObject.class )
-//    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
-//    public OrganisationUnit getSelfRegistrationOrgUnit()
-//    {
-//        return selfRegistrationOrgUnit;
-//    }
-//
-//    public void setSelfRegistrationOrgUnit( OrganisationUnit selfRegistrationOrgUnit )
-//    {
-//        this.selfRegistrationOrgUnit = selfRegistrationOrgUnit;
-//    }
+    @JsonProperty
+    @JsonSerialize( as = BaseIdentifiableObject.class )
+    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
+    public OrganisationUnit getSelfRegistrationOrgUnit()
+    {
+        return selfRegistrationOrgUnit;
+    }
+
+    public void setSelfRegistrationOrgUnit( OrganisationUnit selfRegistrationOrgUnit )
+    {
+        this.selfRegistrationOrgUnit = selfRegistrationOrgUnit;
+    }
 
     @JsonProperty
     @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )

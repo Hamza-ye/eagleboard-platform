@@ -22,10 +22,13 @@ import org.hibernate.annotations.QueryHints;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
+import com.mass3d.attribute.Attribute;
+import com.mass3d.attribute.AttributeValue;
 import com.mass3d.common.AuditLogUtil;
 import com.mass3d.common.GenericStore;
 import com.mass3d.common.IdentifiableObject;
 import com.mass3d.common.ObjectDeletionRequestedEvent;
+import com.mass3d.hibernate.jsonb.type.JsonAttributeValueBinaryType;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -95,7 +98,7 @@ public class HibernateGenericStore<T>
      *
      * @return the current session.
      */
-    protected  Session getSession()
+    protected final Session getSession()
     {
         return sessionFactory.getCurrentSession();
     }
@@ -108,7 +111,7 @@ public class HibernateGenericStore<T>
      * @return a Query instance with return type is the object type T of the store class
      */
     @SuppressWarnings( "unchecked" )
-    protected  Query<T> getQuery( String hql )
+    protected final Query<T> getQuery( String hql )
     {
         return getSession()
             .createQuery( hql )
@@ -123,7 +126,7 @@ public class HibernateGenericStore<T>
      * @return a Query instance with return type specified in the Query<Y>
      */
     @SuppressWarnings( "unchecked" )
-    protected  <V> Query<V> getTypedQuery( String hql )
+    protected final <V> Query<V> getTypedQuery( String hql )
     {
         return getSession()
             .createQuery( hql )
@@ -138,7 +141,7 @@ public class HibernateGenericStore<T>
      * @return a Criteria instance.
      */
     @Deprecated
-    public  Criteria getCriteria()
+    public final Criteria getCriteria()
     {
         DetachedCriteria criteria = DetachedCriteria.forClass( getClazz() );
 
@@ -155,7 +158,7 @@ public class HibernateGenericStore<T>
     {
     }
 
-    public  Criteria getExecutableCriteria( DetachedCriteria detachedCriteria )
+    public final Criteria getExecutableCriteria( DetachedCriteria detachedCriteria )
     {
         return detachedCriteria.getExecutableCriteria( getSession() )
             .setCacheable( cacheable );
@@ -214,7 +217,7 @@ public class HibernateGenericStore<T>
      *
      * @return list result
      */
-    protected  List<T> getList( TypedQuery<T> typedQuery )
+    protected final List<T> getList( TypedQuery<T> typedQuery )
     {
         return typedQuery.getResultList();
     }
@@ -225,7 +228,7 @@ public class HibernateGenericStore<T>
      * @param parameters JpaQueryParameters
      * @return list objects
      */
-    protected  List<T> getList( CriteriaBuilder builder, JpaQueryParameters<T> parameters )
+    protected final List<T> getList( CriteriaBuilder builder, JpaQueryParameters<T> parameters )
     {
         return getTypedQuery( builder, parameters ).getResultList();
     }
@@ -235,7 +238,7 @@ public class HibernateGenericStore<T>
      *
      * @return executable TypedQuery
      */
-    protected  TypedQuery<T> getTypedQuery( CriteriaBuilder builder, JpaQueryParameters<T> parameters )
+    protected final TypedQuery<T> getTypedQuery( CriteriaBuilder builder, JpaQueryParameters<T> parameters )
     {
         List<Function<Root<T>, Predicate>> predicateProviders = parameters.getPredicates();
         List<Function<Root<T>, Order>> orderProviders = parameters.getOrders();
@@ -281,7 +284,7 @@ public class HibernateGenericStore<T>
      * @param parameters JpaQueryParameters
      * @return number of objects
      */
-    protected  Long getCount( CriteriaBuilder builder, JpaQueryParameters<T> parameters )
+    protected final Long getCount( CriteriaBuilder builder, JpaQueryParameters<T> parameters )
     {
         CriteriaQuery<Long> query = builder.createQuery( Long.class );
 
@@ -341,7 +344,7 @@ public class HibernateGenericStore<T>
      * @return a NativeQuery<T> instance.
      */
     @SuppressWarnings( "unchecked" )
-    protected  NativeQuery<T> getSqlQuery( String sql )
+    protected final NativeQuery<T> getSqlQuery( String sql )
     {
         return getSession().createNativeQuery( sql )
             .setCacheable( cacheable ).setHint( QueryHints.CACHEABLE, cacheable );
@@ -353,7 +356,7 @@ public class HibernateGenericStore<T>
      * @param sql the SQL query String.
      * @return a NativeQuery<T> instance.
      */
-    protected  NativeQuery<?> getUntypedSqlQuery( String sql )
+    protected final NativeQuery<?> getUntypedSqlQuery( String sql )
     {
         return getSession().createNativeQuery( sql )
             .setCacheable( cacheable ).setHint( QueryHints.CACHEABLE, cacheable );
@@ -411,11 +414,176 @@ public class HibernateGenericStore<T>
     }
 
     @Override
+    public List<T> getAllByAttributes( List<Attribute> attributes )
+    {
+        CriteriaBuilder builder = getCriteriaBuilder();
+
+        CriteriaQuery<T> query = builder.createQuery( getClazz() );
+        Root<T> root = query.from( getClazz() );
+        query.select( root ).distinct( true );
+
+        List<Predicate> predicates = attributes.stream()
+            .map( attribute ->
+                builder.isNotNull(
+                builder.function( FUNCTION_JSONB_EXTRACT_PATH, String.class, root.get( "attributeValues" ),
+                    builder.literal( attribute.getUid() ) ) ) )
+            .collect( Collectors.toList() );
+
+        query.where(  builder.or( predicates.toArray(new Predicate[predicates.size()]) ) ) ;
+
+        return getSession().createQuery( query ).list();
+    }
+
+    @Override
+    public List<AttributeValue> getAllValuesByAttributes( List<Attribute> attributes )
+    {
+        CriteriaBuilder builder = getCriteriaBuilder();
+
+        CriteriaQuery<String> query = builder.createQuery( String.class );
+        Root<T> root = query.from( getClazz() );
+
+        CriteriaBuilder.Coalesce<String> coalesce = builder.coalesce();
+        attributes.stream().forEach( attribute ->
+            coalesce.value(
+                builder.function( FUNCTION_JSONB_EXTRACT_PATH, String.class, root.get( "attributeValues" ) ,
+                    builder.literal( attribute.getUid() )  ) ) );
+
+        query.select( coalesce );
+
+        List<Predicate> predicates = attributes.stream()
+            .map( attribute ->
+                builder.isNotNull(
+                    builder.function( FUNCTION_JSONB_EXTRACT_PATH, String.class, root.get( "attributeValues" ),
+                        builder.literal( attribute.getUid() ) ) ) )
+            .collect( Collectors.toList() );
+
+        query.where(  builder.or( predicates.toArray( new Predicate[ predicates.size() ] ) ) ) ;
+
+        List<String> result = getSession().createQuery( query ).list();
+
+        return JsonAttributeValueBinaryType.convertListJsonToListObject( result );
+    }
+
+    @Override
+    public long countAllValuesByAttributes( List<Attribute> attributes )
+    {
+        CriteriaBuilder builder = getCriteriaBuilder();
+
+        CriteriaQuery<Long> query = builder.createQuery( Long.class );
+        Root<T> root = query.from( getClazz() );
+        query.select( builder.countDistinct( root ) );
+
+        List<Predicate> predicates = attributes.stream()
+            .map( attribute ->
+                builder.isNotNull(
+                    builder.function( FUNCTION_JSONB_EXTRACT_PATH, String.class, root.get( "attributeValues" ),
+                        builder.literal( attribute.getUid() ) ) ) )
+            .collect( Collectors.toList() );
+
+        query.where(  builder.or( predicates.toArray( new Predicate[ predicates.size() ] ) ) ) ;
+
+        return getSession().createQuery( query )
+            .getSingleResult();
+    }
+
+    @Override
+    public List<AttributeValue> getAttributeValueByAttribute( Attribute attribute )
+    {
+        return getAllValuesByAttributes( Lists.newArrayList( attribute ) );
+    }
+
+    @Override
     public int getCount()
     {
         CriteriaBuilder builder = getCriteriaBuilder();
 
         return getCount( builder, newJpaParameters().count( root -> builder.countDistinct( root.get( "id" ) ) ) ).intValue();
+    }
+
+    @Override
+    public List<T> getByAttribute( Attribute attribute )
+    {
+        CriteriaBuilder builder = getCriteriaBuilder();
+        CriteriaQuery<T> query = builder.createQuery( getClazz() );
+
+        Root<T> root = query.from( getClazz() );
+
+        query.select(root );
+        query.where( builder.function( FUNCTION_JSONB_EXTRACT_PATH, String.class, root.get( "attributeValues" ), builder.literal( attribute.getUid() ) ).isNotNull()  );
+
+        return getSession().createQuery( query ).list();
+    }
+
+    @Override
+    public List<T> getByAttributeAndValue( Attribute attribute, String value )
+    {
+        CriteriaBuilder builder = getCriteriaBuilder();
+
+        CriteriaQuery<T> query = builder.createQuery( getClazz() );
+        Root<T> root = query.from( getClazz() );
+        query.select( root );
+        query.where( builder.equal(
+                        builder.function( FUNCTION_JSONB_EXTRACT_PATH_TEXT, String.class, root.get( "attributeValues" ), builder.literal( attribute.getUid() ),  builder.literal( "value" ) ) , value ) );
+        return getSession().createQuery( query ).list();
+    }
+
+    @Override
+    public List<AttributeValue> getAttributeValueByAttributeAndValue( Attribute attribute, String value )
+    {
+        CriteriaBuilder builder = getCriteriaBuilder();
+
+        CriteriaQuery<String> query = builder.createQuery( String.class );
+        Root<T> root = query.from( getClazz() );
+
+        query.select( builder.function( FUNCTION_JSONB_EXTRACT_PATH, String.class, root.get( "attributeValues" ) ,
+            builder.literal( attribute.getUid() ) ) );
+
+        query.where( builder.equal(
+            builder.function( FUNCTION_JSONB_EXTRACT_PATH_TEXT, String.class, root.get( "attributeValues" ), builder.literal( attribute.getUid() ),  builder.literal( "value" ) ) , value ) );
+
+        List<String> result = getSession().createQuery( query ).list();
+
+        return JsonAttributeValueBinaryType.convertListJsonToListObject( result );
+    }
+
+    @Override
+    public List<T> getByAttributeValue( AttributeValue attributeValue )
+    {
+        CriteriaBuilder builder = getCriteriaBuilder();
+
+        CriteriaQuery<T> query = builder.createQuery( getClazz() );
+        Root<T> root = query.from( getClazz() );
+        query.select( root );
+        query.where( builder.equal(
+            builder.function( FUNCTION_JSONB_EXTRACT_PATH_TEXT, String.class, root.get( "attributeValues" ), builder.literal( attributeValue.getAttribute().getUid() ),  builder.literal( "value" ) ) , attributeValue.getValue() ) );
+        return getSession().createQuery( query ).list();
+    }
+
+    @Override
+    public <P extends IdentifiableObject> boolean isAttributeValueUnique( P object, AttributeValue attributeValue )
+    {
+        List<T> objects = getByAttributeValue( attributeValue );
+        return objects.isEmpty() || (object != null && objects.size() == 1 && object.equals( objects.get( 0 ) ) );
+    }
+
+    @Override
+    public <P extends IdentifiableObject> boolean isAttributeValueUnique( P object, Attribute attribute, String value )
+    {
+        List<T> objects = getByAttributeAndValue( attribute, value );
+        return objects.isEmpty() || (object != null && objects.size() == 1 && object.equals( objects.get( 0 ) ) );
+    }
+
+    @Override
+    public List<T> getAllByAttributeAndValues( Attribute attribute, List<String> values )
+    {
+        CriteriaBuilder builder = getCriteriaBuilder();
+
+        CriteriaQuery<T> query = builder.createQuery( getClazz() );
+        Root<T> root = query.from( getClazz() );
+        query.select( root );
+        query.where( builder.function( FUNCTION_JSONB_EXTRACT_PATH_TEXT, String.class, root.get( "attributeValues" ), builder.literal( attribute.getUid() ), builder.literal( "value" ) ).in( values ) );
+
+        return getSession().createQuery( query ).list();
     }
 
     /**

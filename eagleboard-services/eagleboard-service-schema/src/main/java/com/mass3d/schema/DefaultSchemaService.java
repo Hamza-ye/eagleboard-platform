@@ -38,13 +38,13 @@ public class DefaultSchemaService
         add( new ActivitySchemaDescriptor() ).
         add( new ProjectSchemaDescriptor() ).
 //        add( new AnalyticsTableHookSchemaDescriptor() ).
-//        add( new AttributeSchemaDescriptor() ).
-//        add( new CategoryComboSchemaDescriptor() ).
-//        add( new CategoryOptionComboSchemaDescriptor() ).
-//        add( new CategoryOptionGroupSchemaDescriptor() ).
-//        add( new CategoryOptionGroupSetSchemaDescriptor() ).
-//        add( new CategoryOptionSchemaDescriptor() ).
-//        add( new CategorySchemaDescriptor() ).
+        add( new AttributeSchemaDescriptor() ).
+        add( new CategoryComboSchemaDescriptor() ).
+        add( new CategoryOptionComboSchemaDescriptor() ).
+        add( new CategoryOptionGroupSchemaDescriptor() ).
+        add( new CategoryOptionGroupSetSchemaDescriptor() ).
+        add( new CategoryOptionSchemaDescriptor() ).
+        add( new CategorySchemaDescriptor() ).
 //        add( new ChartSchemaDescriptor() ).
         add( new ConstantSchemaDescriptor() ).
 //        add( new DashboardItemSchemaDescriptor() ).
@@ -53,9 +53,9 @@ public class DefaultSchemaService
 //        add( new DataApprovalWorkflowSchemaDescriptor() ).
         add( new DataElementGroupSchemaDescriptor() ).
         add( new DataElementGroupSetSchemaDescriptor() ).
-//        add( new DataElementOperandSchemaDescriptor() ).
+        add( new DataElementOperandSchemaDescriptor() ).
         add( new DataElementSchemaDescriptor() ).
-//        add( new DataEntryFormSchemaDescriptor() ).
+        add( new DataEntryFormSchemaDescriptor() ).
         add( new DataSetSchemaDescriptor() ).
         add( new DataSetElementSchemaDescriptor() ).
 //        add( new DataSetNotificationTemplateSchemaDescriptor() ).
@@ -77,72 +77,72 @@ public class DefaultSchemaService
 //        add( new MapSchemaDescriptor() ).
 //        add( new MapViewSchemaDescriptor() ).
         add( new MessageConversationSchemaDescriptor() ).
-//        add( new OAuth2ClientSchemaDescriptor() ).
+        add( new OAuth2ClientSchemaDescriptor() ).
         add( new OptionSchemaDescriptor() ).
         add( new OptionSetSchemaDescriptor() ).
-//        add( new OrganisationUnitGroupSchemaDescriptor() ).
-//        add( new OrganisationUnitGroupSetSchemaDescriptor() ).
-//        add( new OrganisationUnitLevelSchemaDescriptor() ).
-//        add( new OrganisationUnitSchemaDescriptor() ).
+        add( new OrganisationUnitGroupSchemaDescriptor() ).
+        add( new OrganisationUnitGroupSetSchemaDescriptor() ).
+        add( new OrganisationUnitLevelSchemaDescriptor() ).
+        add( new OrganisationUnitSchemaDescriptor() ).
 //        add( new PredictorSchemaDescriptor() ).
 //        add( new PredictorGroupSchemaDescriptor() ).
-//        add( new ProgramDataElementDimensionItemSchemaDescriptor() ).
-//        add( new ProgramIndicatorSchemaDescriptor() ).
+        add( new ProgramDataElementDimensionItemSchemaDescriptor() ).
+        add( new ProgramIndicatorSchemaDescriptor() ).
 //        add( new AnalyticsPeriodBoundarySchemaDescriptor() ).
-//        add( new ProgramRuleActionSchemaDescriptor() ).
-//        add( new ProgramRuleSchemaDescriptor() ).
-//        add( new ProgramRuleVariableSchemaDescriptor() ).
-//        add( new ProgramSchemaDescriptor() ).
-//        add( new ProgramStageDataElementSchemaDescriptor() ).
-//        add( new ProgramStageSchemaDescriptor() ).
-//        add( new ProgramStageSectionSchemaDescriptor() ).
-//        add( new ProgramSectionSchemaDescriptor() ).
-//        add( new ProgramTrackedEntityAttributeSchemaDescriptor() ).
-//        add( new ProgramTrackedEntityAttributeDimensionItemSchemaDescriptor() ).
-//        add( new ProgramNotificationTemplateSchemaDescriptor() ).
-//        add( new RelationshipTypeSchemaDescriptor() ).
+        add( new ProgramRuleActionSchemaDescriptor() ).
+        add( new ProgramRuleSchemaDescriptor() ).
+        add( new ProgramRuleVariableSchemaDescriptor() ).
+        add( new ProgramSchemaDescriptor() ).
+        add( new ProgramStageDataElementSchemaDescriptor() ).
+        add( new ProgramStageSchemaDescriptor() ).
+        add( new ProgramStageSectionSchemaDescriptor() ).
+        add( new ProgramSectionSchemaDescriptor() ).
+        add( new ProgramTrackedEntityAttributeSchemaDescriptor() ).
+        add( new ProgramTrackedEntityAttributeDimensionItemSchemaDescriptor() ).
+        add( new ProgramNotificationTemplateSchemaDescriptor() ).
+        add( new RelationshipTypeSchemaDescriptor() ).
 //        add( new ReportSchemaDescriptor() ).
 //        add( new ReportTableSchemaDescriptor() ).
 //        add( new SectionSchemaDescriptor() ).
 //        add( new SqlViewSchemaDescriptor() ).
-//        add( new TrackedEntityAttributeSchemaDescriptor() ).
-//        add( new TrackedEntityAttributeValueSchemaDescriptor() ).
-//        add( new TrackedEntityInstanceSchemaDescriptor() ).
-//        add( new TrackedEntityInstanceFilterSchemaDescriptor() ).
-//        add( new TrackedEntityTypeSchemaDescriptor() ).
-//        add( new TrackedEntityTypeAttributeSchemaDescriptor() ).
-//        add( new TrackedEntityDataElementDimensionSchemaDescriptor() ).
-//        add( new TrackedEntityProgramIndicatorDimensionSchemaDescriptor() ).
+        add( new TrackedEntityAttributeSchemaDescriptor() ).
+        add( new TrackedEntityAttributeValueSchemaDescriptor() ).
+        add( new TrackedEntityInstanceSchemaDescriptor() ).
+        add( new TrackedEntityInstanceFilterSchemaDescriptor() ).
+        add( new TrackedEntityTypeSchemaDescriptor() ).
+        add( new TrackedEntityTypeAttributeSchemaDescriptor() ).
+        add( new TrackedEntityDataElementDimensionSchemaDescriptor() ).
+        add( new TrackedEntityProgramIndicatorDimensionSchemaDescriptor() ).
         add( new UserCredentialsSchemaDescriptor() ).
         add( new UserGroupSchemaDescriptor() ).
         add( new UserRoleSchemaDescriptor() ).
         add( new UserSchemaDescriptor() ).
-//        add( new ValidationRuleGroupSchemaDescriptor() ).
-//        add( new ValidationRuleSchemaDescriptor() ).
-//        add( new ValidationNotificationTemplateSchemaDescriptor() ).
+        add( new ValidationRuleGroupSchemaDescriptor() ).
+        add( new ValidationRuleSchemaDescriptor() ).
+        add( new ValidationNotificationTemplateSchemaDescriptor() ).
 //        add( new PushAnalysisSchemaDescriptor() ).
-//        add( new ProgramIndicatorGroupSchemaDescriptor() ).
+        add( new ProgramIndicatorGroupSchemaDescriptor() ).
         add( new ExternalFileResourceSchemaDescriptor() ).
         add( new OptionGroupSchemaDescriptor() ).
         add( new OptionGroupSetSchemaDescriptor() ).
-//        add( new ProgramTrackedEntityAttributeGroupSchemaDescriptor() ).
+        add( new ProgramTrackedEntityAttributeGroupSchemaDescriptor() ).
         add( new DataInputPeriodSchemaDescriptor() ).
         add( new ReportingRateSchemaDescriptor() ).
         add( new UserAccessSchemaDescriptor() ).
         add( new UserGroupAccessSchemaDescriptor() ).
 //        add( new MinMaxDataElementSchemaDescriptor() ).
-//        add( new ValidationResultSchemaDescriptor() ).
+        add( new ValidationResultSchemaDescriptor() ).
         add( new JobConfigurationSchemaDescriptor() ).
 //        add( new SmsCommandSchemaDescriptor() ).
-//        add( new CategoryDimensionSchemaDescriptor() ).
-//        add( new CategoryOptionGroupSetDimensionSchemaDescriptor() ).
+        add( new CategoryDimensionSchemaDescriptor() ).
+        add( new CategoryOptionGroupSetDimensionSchemaDescriptor() ).
         add( new DataElementGroupSetDimensionSchemaDescriptor() ).
-//        add( new OrganisationUnitGroupSetDimensionSchemaDescriptor() ).
-//        add( new RelationshipSchemaDescriptor() ).
+        add( new OrganisationUnitGroupSetDimensionSchemaDescriptor() ).
+        add( new RelationshipSchemaDescriptor() ).
         add( new KeyJsonValueSchemaDescriptor() ).
-//        add( new ProgramStageInstanceSchemaDescriptor() ).
-//        add( new ProgramInstanceSchemaDescriptor() ).
-//        add( new ProgramStageInstanceFilterSchemaDescriptor() ).
+        add( new ProgramStageInstanceSchemaDescriptor() ).
+        add( new ProgramInstanceSchemaDescriptor() ).
+        add( new ProgramStageInstanceFilterSchemaDescriptor() ).
 //        add( new VisualizationSchemaDescriptor() ).
         build();
 

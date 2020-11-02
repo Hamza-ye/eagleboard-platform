@@ -7,11 +7,11 @@ public interface GenericDimensionalObjectStore<T>
 {
     /**
      * Retrieves a List of dimensional objects.
-     *
+     * 
      * @param dataDimension indicates whether to fetch objects defined as dimensional.
      * @return a List of objects.
      */
-    List<T> getByDataDimension( boolean dataDimension );
+    List<T> getByDataDimension(boolean dataDimension);
 
     /**
      * Retrieves a List of dimensional objects. Ignore ACL / sharing.
@@ -19,5 +19,5 @@ public interface GenericDimensionalObjectStore<T>
      * @param dataDimension indicates whether to fetch objects defined as dimensional.
      * @return a List of objects.
      */
-    List<T> getByDataDimensionNoAcl( boolean dataDimension );
+    List<T> getByDataDimensionNoAcl(boolean dataDimension);
 }

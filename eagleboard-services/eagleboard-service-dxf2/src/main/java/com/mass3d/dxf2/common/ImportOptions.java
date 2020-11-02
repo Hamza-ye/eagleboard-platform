@@ -413,53 +413,53 @@ public class ImportOptions
         return this;
     }
 
-//    public ImportOptions setCategoryOptionComboIdScheme( String idScheme )
-//    {
-//        idSchemes.setCategoryOptionComboIdScheme( idScheme );
-//        return this;
-//    }
+    public ImportOptions setCategoryOptionComboIdScheme( String idScheme )
+    {
+        idSchemes.setCategoryOptionComboIdScheme( idScheme );
+        return this;
+    }
 
-//    public ImportOptions setCategoryOptionIdScheme( String idScheme )
-//    {
-//        idSchemes.setCategoryOptionIdScheme( idScheme );
-//        return this;
-//    }
-//
-//    public ImportOptions setOrgUnitIdScheme( String idScheme )
-//    {
-//        idSchemes.setOrgUnitIdScheme( idScheme );
-//        return this;
-//    }
+    public ImportOptions setCategoryOptionIdScheme( String idScheme )
+    {
+        idSchemes.setCategoryOptionIdScheme( idScheme );
+        return this;
+    }
 
-//    public ImportOptions setProgramIdScheme( String idScheme )
-//    {
-//        idSchemes.setProgramIdScheme( idScheme );
-//        return this;
-//    }
-//
-//    public ImportOptions setProgramStageIdScheme( String idScheme )
-//    {
-//        idSchemes.setProgramStageIdScheme( idScheme );
-//        return this;
-//    }
+    public ImportOptions setOrgUnitIdScheme( String idScheme )
+    {
+        idSchemes.setOrgUnitIdScheme( idScheme );
+        return this;
+    }
 
-//    public ImportOptions setTrackedEntityIdScheme( String idScheme )
-//    {
-//        idSchemes.setTrackedEntityIdScheme( idScheme );
-//        return this;
-//    }
-//
-//    public ImportOptions setTrackedEntityAttributeIdScheme( String idScheme )
-//    {
-//        idSchemes.setTrackedEntityAttributeIdScheme( idScheme );
-//        return this;
-//    }
+    public ImportOptions setProgramIdScheme( String idScheme )
+    {
+        idSchemes.setProgramIdScheme( idScheme );
+        return this;
+    }
 
-//    public ImportOptions setEventIdScheme( String idScheme )
-//    {
-//        idSchemes.setProgramStageInstanceIdScheme( idScheme );
-//        return this;
-//    }
+    public ImportOptions setProgramStageIdScheme( String idScheme )
+    {
+        idSchemes.setProgramStageIdScheme( idScheme );
+        return this;
+    }
+
+    public ImportOptions setTrackedEntityIdScheme( String idScheme )
+    {
+        idSchemes.setTrackedEntityIdScheme( idScheme );
+        return this;
+    }
+
+    public ImportOptions setTrackedEntityAttributeIdScheme( String idScheme )
+    {
+        idSchemes.setTrackedEntityAttributeIdScheme( idScheme );
+        return this;
+    }
+
+    public ImportOptions setEventIdScheme( String idScheme )
+    {
+        idSchemes.setProgramStageInstanceIdScheme( idScheme );
+        return this;
+    }
 
     public ImportOptions setDryRun( boolean dryRun )
     {

@@ -6,7 +6,6 @@ import com.mass3d.util.ObjectUtils;
 /**
  * Identifier schemes used to map meta data. The general identifier scheme can be overridden by id
  * schemes specific to individual object types. The default id scheme is UID.
- *
  */
 public class IdSchemes {
 
@@ -19,21 +18,21 @@ public class IdSchemes {
   private IdScheme activityIdScheme;
   private IdScheme projectIdScheme;
 
-//    private IdScheme categoryOptionComboIdScheme;
-//
-//    private IdScheme categoryOptionIdScheme;
-//
-//    private IdScheme orgUnitIdScheme;
-//
-//    private IdScheme programIdScheme;
-//
-//    private IdScheme programStageIdScheme;
-//
-//    private IdScheme trackedEntityIdScheme;
-//
-//    private IdScheme trackedEntityAttributeIdScheme;
+  private IdScheme categoryOptionComboIdScheme;
 
-//    private IdScheme programStageInstanceIdScheme;
+  private IdScheme categoryOptionIdScheme;
+
+  private IdScheme orgUnitIdScheme;
+
+  private IdScheme programIdScheme;
+
+  private IdScheme programStageIdScheme;
+
+  private IdScheme trackedEntityIdScheme;
+
+  private IdScheme trackedEntityAttributeIdScheme;
+
+  private IdScheme programStageInstanceIdScheme;
 
   public IdSchemes() {
   }
@@ -115,93 +114,77 @@ public class IdSchemes {
   // Object type id schemes
   //--------------------------------------------------------------------------
 
-//    public IdScheme getCategoryOptionComboIdScheme()
-//    {
-//        return getScheme( categoryOptionComboIdScheme );
-//    }
-//
-//    public IdSchemes setCategoryOptionComboIdScheme( String idScheme )
-//    {
-//        this.categoryOptionComboIdScheme = IdScheme.from( idScheme );
-//        return this;
-//    }
-//
-//    public IdScheme getCategoryOptionIdScheme()
-//    {
-//        return getScheme( categoryOptionIdScheme );
-//    }
-//
-//    public IdSchemes setCategoryOptionIdScheme( String idScheme )
-//    {
-//        this.categoryOptionIdScheme = IdScheme.from( idScheme );
-//        return this;
-//    }
-//
-//    public IdScheme getOrgUnitIdScheme()
-//    {
-//        return getScheme( orgUnitIdScheme );
-//    }
-//
-//    public IdSchemes setOrgUnitIdScheme( String idScheme )
-//    {
-//        this.orgUnitIdScheme = IdScheme.from( idScheme );
-//        return this;
-//    }
-//
-//    public IdScheme getProgramIdScheme()
-//    {
-//        return getScheme( programIdScheme );
-//    }
-//
-//    public IdSchemes setProgramIdScheme( String idScheme )
-//    {
-//        this.programIdScheme = IdScheme.from( idScheme );
-//        return this;
-//    }
-//
-//    public IdScheme getProgramStageIdScheme()
-//    {
-//        return getScheme( programStageIdScheme );
-//    }
-//
-//    public IdSchemes setProgramStageIdScheme( String idScheme )
-//    {
-//        this.programStageIdScheme = IdScheme.from( idScheme );
-//        return this;
-//    }
-//
-//    public IdScheme getProgramStageInstanceIdScheme()
-//    {
-//        return getScheme( programStageInstanceIdScheme );
-//    }
-//
-//    public IdSchemes setProgramStageInstanceIdScheme( String idScheme )
-//    {
-//        this.programStageInstanceIdScheme = IdScheme.from( idScheme );
-//        return this;
-//    }
-//
-//    public IdScheme getTrackedEntityIdScheme()
-//    {
-//        return getScheme( trackedEntityIdScheme );
-//    }
-//
-//    public IdSchemes setTrackedEntityIdScheme( String idScheme )
-//    {
-//        this.trackedEntityIdScheme = IdScheme.from( idScheme );
-//        return this;
-//    }
-//
-//    public IdScheme getTrackedEntityAttributeIdScheme()
-//    {
-//        return getScheme( trackedEntityAttributeIdScheme );
-//    }
-//
-//    public IdSchemes setTrackedEntityAttributeIdScheme( String idScheme )
-//    {
-//        this.trackedEntityAttributeIdScheme = IdScheme.from( idScheme );
-//        return this;
-//    }
+  public IdScheme getCategoryOptionComboIdScheme() {
+    return getScheme(categoryOptionComboIdScheme);
+  }
+
+  public IdSchemes setCategoryOptionComboIdScheme(String idScheme) {
+    this.categoryOptionComboIdScheme = IdScheme.from(idScheme);
+    return this;
+  }
+
+  public IdScheme getCategoryOptionIdScheme() {
+    return getScheme(categoryOptionIdScheme);
+  }
+
+  public IdSchemes setCategoryOptionIdScheme(String idScheme) {
+    this.categoryOptionIdScheme = IdScheme.from(idScheme);
+    return this;
+  }
+
+  public IdScheme getOrgUnitIdScheme() {
+    return getScheme(orgUnitIdScheme);
+  }
+
+  public IdSchemes setOrgUnitIdScheme(String idScheme) {
+    this.orgUnitIdScheme = IdScheme.from(idScheme);
+    return this;
+  }
+
+  public IdScheme getProgramIdScheme() {
+    return getScheme(programIdScheme);
+  }
+
+  public IdSchemes setProgramIdScheme(String idScheme) {
+    this.programIdScheme = IdScheme.from(idScheme);
+    return this;
+  }
+
+  public IdScheme getProgramStageIdScheme() {
+    return getScheme(programStageIdScheme);
+  }
+
+  public IdSchemes setProgramStageIdScheme(String idScheme) {
+    this.programStageIdScheme = IdScheme.from(idScheme);
+    return this;
+  }
+
+  public IdScheme getProgramStageInstanceIdScheme() {
+    return getScheme(programStageInstanceIdScheme);
+  }
+
+  public IdSchemes setProgramStageInstanceIdScheme(String idScheme) {
+    this.programStageInstanceIdScheme = IdScheme.from(idScheme);
+    return this;
+  }
+
+  public IdScheme getTrackedEntityIdScheme() {
+    return getScheme(trackedEntityIdScheme);
+  }
+
+  public IdSchemes setTrackedEntityIdScheme(String idScheme) {
+    this.trackedEntityIdScheme = IdScheme.from(idScheme);
+    return this;
+  }
+
+  public IdScheme getTrackedEntityAttributeIdScheme() {
+    return getScheme(trackedEntityAttributeIdScheme);
+  }
+
+  public IdSchemes setTrackedEntityAttributeIdScheme(String idScheme) {
+    this.trackedEntityAttributeIdScheme = IdScheme.from(idScheme);
+    return this;
+  }
 
   //--------------------------------------------------------------------------
   // Get value methods
@@ -235,15 +218,15 @@ public class IdSchemes {
         .add("activityIdScheme", activityIdScheme)
         .add("projectIdScheme", projectIdScheme)
 
-//            .add( "idScheme", idScheme )
-//            .add( "categoryOptionComboIdScheme", categoryOptionComboIdScheme )
-//            .add( "categoryOptionIdScheme", categoryOptionIdScheme )
-//            .add( "orgUnitIdScheme", orgUnitIdScheme )
-//            .add( "programIdScheme", programIdScheme )
-//            .add( "programStageIdScheme", programStageIdScheme )
-//            .add( "trackedEntityIdScheme", trackedEntityIdScheme )
-//            .add( "trackedEntityAttributeIdScheme", trackedEntityAttributeIdScheme )
-//            .add( "programStageInstanceIdScheme", programStageInstanceIdScheme )
+        .add("idScheme", idScheme)
+        .add("categoryOptionComboIdScheme", categoryOptionComboIdScheme)
+        .add("categoryOptionIdScheme", categoryOptionIdScheme)
+        .add("orgUnitIdScheme", orgUnitIdScheme)
+        .add("programIdScheme", programIdScheme)
+        .add("programStageIdScheme", programStageIdScheme)
+        .add("trackedEntityIdScheme", trackedEntityIdScheme)
+        .add("trackedEntityAttributeIdScheme", trackedEntityAttributeIdScheme)
+        .add("programStageInstanceIdScheme", programStageInstanceIdScheme)
         .toString();
   }
 }
