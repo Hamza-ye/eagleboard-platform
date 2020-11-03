@@ -1,5 +1,6 @@
 package com.mass3d.common;
 
+import com.mass3d.activity.Activity;
 import com.mass3d.constant.Constant;
 import com.mass3d.dataelement.DataElement;
 import com.mass3d.dataelement.DataElementGroup;
@@ -17,6 +18,8 @@ import com.mass3d.organisationunit.OrganisationUnitLevel;
 import com.mass3d.period.Period;
 import com.mass3d.program.Program;
 import com.mass3d.program.ProgramStageInstance;
+import com.mass3d.project.Project;
+import com.mass3d.todotask.TodoTask;
 import com.mass3d.trackedentity.TrackedEntityAttribute;
 import com.mass3d.user.User;
 import com.mass3d.user.UserGroup;
@@ -27,6 +30,10 @@ import com.mass3d.validation.ValidationRule;
  */
 public enum Objects
 {
+    PROJECT( "project", Project.class ),
+    ACTIVITY( "activity", Activity.class ),
+    TODOTASK( "todoTask", TodoTask.class ),
+
     CONSTANT( "constant", Constant.class ),
     DATAELEMENT( "dataElement", DataElement.class ),
     EXTENDEDDATAELEMENT( "extendedDataElement", DataElement.class ),

@@ -50,9 +50,9 @@ public class JdbcStatisticsProvider
         objectCounts.put( Objects.INDICATOR, jdbcTemplate.queryForObject( "SELECT COUNT(*) FROM indicator", Integer.class ) );
         objectCounts.put( Objects.INDICATORGROUP, jdbcTemplate.queryForObject( "SELECT COUNT(*) FROM indicatorgroup", Integer.class ) );
         objectCounts.put( Objects.DATASET, jdbcTemplate.queryForObject( "SELECT COUNT(*) FROM dataset", Integer.class ) );
-//        objectCounts.put( Objects.ORGANISATIONUNIT, jdbcTemplate.queryForObject( "SELECT COUNT(*) FROM organisationunit", Integer.class ) );
-//        objectCounts.put( Objects.ORGANISATIONUNITGROUP, jdbcTemplate.queryForObject( "SELECT COUNT(*) FROM orgunitgroup", Integer.class ) );
-//        objectCounts.put( Objects.VALIDATIONRULE, jdbcTemplate.queryForObject( "SELECT COUNT(*) FROM validationrule", Integer.class ) );
+        objectCounts.put( Objects.ORGANISATIONUNIT, jdbcTemplate.queryForObject( "SELECT COUNT(*) FROM organisationunit", Integer.class ) );
+        objectCounts.put( Objects.ORGANISATIONUNITGROUP, jdbcTemplate.queryForObject( "SELECT COUNT(*) FROM orgunitgroup", Integer.class ) );
+        objectCounts.put( Objects.VALIDATIONRULE, jdbcTemplate.queryForObject( "SELECT COUNT(*) FROM validationrule", Integer.class ) );
         objectCounts.put( Objects.PERIOD, jdbcTemplate.queryForObject( "SELECT COUNT(*) FROM period", Integer.class ) );
         objectCounts.put( Objects.USER, jdbcTemplate.queryForObject( "SELECT COUNT(*) FROM users", Integer.class ) );
         objectCounts.put( Objects.USERGROUP, jdbcTemplate.queryForObject( "SELECT COUNT(*) FROM usergroup", Integer.class ) );
@@ -62,8 +62,8 @@ public class JdbcStatisticsProvider
 //        objectCounts.put( Objects.MAP, jdbcTemplate.queryForObject( "SELECT COUNT(*) FROM map", Integer.class ) );
 //        objectCounts.put( Objects.DASHBOARD, jdbcTemplate.queryForObject( "SELECT COUNT(*) FROM dashboard", Integer.class ) );
         objectCounts.put( Objects.DATAVALUE, jdbcTemplate.queryForObject( "SELECT COUNT(*) FROM datavalue dv where dv.deleted is false", Integer.class ) );
-//        objectCounts.put( Objects.PROGRAM, jdbcTemplate.queryForObject( "SELECT COUNT(*) FROM program", Integer.class ) );
-//        objectCounts.put( Objects.PROGRAMSTAGEINSTANCE, jdbcTemplate.queryForObject( "SELECT COUNT(*) FROM programstageinstance psi where psi.deleted is false", Integer.class ) );
+        objectCounts.put( Objects.PROGRAM, jdbcTemplate.queryForObject( "SELECT COUNT(*) FROM program", Integer.class ) );
+        objectCounts.put( Objects.PROGRAMSTAGEINSTANCE, jdbcTemplate.queryForObject( "SELECT COUNT(*) FROM programstageinstance psi where psi.deleted is false", Integer.class ) );
 
         return objectCounts;
     }
