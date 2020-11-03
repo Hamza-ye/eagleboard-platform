@@ -6,7 +6,7 @@ import com.mass3d.hibernate.EnumUserType;
 public class EventStatusUserType
     extends EnumUserType<EventStatus>
 {
-  public EventStatusUserType()
+  public  EventStatusUserType()
   {
       super(  EventStatus.class );
   }
