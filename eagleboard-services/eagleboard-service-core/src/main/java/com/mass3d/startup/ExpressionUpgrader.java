@@ -1,26 +1,35 @@
 package com.mass3d.startup;
 
-import com.mass3d.dataelement.DataElement;
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.mass3d.dataentryform.DataEntryFormService.*;
+import static com.mass3d.dataentryform.DataEntryFormService.DATAELEMENT_TOTAL_PATTERN;
+import static com.mass3d.dataentryform.DataEntryFormService.IDENTIFIER_PATTERN;
+import static com.mass3d.dataentryform.DataEntryFormService.INDICATOR_PATTERN;
+
 import java.util.Collection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
+import com.mass3d.category.CategoryOptionCombo;
+import com.mass3d.category.CategoryService;
 import com.mass3d.constant.Constant;
 import com.mass3d.constant.ConstantService;
+import com.mass3d.dataelement.DataElement;
 import com.mass3d.dataelement.DataElementService;
+import com.mass3d.dataentryform.DataEntryForm;
+import com.mass3d.dataentryform.DataEntryFormService;
 import com.mass3d.expression.Expression;
 import com.mass3d.expression.ExpressionService;
 import com.mass3d.indicator.Indicator;
 import com.mass3d.indicator.IndicatorService;
 import com.mass3d.system.startup.TransactionContextStartupRoutine;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Upgrades indicator formulas, expressions (for validation rules) and custom
  * data entry forms from using identifiers to using uids.
  *
  */
+@Slf4j
 public class ExpressionUpgrader
     extends TransactionContextStartupRoutine
 {
@@ -30,32 +39,44 @@ public class ExpressionUpgrader
     private static final Pattern OLD_OPERAND_PATTERN = Pattern.compile( OLD_OPERAND_EXPRESSION );
     private static final Pattern OLD_CONSTANT_PATTERN = Pattern.compile( OLD_CONSTANT_EXPRESSION );
 
-    private static final Log log = LogFactory.getLog( ExpressionUpgrader.class );
+    private final DataEntryFormService dataEntryFormService;
 
-//    @Autowired
-//    private DataEntryFormService dataEntryFormService;
+    private final DataElementService dataElementService;
 
-    @Autowired
-    private DataElementService dataElementService;
+    private final CategoryService categoryService;
 
-//    @Autowired
-//    private CategoryService categoryService;
+    private final IndicatorService indicatorService;
 
-    @Autowired
-    private IndicatorService indicatorService;
+    private final ConstantService constantService;
 
-    @Autowired
-    private ConstantService constantService;
+    private final ExpressionService expressionService;
 
-    @Autowired
-    private ExpressionService expressionService;
+    public ExpressionUpgrader( DataEntryFormService dataEntryFormService, DataElementService dataElementService,
+        CategoryService categoryService, IndicatorService indicatorService, ConstantService constantService,
+        ExpressionService expressionService )
+    {
+
+        checkNotNull( dataEntryFormService );
+        checkNotNull( dataElementService );
+        checkNotNull( categoryService );
+        checkNotNull( indicatorService );
+        checkNotNull( constantService );
+        checkNotNull( expressionService );
+
+        this.dataEntryFormService = dataEntryFormService;
+        this.dataElementService = dataElementService;
+        this.categoryService = categoryService;
+        this.indicatorService = indicatorService;
+        this.constantService = constantService;
+        this.expressionService = expressionService;
+    }
 
     @Override
     public void executeInTransaction()
     {
         upgradeIndicators();
         upgradeExpressions();
-//        upgradeDataEntryForms();
+        upgradeDataEntryForms();
     }
 
     private void upgradeIndicators()
@@ -134,11 +155,11 @@ public class ExpressionUpgrader
                 DataElement de = dataElementService.getDataElement( Integer.parseInt( matcher.group( 1 ) ) );
                 String replacement = "#{" + de.getUid();
 
-//                if ( matcher.groupCount() == 2 && matcher.group( 2 ) != null && !matcher.group( 2 ).trim().isEmpty() )
-//                {
-//                    CategoryOptionCombo coc = categoryService.getCategoryOptionCombo( Integer.parseInt( matcher.group( 2 ) ) );
-//                    replacement += "." + coc.getUid();
-//                }
+                if ( matcher.groupCount() == 2 && matcher.group( 2 ) != null && !matcher.group( 2 ).trim().isEmpty() )
+                {
+                    CategoryOptionCombo coc = categoryService.getCategoryOptionCombo( Integer.parseInt( matcher.group( 2 ) ) );
+                    replacement += "." + coc.getUid();
+                }
 
                 replacement += "}";
                 matcher.appendReplacement( sb, replacement );
@@ -150,8 +171,7 @@ public class ExpressionUpgrader
         }
         catch ( Exception ex )
         {
-            log.error( "Failed to upgrade expression: " + expression );
-            log.error( ex ); // Log and continue
+            log.error( "Failed to upgrade expression: " + expression, ex );
         }
 
         if ( changes )
@@ -162,83 +182,82 @@ public class ExpressionUpgrader
         return changes ? expression : null;
     }
 
-//    private void upgradeDataEntryForms()
-//    {
-//        Collection<DataEntryForm> forms = dataEntryFormService.getAllDataEntryForms();
-//
-//        for ( DataEntryForm form : forms )
-//        {
-//            if ( DataEntryForm.CURRENT_FORMAT > form.getFormat() && form.getHtmlCode() != null && !form.getHtmlCode().trim().isEmpty() )
-//            {
-//                try
-//                {
-//                    // ---------------------------------------------------------
-//                    // Identifiers
-//                    // ---------------------------------------------------------
-//
-//                    Matcher matcher = IDENTIFIER_PATTERN.matcher( form.getHtmlCode() );
-//                    StringBuffer sb = new StringBuffer();
-//
-//                    while ( matcher.find() )
-//                    {
-//                        DataElement de = dataElementService.getDataElement( Integer.parseInt( matcher.group( 1 ) ) );
-//                        CategoryOptionCombo coc = categoryService.getCategoryOptionCombo( Integer.parseInt( matcher.group( 2 ) ) );
-//                        String replacement = "id=\"" + de.getUid() + "-" + coc.getUid() + "-val\"";
-//                        matcher.appendReplacement( sb, replacement );
-//                    }
-//
-//                    matcher.appendTail( sb );
-//                    form.setHtmlCode( sb.toString() );
-//
-//                    // ---------------------------------------------------------
-//                    // Data element totals
-//                    // ---------------------------------------------------------
-//
-//                    matcher = DATAELEMENT_TOTAL_PATTERN.matcher( form.getHtmlCode() );
-//                    sb = new StringBuffer();
-//
-//                    while ( matcher.find() )
-//                    {
-//                        DataElement de = dataElementService.getDataElement( Integer.parseInt( matcher.group( 1 ) ) );
-//                        String replacement = "dataelementid=\"" + de.getUid() + "\"";
-//                        matcher.appendReplacement( sb, replacement );
-//                    }
-//
-//                    matcher.appendTail( sb );
-//                    form.setHtmlCode( sb.toString() );
-//
-//                    // ---------------------------------------------------------
-//                    // Indicators
-//                    // ---------------------------------------------------------
-//
-//                    matcher = INDICATOR_PATTERN.matcher( form.getHtmlCode() );
-//                    sb = new StringBuffer();
-//
-//                    while ( matcher.find() )
-//                    {
-//                        Indicator in = indicatorService.getIndicator( Integer.parseInt( matcher.group( 1 ) ) );
-//                        String replacement = "indicatorid=\"" + in.getUid() + "\"";
-//                        matcher.appendReplacement( sb, replacement );
-//                    }
-//
-//                    matcher.appendTail( sb );
-//                    form.setHtmlCode( sb.toString() );
-//
-//                    // ---------------------------------------------------------
-//                    // Update format and save
-//                    // ---------------------------------------------------------
-//
-//                    form.setFormat( DataEntryForm.CURRENT_FORMAT );
-//                    dataEntryFormService.updateDataEntryForm( form );
-//
-//                    log.info( "Upgraded custom data entry form: " + form.getName() );
-//                }
-//                catch ( Exception ex )
-//                {
-//                    log.error( "Upgrading custom data entry form failed: " + form.getName() );
-//                    log.error( ex ); // Log and continue
-//                }
-//            }
-//        }
-//    }
+    private void upgradeDataEntryForms()
+    {
+        Collection<DataEntryForm> forms = dataEntryFormService.getAllDataEntryForms();
+
+        for ( DataEntryForm form : forms )
+        {
+            if ( DataEntryForm.CURRENT_FORMAT > form.getFormat() && form.getHtmlCode() != null && !form.getHtmlCode().trim().isEmpty() )
+            {
+                try
+                {
+                    // ---------------------------------------------------------
+                    // Identifiers
+                    // ---------------------------------------------------------
+
+                    Matcher matcher = IDENTIFIER_PATTERN.matcher( form.getHtmlCode() );
+                    StringBuffer sb = new StringBuffer();
+
+                    while ( matcher.find() )
+                    {
+                        DataElement de = dataElementService.getDataElement( Integer.parseInt( matcher.group( 1 ) ) );
+                        CategoryOptionCombo coc = categoryService.getCategoryOptionCombo( Integer.parseInt( matcher.group( 2 ) ) );
+                        String replacement = "id=\"" + de.getUid() + "-" + coc.getUid() + "-val\"";
+                        matcher.appendReplacement( sb, replacement );
+                    }
+
+                    matcher.appendTail( sb );
+                    form.setHtmlCode( sb.toString() );
+
+                    // ---------------------------------------------------------
+                    // Data element totals
+                    // ---------------------------------------------------------
+
+                    matcher = DATAELEMENT_TOTAL_PATTERN.matcher( form.getHtmlCode() );
+                    sb = new StringBuffer();
+
+                    while ( matcher.find() )
+                    {
+                        DataElement de = dataElementService.getDataElement( Integer.parseInt( matcher.group( 1 ) ) );
+                        String replacement = "dataelementid=\"" + de.getUid() + "\"";
+                        matcher.appendReplacement( sb, replacement );
+                    }
+
+                    matcher.appendTail( sb );
+                    form.setHtmlCode( sb.toString() );
+
+                    // ---------------------------------------------------------
+                    // Indicators
+                    // ---------------------------------------------------------
+
+                    matcher = INDICATOR_PATTERN.matcher( form.getHtmlCode() );
+                    sb = new StringBuffer();
+
+                    while ( matcher.find() )
+                    {
+                        Indicator in = indicatorService.getIndicator( Integer.parseInt( matcher.group( 1 ) ) );
+                        String replacement = "indicatorid=\"" + in.getUid() + "\"";
+                        matcher.appendReplacement( sb, replacement );
+                    }
+
+                    matcher.appendTail( sb );
+                    form.setHtmlCode( sb.toString() );
+
+                    // ---------------------------------------------------------
+                    // Update format and save
+                    // ---------------------------------------------------------
+
+                    form.setFormat( DataEntryForm.CURRENT_FORMAT );
+                    dataEntryFormService.updateDataEntryForm( form );
+
+                    log.info( "Upgraded custom data entry form: " + form.getName() );
+                }
+                catch ( Exception ex )
+                {
+                    log.error( "Upgrading custom data entry form failed: " + form.getName(), ex );
+                }
+            }
+        }
+    }
 }
