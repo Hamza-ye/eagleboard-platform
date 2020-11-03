@@ -3,7 +3,6 @@ package com.mass3d.config;
 import com.mass3d.common.hibernate.HibernateIdentifiableObjectStore;
 import com.mass3d.constant.Constant;
 import com.mass3d.expression.Expression;
-import com.mass3d.fileresource.FileResource;
 import com.mass3d.hibernate.HibernateGenericStore;
 import com.mass3d.indicator.IndicatorGroup;
 import com.mass3d.indicator.IndicatorGroupSet;
@@ -23,11 +22,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration("coreStoreConfig")
 //@ComponentScan(basePackages = {"com.mass3d"})

@@ -19,12 +19,21 @@ import org.hisp.dhis.antlr.ParserExceptionWithoutContext;
 import com.mass3d.common.DimensionService;
 import com.mass3d.common.DimensionalItemId;
 import com.mass3d.common.MapMap;
+import com.mass3d.common.ValueType;
 import com.mass3d.constant.Constant;
+import com.mass3d.dataelement.DataElement;
 import com.mass3d.dataelement.DataElementService;
 import com.mass3d.expression.MissingValueStrategy;
 import com.mass3d.i18n.I18n;
 import com.mass3d.jdbc.StatementBuilder;
+import com.mass3d.organisationunit.OrganisationUnitGroupService;
 import com.mass3d.period.Period;
+import com.mass3d.program.ProgramIndicator;
+import com.mass3d.program.ProgramIndicatorService;
+import com.mass3d.program.ProgramStage;
+import com.mass3d.program.ProgramStageService;
+import com.mass3d.relationship.RelationshipTypeService;
+import com.mass3d.trackedentity.TrackedEntityAttributeService;
 
 /**
  * Common traversal of the ANTLR4 expression parse tree using the visitor
@@ -36,17 +45,17 @@ public class CommonExpressionVisitor
 {
     private DimensionService dimensionService;
 
-//    private OrganisationUnitGroupService organisationUnitGroupService;
-//
-//    private ProgramIndicatorService programIndicatorService;
-//
-//    private ProgramStageService programStageService;
+    private OrganisationUnitGroupService organisationUnitGroupService;
+
+    private ProgramIndicatorService programIndicatorService;
+
+    private ProgramStageService programStageService;
 
     private DataElementService dataElementService;
 
-//    private TrackedEntityAttributeService attributeService;
-//
-//    private RelationshipTypeService relationshipTypeService;
+    private TrackedEntityAttributeService attributeService;
+
+    private RelationshipTypeService relationshipTypeService;
 
     private StatementBuilder statementBuilder;
 
@@ -141,7 +150,7 @@ public class CommonExpressionVisitor
     /**
      * Current program indicator.
      */
-//    private ProgramIndicator programIndicator;
+    private ProgramIndicator programIndicator;
 
     /**
      * Reporting start date.
@@ -300,38 +309,38 @@ public class CommonExpressionVisitor
         return value;
     }
 
-//    /**
-//     * Validates a program stage id / data element id pair
-//     *
-//     * @param text expression text containing both program stage id and data element
-//     *        id
-//     * @param programStageId the program stage id
-//     * @param dataElementId the data element id
-//     * @return the ValueType of the data element
-//     */
-//    public ValueType validateStageDataElement( String text, String programStageId, String dataElementId )
-//    {
-//        ProgramStage programStage = programStageService.getProgramStage( programStageId );
-//        DataElement dataElement = dataElementService.getDataElement( dataElementId );
-//
-//        if ( programStage == null )
-//        {
-//            throw new ParserExceptionWithoutContext(
-//                "Program stage " + programStageId + " not found" );
-//        }
-//
-//        if ( dataElement == null )
-//        {
-//            throw new ParserExceptionWithoutContext( "Data element " + dataElementId + " not found" );
-//        }
-//
-//        String description = programStage.getDisplayName() + ProgramIndicator.SEPARATOR_ID
-//            + dataElement.getDisplayName();
-//
-//        itemDescriptions.put( text, description );
-//
-//        return dataElement.getValueType();
-//    }
+    /**
+     * Validates a program stage id / data element id pair
+     *
+     * @param text expression text containing both program stage id and data element
+     *        id
+     * @param programStageId the program stage id
+     * @param dataElementId the data element id
+     * @return the ValueType of the data element
+     */
+    public ValueType validateStageDataElement( String text, String programStageId, String dataElementId )
+    {
+        ProgramStage programStage = programStageService.getProgramStage( programStageId );
+        DataElement dataElement = dataElementService.getDataElement( dataElementId );
+
+        if ( programStage == null )
+        {
+            throw new ParserExceptionWithoutContext(
+                "Program stage " + programStageId + " not found" );
+        }
+
+        if ( dataElement == null )
+        {
+            throw new ParserExceptionWithoutContext( "Data element " + dataElementId + " not found" );
+        }
+
+        String description = programStage.getDisplayName() + ProgramIndicator.SEPARATOR_ID
+            + dataElement.getDisplayName();
+
+        itemDescriptions.put( text, description );
+
+        return dataElement.getValueType();
+    }
 
     /**
      * Regenerates an expression by visiting all the children of the expression node
@@ -355,35 +364,35 @@ public class CommonExpressionVisitor
         return dimensionService;
     }
 
-//    public OrganisationUnitGroupService getOrganisationUnitGroupService()
-//    {
-//        return organisationUnitGroupService;
-//    }
-//
-//    public ProgramIndicatorService getProgramIndicatorService()
-//    {
-//        return programIndicatorService;
-//    }
-//
-//    public ProgramStageService getProgramStageService()
-//    {
-//        return programStageService;
-//    }
+    public OrganisationUnitGroupService getOrganisationUnitGroupService()
+    {
+        return organisationUnitGroupService;
+    }
+
+    public ProgramIndicatorService getProgramIndicatorService()
+    {
+        return programIndicatorService;
+    }
+
+    public ProgramStageService getProgramStageService()
+    {
+        return programStageService;
+    }
 
     public DataElementService getDataElementService()
     {
         return dataElementService;
     }
 
-//    public TrackedEntityAttributeService getAttributeService()
-//    {
-//        return attributeService;
-//    }
-//
-//    public RelationshipTypeService getRelationshipTypeService()
-//    {
-//        return relationshipTypeService;
-//    }
+    public TrackedEntityAttributeService getAttributeService()
+    {
+        return attributeService;
+    }
+
+    public RelationshipTypeService getRelationshipTypeService()
+    {
+        return relationshipTypeService;
+    }
 
     public StatementBuilder getStatementBuilder()
     {
@@ -395,16 +404,16 @@ public class CommonExpressionVisitor
         return i18n;
     }
 
-//    public ProgramIndicator getProgramIndicator()
-//    {
-//        return programIndicator;
-//    }
-//
-//    public void setProgramIndicator(
-//        ProgramIndicator programIndicator )
-//    {
-//        this.programIndicator = programIndicator;
-//    }
+    public ProgramIndicator getProgramIndicator()
+    {
+        return programIndicator;
+    }
+
+    public void setProgramIndicator(
+        ProgramIndicator programIndicator )
+    {
+        this.programIndicator = programIndicator;
+    }
 
     public Date getReportingStartDate()
     {
@@ -596,23 +605,23 @@ public class CommonExpressionVisitor
             return this;
         }
 
-//        public Builder withOrganisationUnitGroupService( OrganisationUnitGroupService organisationUnitGroupService )
-//        {
-//            this.visitor.organisationUnitGroupService = organisationUnitGroupService;
-//            return this;
-//        }
-//
-//        public Builder withProgramIndicatorService( ProgramIndicatorService programIndicatorService )
-//        {
-//            this.visitor.programIndicatorService = programIndicatorService;
-//            return this;
-//        }
-//
-//        public Builder withProgramStageService( ProgramStageService programStageService )
-//        {
-//            this.visitor.programStageService = programStageService;
-//            return this;
-//        }
+        public Builder withOrganisationUnitGroupService( OrganisationUnitGroupService organisationUnitGroupService )
+        {
+            this.visitor.organisationUnitGroupService = organisationUnitGroupService;
+            return this;
+        }
+
+        public Builder withProgramIndicatorService( ProgramIndicatorService programIndicatorService )
+        {
+            this.visitor.programIndicatorService = programIndicatorService;
+            return this;
+        }
+
+        public Builder withProgramStageService( ProgramStageService programStageService )
+        {
+            this.visitor.programStageService = programStageService;
+            return this;
+        }
 
         public Builder withDataElementService( DataElementService dataElementService )
         {
@@ -620,17 +629,17 @@ public class CommonExpressionVisitor
             return this;
         }
 
-//        public Builder withAttributeService( TrackedEntityAttributeService attributeService )
-//        {
-//            this.visitor.attributeService = attributeService;
-//            return this;
-//        }
-//
-//        public Builder withRelationshipTypeService( RelationshipTypeService relationshipTypeService )
-//        {
-//            this.visitor.relationshipTypeService = relationshipTypeService;
-//            return this;
-//        }
+        public Builder withAttributeService( TrackedEntityAttributeService attributeService )
+        {
+            this.visitor.attributeService = attributeService;
+            return this;
+        }
+
+        public Builder withRelationshipTypeService( RelationshipTypeService relationshipTypeService )
+        {
+            this.visitor.relationshipTypeService = relationshipTypeService;
+            return this;
+        }
 
         public Builder withStatementBuilder( StatementBuilder statementBuilder )
         {
@@ -665,8 +674,8 @@ public class CommonExpressionVisitor
         public CommonExpressionVisitor buildForExpressions()
         {
             Validate.notNull( this.visitor.dimensionService, "Missing required property 'dimensionService'" );
-//            Validate.notNull( this.visitor.organisationUnitGroupService,
-//                "Missing required property 'organisationUnitGroupService'" );
+            Validate.notNull( this.visitor.organisationUnitGroupService,
+                "Missing required property 'organisationUnitGroupService'" );
             Validate.notNull( this.visitor.missingValueStrategy, "Missing required property 'missingValueStrategy'" );
 
             return validateCommonProperties();
@@ -674,13 +683,13 @@ public class CommonExpressionVisitor
 
         public CommonExpressionVisitor buildForProgramIndicatorExpressions()
         {
-//            Validate.notNull( this.visitor.programIndicatorService,
-//                "Missing required property 'programIndicatorService'" );
-//            Validate.notNull( this.visitor.programStageService, "Missing required property 'programStageService'" );
+            Validate.notNull( this.visitor.programIndicatorService,
+                "Missing required property 'programIndicatorService'" );
+            Validate.notNull( this.visitor.programStageService, "Missing required property 'programStageService'" );
             Validate.notNull( this.visitor.dataElementService, "Missing required property 'dataElementService'" );
-//            Validate.notNull( this.visitor.attributeService, "Missing required property 'attributeService'" );
-//            Validate.notNull( this.visitor.relationshipTypeService,
-//                "Missing required property 'relationshipTypeService'" );
+            Validate.notNull( this.visitor.attributeService, "Missing required property 'attributeService'" );
+            Validate.notNull( this.visitor.relationshipTypeService,
+                "Missing required property 'relationshipTypeService'" );
             Validate.notNull( this.visitor.statementBuilder, "Missing required property 'statementBuilder'" );
             Validate.notNull( this.visitor.i18n, "Missing required property 'i18n'" );
 

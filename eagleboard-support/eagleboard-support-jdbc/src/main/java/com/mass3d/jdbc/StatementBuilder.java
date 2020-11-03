@@ -1,5 +1,7 @@
 package com.mass3d.jdbc;
 
+import com.mass3d.program.AnalyticsPeriodBoundary;
+import com.mass3d.program.ProgramIndicator;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -239,53 +241,53 @@ public interface StatementBuilder
      */
     boolean supportsPartialIndexes();
    
-//    /**
-//     * Get SQL where-condition for all analyticsPeriodBoundaries in a program indicator.
-//     * @param programIndicator the program indicator context
-//     * @param reportingStartDate the date of the start of the reporting period
-//     * @param reportingEndDate the date of the end of the reporting period
-//     * @param sqlHelper a SQL helper that makes sure the where/and is correctly assigned in the where clause
-//     * @return SQL to use in where clause.
-//     */
-//    String getBoundaryCondition(ProgramIndicator programIndicator, Date reportingStartDate,
-//        Date reportingEndDate,
-//        SqlHelper sqlHelper);
+    /**
+     * Get SQL where-condition for all analyticsPeriodBoundaries in a program indicator.
+     * @param programIndicator the program indicator context
+     * @param reportingStartDate the date of the start of the reporting period
+     * @param reportingEndDate the date of the end of the reporting period
+     * @param sqlHelper a SQL helper that makes sure the where/and is correctly assigned in the where clause
+     * @return SQL to use in where clause.
+     */
+    String getBoundaryCondition(ProgramIndicator programIndicator, Date reportingStartDate,
+        Date reportingEndDate,
+        SqlHelper sqlHelper);
     
-//    /**
-//     * Get SQL where-condition for a single analyticsPeriodBoundary in a program indicator.
-//     * @param boundary the boundary to get where-condition for
-//     * @param programIndicator the program indicator context
-//     * @param reportingStartDate the date of the start of the reporting period
-//     * @param reportingEndDate the date of the end of the reporting period
-//     * @return SQL to use in where clause.
-//     */
-//    String getBoundaryCondition(AnalyticsPeriodBoundary boundary, ProgramIndicator programIndicator,
-//        Date reportingStartDate, Date reportingEndDate);
-//
-//    /**
-//     * Get a SQL for selecting a single data value in a program indicator expression, abiding to boundaries.
-//     * Internally adds quotes to the param dataElementUid and calls the {@link StatementBuilder#getProgramIndicatorEventColumnSql(String, String, Date, Date, ProgramIndicator)} function.
-//     * @param programStageUid the program stage to get data for
-//     * @param dataElementUid the data element to get data for
-//     * @param reportingStartDate the reporting start date
-//     * @param reportingEndDate the reporting end date
-//     * @param programIndicator the program indicator context
-//     * @return
-//     */
-//    String getProgramIndicatorDataValueSelectSql(String programStageUid, String dataElementUid,
-//        Date reportingStartDate,
-//        Date reportingEndDate, ProgramIndicator programIndicator);
+    /**
+     * Get SQL where-condition for a single analyticsPeriodBoundary in a program indicator.
+     * @param boundary the boundary to get where-condition for
+     * @param programIndicator the program indicator context
+     * @param reportingStartDate the date of the start of the reporting period
+     * @param reportingEndDate the date of the end of the reporting period
+     * @return SQL to use in where clause.
+     */
+    String getBoundaryCondition(AnalyticsPeriodBoundary boundary, ProgramIndicator programIndicator,
+        Date reportingStartDate, Date reportingEndDate);
 
-//    /**
-//     * Get a SQL for selecting a single column from events in a program indicators, abiding to boundaries.
-//     * @param programStageUid the program stage to get data for
-//     * @param columnName the column to get data for
-//     * @param reportingStartDate the reporting start date
-//     * @param reportingEndDate the reporting end date
-//     * @param programIndicator the program indicator context
-//     * @return
-//     */
-//    String getProgramIndicatorEventColumnSql(String programStageUid, String columnName,
-//        Date reportingStartDate,
-//        Date reportingEndDate, ProgramIndicator programIndicator);
+    /**
+     * Get a SQL for selecting a single data value in a program indicator expression, abiding to boundaries.
+     * Internally adds quotes to the param dataElementUid and calls the {@link StatementBuilder#getProgramIndicatorEventColumnSql(String, String, Date, Date, ProgramIndicator)} function.
+     * @param programStageUid the program stage to get data for
+     * @param dataElementUid the data element to get data for
+     * @param reportingStartDate the reporting start date
+     * @param reportingEndDate the reporting end date
+     * @param programIndicator the program indicator context
+     * @return
+     */
+    String getProgramIndicatorDataValueSelectSql(String programStageUid, String dataElementUid,
+        Date reportingStartDate,
+        Date reportingEndDate, ProgramIndicator programIndicator);
+
+    /**
+     * Get a SQL for selecting a single column from events in a program indicators, abiding to boundaries.
+     * @param programStageUid the program stage to get data for
+     * @param columnName the column to get data for
+     * @param reportingStartDate the reporting start date
+     * @param reportingEndDate the reporting end date
+     * @param programIndicator the program indicator context
+     * @return
+     */
+    String getProgramIndicatorEventColumnSql(String programStageUid, String columnName,
+        Date reportingStartDate,
+        Date reportingEndDate, ProgramIndicator programIndicator);
 }

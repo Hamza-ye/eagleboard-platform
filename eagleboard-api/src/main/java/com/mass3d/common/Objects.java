@@ -1,6 +1,5 @@
 package com.mass3d.common;
 
-import com.mass3d.activity.Activity;
 import com.mass3d.constant.Constant;
 import com.mass3d.dataelement.DataElement;
 import com.mass3d.dataelement.DataElementGroup;
@@ -11,23 +10,23 @@ import com.mass3d.indicator.Indicator;
 import com.mass3d.indicator.IndicatorGroup;
 import com.mass3d.indicator.IndicatorGroupSet;
 import com.mass3d.indicator.IndicatorType;
+import com.mass3d.organisationunit.OrganisationUnit;
+import com.mass3d.organisationunit.OrganisationUnitGroup;
+import com.mass3d.organisationunit.OrganisationUnitGroupSet;
+import com.mass3d.organisationunit.OrganisationUnitLevel;
 import com.mass3d.period.Period;
 import com.mass3d.program.Program;
-import com.mass3d.project.Project;
-import com.mass3d.todotask.TodoTask;
+import com.mass3d.program.ProgramStageInstance;
+import com.mass3d.trackedentity.TrackedEntityAttribute;
 import com.mass3d.user.User;
 import com.mass3d.user.UserGroup;
+import com.mass3d.validation.ValidationRule;
 
 /**
  * @version $Id$
  */
 public enum Objects
 {
-    // Eagle Board modifications
-    TODOTASK("todoTask", TodoTask.class),
-    ACTIVITY("activity", Activity.class),
-    PROJECT("project", Project.class),
-
     CONSTANT( "constant", Constant.class ),
     DATAELEMENT( "dataElement", DataElement.class ),
     EXTENDEDDATAELEMENT( "extendedDataElement", DataElement.class ),
@@ -38,24 +37,24 @@ public enum Objects
     INDICATORGROUP( "indicatorGroup", IndicatorGroup.class ),
     INDICATORGROUPSET( "indicatorGroupSet", IndicatorGroupSet.class ),
     DATASET( "dataSet", DataSet.class ),
-//    ORGANISATIONUNIT( "organisationUnit", OrganisationUnit.class ),
-//    ORGANISATIONUNITGROUP( "organisationUnitGroup", OrganisationUnitGroup.class ),
-//    ORGANISATIONUNITGROUPSET( "organisationUnitGroupSet", OrganisationUnitGroupSet.class ),
-//    ORGANISATIONUNITLEVEL( "organisationUnitLevel", OrganisationUnitLevel.class ),
-//    VALIDATIONRULE( "validationRule", ValidationRule.class ),
+    ORGANISATIONUNIT( "organisationUnit", OrganisationUnit.class ),
+    ORGANISATIONUNITGROUP( "organisationUnitGroup", OrganisationUnitGroup.class ),
+    ORGANISATIONUNITGROUPSET( "organisationUnitGroupSet", OrganisationUnitGroupSet.class ),
+    ORGANISATIONUNITLEVEL( "organisationUnitLevel", OrganisationUnitLevel.class ),
+    VALIDATIONRULE( "validationRule", ValidationRule.class ),
     PERIOD( "period", Period.class ),
     DATAVALUE( "dataValue", DataValue.class ),
     USER( "user", User.class ),
-    USERGROUP( "userGroup", UserGroup.class );
+    USERGROUP( "userGroup", UserGroup.class ),
 //    REPORTTABLE( "reportTable", ReportTable.class ),
 //    VISUALIZATION( "visualization", Visualization.class ),
 //    REPORT( "report", Report.class ),
 //    CHART( "chart", Chart.class ),
 //    MAP( "map", Map.class ),
 //    DASHBOARD( "dashboard", Dashboard.class ),
-//    PROGRAM( "program", Program.class ),
-//    PROGRAMSTAGEINSTANCE( "programStageInstance", ProgramStageInstance.class ),
-//    TRACKEDENTITYATTRIBUTE( "trackedEntityAttribute", TrackedEntityAttribute.class );
+    PROGRAM( "program", Program.class ),
+    PROGRAMSTAGEINSTANCE( "programStageInstance", ProgramStageInstance.class ),
+    TRACKEDENTITYATTRIBUTE( "trackedEntityAttribute", TrackedEntityAttribute.class );
 
     private String value;
 

@@ -2,6 +2,7 @@ package com.mass3d.setting;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.mass3d.sms.config.SmsConfiguration;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -48,7 +49,7 @@ public enum SettingKey
     EMAIL_PASSWORD( "keyEmailPassword", "", String.class, true, false ),
     MIN_PASSWORD_LENGTH( "minPasswordLength", 8, Integer.class ),
     MAX_PASSWORD_LENGTH( "maxPasswordLength", 40, Integer.class ),
-//    SMS_CONFIG( "keySmsSetting", new SmsConfiguration(), SmsConfiguration.class ),
+    SMS_CONFIG( "keySmsSetting", new SmsConfiguration(), SmsConfiguration.class ),
     CACHE_STRATEGY( "keyCacheStrategy", CacheStrategy.CACHE_1_MINUTE, CacheStrategy.class ),
     CACHEABILITY( "keyCacheability", Cacheability.PUBLIC, Cacheability.class ),
     CACHE_ANALYTICS_DATA_YEAR_THRESHOLD( "keyCacheAnalyticsDataYearThreshold", 0, Integer.class ),

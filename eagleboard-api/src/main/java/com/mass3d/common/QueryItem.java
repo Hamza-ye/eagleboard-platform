@@ -2,6 +2,8 @@ package com.mass3d.common;
 
 import com.mass3d.dataelement.DataElement;
 import com.mass3d.option.OptionSet;
+import com.mass3d.program.Program;
+import com.mass3d.trackedentity.TrackedEntityAttribute;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -29,7 +31,7 @@ public class QueryItem
 
   private OptionSet optionSet;
 
-//  private Program program;
+  private Program program;
 
   private Boolean unique = false;
 
@@ -159,10 +161,10 @@ public class QueryItem
     return filters != null && !filters.isEmpty();
   }
 
-//  public boolean hasProgram()
-//  {
-//    return program != null;
-//  }
+  public boolean hasProgram()
+  {
+    return program != null;
+  }
 
   public boolean isProgramIndicator()
   {
@@ -266,29 +268,29 @@ public class QueryItem
   // Static utilities
   // -------------------------------------------------------------------------
 
-//  public static List<QueryItem> getQueryItems( Collection<TrackedEntityAttribute> attributes )
-//  {
-//    List<QueryItem> queryItems = new ArrayList<>();
-//
-//    for ( TrackedEntityAttribute attribute : attributes )
-//    {
-//      queryItems.add( new QueryItem( attribute, (attribute.getLegendSets().isEmpty() ? null : attribute.getLegendSets().get(0) ), attribute.getValueType(), attribute.getAggregationType(), attribute.hasOptionSet() ? attribute.getOptionSet() : null ) );
-//    }
-//
-//    return queryItems;
-//  }
+  public static List<QueryItem> getQueryItems( Collection<TrackedEntityAttribute> attributes )
+  {
+    List<QueryItem> queryItems = new ArrayList<>();
 
-//  public static List<QueryItem> getDataElementQueryItems( Collection<DataElement> dataElements )
-//  {
-//    List<QueryItem> queryItems = new ArrayList<>();
-//
-//    for ( DataElement dataElement : dataElements )
-//    {
-//      queryItems.add( new QueryItem( dataElement, dataElement.getLegendSet(), dataElement.getValueType(), dataElement.getAggregationType(), dataElement.hasOptionSet() ? dataElement.getOptionSet() : null ) );
-//    }
-//
-//    return queryItems;
-//  }
+    for ( TrackedEntityAttribute attribute : attributes )
+    {
+      queryItems.add( new QueryItem( attribute, attribute.getValueType(), attribute.getAggregationType(), attribute.hasOptionSet() ? attribute.getOptionSet() : null ) );
+    }
+
+    return queryItems;
+  }
+
+  public static List<QueryItem> getDataElementQueryItems( Collection<DataElement> dataElements )
+  {
+    List<QueryItem> queryItems = new ArrayList<>();
+
+    for ( DataElement dataElement : dataElements )
+    {
+      queryItems.add( new QueryItem( dataElement, dataElement.getValueType(), dataElement.getAggregationType(), dataElement.hasOptionSet() ? dataElement.getOptionSet() : null ) );
+    }
+
+    return queryItems;
+  }
 
   // -------------------------------------------------------------------------
   // hashCode, equals and toString
@@ -393,15 +395,15 @@ public class QueryItem
     this.optionSet = optionSet;
   }
 
-//  public Program getProgram()
-//  {
-//    return program;
-//  }
-//
-//  public void setProgram( Program program )
-//  {
-//    this.program = program;
-//  }
+  public Program getProgram()
+  {
+    return program;
+  }
+
+  public void setProgram( Program program )
+  {
+    this.program = program;
+  }
 
   public Boolean isUnique()
   {
