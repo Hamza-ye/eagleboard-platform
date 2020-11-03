@@ -61,11 +61,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import org.hisp.dhis.common.hibernate.HibernateIdentifiableObjectStore;
-import org.hisp.dhis.security.acl.AclService;
-import org.hisp.dhis.trackedentitycomment.TrackedEntityComment;
-import org.hisp.dhis.trackedentitycomment.TrackedEntityCommentStore;
-import org.hisp.dhis.user.CurrentUserService;
+import com.mass3d.common.hibernate.HibernateIdentifiableObjectStore;
+import com.mass3d.security.acl.AclService;
+import com.mass3d.trackedentitycomment.TrackedEntityComment;
+import com.mass3d.trackedentitycomment.TrackedEntityCommentStore;
+import com.mass3d.user.CurrentUserService;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -73,7 +73,7 @@ import org.springframework.stereotype.Repository;
 /**
  * @author David Katuscak
  */
-@Repository( "org.hisp.dhis.trackedentitycomment.TrackedEntityCommentStore" )
+@Repository( "com.mass3d.trackedentitycomment.TrackedEntityCommentStore" )
 public class HibernateTrackedEntityCommentStore
     extends HibernateIdentifiableObjectStore<TrackedEntityComment>
     implements TrackedEntityCommentStore
