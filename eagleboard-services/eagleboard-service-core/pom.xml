@@ -178,11 +178,11 @@
       <artifactId>aerogear-otp-java</artifactId>
     </dependency>
 
-    <!--<dependency>-->
-      <!--<groupId>javax.servlet</groupId>-->
-      <!--<artifactId>javax.servlet-api</artifactId>-->
-      <!--<scope>compile</scope>-->
-    <!--</dependency>-->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <scope>compile</scope>
+    </dependency>
 
     <!-- Test -->
 
@@ -207,5 +207,8 @@
 
   </dependencies>
 
+  <properties>
+    <rootDir>../../</rootDir>
+  </properties>
 
 </project>

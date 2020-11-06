@@ -76,15 +76,15 @@
       <artifactId>spring-retry</artifactId>
     </dependency>
 
-    <!--<dependency>-->
-      <!--<groupId>javax.servlet</groupId>-->
-      <!--<artifactId>javax.servlet-api</artifactId>-->
-    <!--</dependency>-->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+    </dependency>
 
-    <!--<dependency>-->
-      <!--<groupId>net.postgis</groupId>-->
-      <!--<artifactId>postgis-jdbc</artifactId>-->
-    <!--</dependency>-->
+    <dependency>
+      <groupId>net.postgis</groupId>
+      <artifactId>postgis-jdbc</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>org.projectlombok</groupId>
@@ -129,5 +129,8 @@
 
   </dependencies>
 
+  <properties>
+    <rootDir>../../</rootDir>
+  </properties>
 
 </project>

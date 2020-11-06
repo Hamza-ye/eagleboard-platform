@@ -13,7 +13,6 @@
   <packaging>jar</packaging>
 
   <dependencies>
-
     <dependency>
       <groupId>com.mass3d.eagleboard</groupId>
       <artifactId>eagleboard-api</artifactId>
@@ -44,7 +43,8 @@
       <scope>test</scope>
     </dependency>
 
-
   </dependencies>
-
+  <properties>
+    <rootDir>../../</rootDir>
+  </properties>
 </project>

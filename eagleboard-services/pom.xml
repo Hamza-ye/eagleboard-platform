@@ -26,6 +26,19 @@
 
   <dependencies>
 
+    <!-- DHIS -->
+
+    <dependency>
+      <groupId>com.mass3d.eagleboard</groupId>
+      <artifactId>eagleboard-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.mass3d.eagleboard</groupId>
+      <artifactId>eagleboard-support-test</artifactId>
+    </dependency>
   </dependencies>
 
+  <properties>
+    <rootDir>../</rootDir>
+  </properties>
 </project>

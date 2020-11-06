@@ -36,10 +36,10 @@
       <artifactId>classmate</artifactId>
     </dependency>
 
-    <!--<dependency>-->
-      <!--<groupId>org.hibernate</groupId>-->
-      <!--<artifactId>hibernate-spatial</artifactId>-->
-    <!--</dependency>-->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-spatial</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>org.hisp</groupId>
@@ -58,7 +58,8 @@
       <scope>test</scope>
     </dependency>
 
-
   </dependencies>
-
+  <properties>
+    <rootDir>../../</rootDir>
+  </properties>
 </project>

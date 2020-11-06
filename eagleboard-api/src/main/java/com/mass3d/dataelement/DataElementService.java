@@ -4,7 +4,6 @@ import com.mass3d.common.ValueType;
 import com.mass3d.period.PeriodType;
 import java.util.Collection;
 import java.util.List;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Defines service functionality for DataElements.

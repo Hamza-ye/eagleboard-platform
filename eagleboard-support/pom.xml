@@ -23,8 +23,7 @@
     <module>eagleboard-support-test</module>
   </modules>
 
-  <dependencies>
-
-  </dependencies>
-
+  <properties>
+    <rootDir>../</rootDir>
+  </properties>
 </project>

@@ -31,11 +31,6 @@ import javax.servlet.ServletRegistration;
 import javax.servlet.SessionTrackingMode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.orm.hibernate5.support.OpenSessionInViewFilter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -52,12 +47,12 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
-@SpringBootApplication (exclude =
-    { WebMvcMetricsAutoConfiguration.class, //SecurityAutoConfiguration.class,
-        TomcatMetricsAutoConfiguration.class,
-        org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration.class,
-        org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration.class,
-        org.springframework.boot.autoconfigure.ldap.LdapAutoConfiguration.class})
+//@SpringBootApplication (exclude =
+//    { WebMvcMetricsAutoConfiguration.class, //SecurityAutoConfiguration.class,
+//        TomcatMetricsAutoConfiguration.class,
+//        org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration.class,
+//        org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration.class,
+//        org.springframework.boot.autoconfigure.ldap.LdapAutoConfiguration.class})
 // , exclude = {org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration.class
 //@EnableTransactionManagement(proxyTargetClass = true)
 //@ComponentScan(basePackages = { "com.mass3d" }, excludeFilters = { @Filter(type = FilterType.ANNOTATION, value = Configuration.class) })
@@ -84,7 +79,7 @@ public class MainApp2 /*extends SpringBootServletInitializer */{
   DataElementService dataElementService;
 
   public static void main(String[] args) {
-    SpringApplication.run(MainApp2.class, args);
+//    SpringApplication.run(MainApp2.class, args);
 //    SpringApplication.run(new Class[] { MainApp2.class, DhisWebApiWebAppInitializer.class }, args);
   }
 
@@ -245,51 +240,51 @@ public class MainApp2 /*extends SpringBootServletInitializer */{
 //    }
 //  }
 
-  @Bean
-  public CommandLineRunner dataLoader() {
-    return new CommandLineRunner() {
-      @Override
-      public void run(String... args) throws Exception {
-
-//        preCreateInjectAdminUser();
-        createAdminUser("ALL");
-
-        DataElement dataElementA = createDataField( 'A' );
-        DataElement dataElementB = createDataField( 'B' );
-        DataElement dataElementC = createDataField( 'C' );
-
-        identifiableObjectManager.save(dataElementA);
-        Long idA = dataElementA.getId();
-        identifiableObjectManager.save(dataElementB);
-        Long idB = dataElementB.getId();
-        identifiableObjectManager.save(dataElementC);
-        Long idC = dataElementC.getId();
-
-//        dataElementA = dataElementStore.get( idA );
-
-        System.out.println("idA = " + idA);
-        System.out.println("idB = " + idB);
-        System.out.println("idC = " + idC);
-        System.out.println("currentUserServices.size() = " + currentUserServices.size());
-        System.out.println("currentUser = " + currentUserServices.get(0).getCurrentUser());
-        System.out.println("currentUserName = " + currentUserServices.get(0).getCurrentUsername());
-        DataElement dataElementGet = identifiableObjectManager.get(DataElement.class, idC);
-        System.out.println("DataElement-------- = " + dataElementGet);
-
-        int count = identifiableObjectManager.getCount(DataElement.class);
-        System.out.println("DataElement Count = " + count);
-
-        List<Long> ids = Arrays.asList(idA, idB, idC);
-        List<DataElement> dataElements = identifiableObjectManager.getById(DataElement.class, ids);
-        for (DataElement dataElement : dataElements) {
-          System.out.println("DataElement in list = " + dataElement);
-        }
-
-        List<DataElement> dataFieldsAll = dataElementService.getAllDataElements();
-        for (DataElement dataElement : dataFieldsAll) {
-          System.out.println("DataElement in list = " + dataElement);
-        }
-      }
-    };
-  }
+//  @Bean
+//  public CommandLineRunner dataLoader() {
+//    return new CommandLineRunner() {
+//      @Override
+//      public void run(String... args) throws Exception {
+//
+////        preCreateInjectAdminUser();
+//        createAdminUser("ALL");
+//
+//        DataElement dataElementA = createDataField( 'A' );
+//        DataElement dataElementB = createDataField( 'B' );
+//        DataElement dataElementC = createDataField( 'C' );
+//
+//        identifiableObjectManager.save(dataElementA);
+//        Long idA = dataElementA.getId();
+//        identifiableObjectManager.save(dataElementB);
+//        Long idB = dataElementB.getId();
+//        identifiableObjectManager.save(dataElementC);
+//        Long idC = dataElementC.getId();
+//
+////        dataElementA = dataElementStore.get( idA );
+//
+//        System.out.println("idA = " + idA);
+//        System.out.println("idB = " + idB);
+//        System.out.println("idC = " + idC);
+//        System.out.println("currentUserServices.size() = " + currentUserServices.size());
+//        System.out.println("currentUser = " + currentUserServices.get(0).getCurrentUser());
+//        System.out.println("currentUserName = " + currentUserServices.get(0).getCurrentUsername());
+//        DataElement dataElementGet = identifiableObjectManager.get(DataElement.class, idC);
+//        System.out.println("DataElement-------- = " + dataElementGet);
+//
+//        int count = identifiableObjectManager.getCount(DataElement.class);
+//        System.out.println("DataElement Count = " + count);
+//
+//        List<Long> ids = Arrays.asList(idA, idB, idC);
+//        List<DataElement> dataElements = identifiableObjectManager.getById(DataElement.class, ids);
+//        for (DataElement dataElement : dataElements) {
+//          System.out.println("DataElement in list = " + dataElement);
+//        }
+//
+//        List<DataElement> dataFieldsAll = dataElementService.getAllDataElements();
+//        for (DataElement dataElement : dataFieldsAll) {
+//          System.out.println("DataElement in list = " + dataElement);
+//        }
+//      }
+//    };
+//  }
 }

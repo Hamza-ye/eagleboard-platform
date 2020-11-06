@@ -3,7 +3,6 @@ package com.mass3d;
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate5.support.OpenSessionInViewFilter;
