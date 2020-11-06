@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC
-        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"
-        [<!ENTITY identifiableProperties SYSTEM "classpath://com/mass3d/common/identifiableProperties.hbm">]
-        >
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"
+  [<!ENTITY identifiableProperties SYSTEM "classpath://com/mass3d/common/identifiableProperties.hbm">]
+  >
 
 <hibernate-mapping>
     <class name="com.mass3d.scheduling.JobConfiguration" table="jobconfiguration">
@@ -16,13 +16,33 @@
 
         <property name="name" column="name" not-null="true" unique="true" length="230" />
 
-        <property name="cronExpression" not-null="true" />
+        <property name="cronExpression" />
+        
+        <property name="delay" />
 
-        <property name="jobType" not-null="true" />
+        <property name="jobType" column="jobtype" not-null="true" length="120">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">com.mass3d.scheduling.JobType</param>
+                <param name="useNamed">true</param>
+                <param name="type">12</param>
+            </type>
+        </property>
 
-        <property name="jobStatus" not-null="true" />
+        <property name="jobStatus" column="jobstatus" not-null="true" length="120" >
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">com.mass3d.scheduling.JobStatus</param>
+                <param name="useNamed">true</param>
+                <param name="type">12</param>
+            </type>
+        </property>
 
-        <property name="lastExecutedStatus" />
+        <property name="lastExecutedStatus" column="lastexecutedstatus" not-null="true" length="120" >
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">com.mass3d.scheduling.JobStatus</param>
+                <param name="useNamed">true</param>
+                <param name="type">12</param>
+            </type>
+        </property>
 
         <property name="lastExecuted" type="timestamp" />
 
@@ -30,13 +50,11 @@
 
         <property name="nextExecutionTime" type="timestamp" />
 
-        <!--<property name="continuousExecution" not-null="true" type="boolean" />-->
-
         <property name="enabled" not-null="true" type="boolean" />
 
-		<property name="leaderOnlyJob" not-null="true" type="boolean">
-			<column name="leaderonlyjob" default="false" />
-		</property>
+        <property name="leaderOnlyJob" not-null="true" type="boolean">
+            <column name="leaderonlyjob" default="false" />
+        </property>
 
         <property name="jobParameters" column="jsonbjobparameters" type="jbJobParameters" />
     </class>

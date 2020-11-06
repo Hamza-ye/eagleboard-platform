@@ -1,7 +1,14 @@
 package com.mass3d.config;
 
+import com.mass3d.common.DeliveryChannel;
 import com.mass3d.i18n.ui.resourcebundle.DefaultResourceBundleManager;
 import com.mass3d.i18n.ui.resourcebundle.ResourceBundleManager;
+import com.mass3d.message.EmailMessageSender;
+import com.mass3d.message.MessageSender;
+import com.mass3d.outboundmessage.DefaultOutboundMessageBatchService;
+import com.mass3d.sms.config.SmsMessageSender;
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -37,20 +44,20 @@ public class ServiceConfig
 //        return new DefaultStyleManager( systemSettingManager, userSettingService, styles, i18nManager );
 //    }
 
-//    @Bean( "com.mass3d.outboundmessage.OutboundMessageService" )
-//    public DefaultOutboundMessageBatchService defaultOutboundMessageBatchService( SmsMessageSender smsMessageSender,
-//        EmailMessageSender emailMessageSender )
-//    {
-//        Map<DeliveryChannel, MessageSender> channels = new HashMap<>();
-//        channels.put( DeliveryChannel.SMS, smsMessageSender );
-//        channels.put( DeliveryChannel.EMAIL, emailMessageSender );
-//
-//        DefaultOutboundMessageBatchService service = new DefaultOutboundMessageBatchService();
-//
-//        service.setMessageSenders( channels );
-//
-//        return service;
-//    }
+    @Bean( "com.mass3d.outboundmessage.OutboundMessageService" )
+    public DefaultOutboundMessageBatchService defaultOutboundMessageBatchService( SmsMessageSender smsMessageSender,
+        EmailMessageSender emailMessageSender )
+    {
+        Map<DeliveryChannel, MessageSender> channels = new HashMap<>();
+        channels.put( DeliveryChannel.SMS, smsMessageSender );
+        channels.put( DeliveryChannel.EMAIL, emailMessageSender );
+
+        DefaultOutboundMessageBatchService service = new DefaultOutboundMessageBatchService();
+
+        service.setMessageSenders( channels );
+
+        return service;
+    }
 
     @Bean( "com.mass3d.i18n.ui.resourcebundle.ResourceBundleManager" )
     public ResourceBundleManager resourceBundleManager()

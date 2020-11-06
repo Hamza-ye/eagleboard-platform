@@ -37,7 +37,7 @@
 
     <interceptors>
       <interceptor name="exceptionInterceptor" class="com.mass3d.interceptor.ExceptionInterceptor" />
-      <!--<interceptor name="i18nInterceptor" class="com.mass3d.interceptor.I18nInterceptor" />-->
+      <interceptor name="i18nInterceptor" class="com.mass3d.interceptor.I18nInterceptor" />
       <interceptor name="systemSettingInterceptor" class="com.mass3d.interceptor.SystemSettingInterceptor" />
       <interceptor name="userSettingInterceptor" class="com.mass3d.interceptor.UserSettingInterceptor" />
       <interceptor name="contextInterceptor" class="com.mass3d.interceptor.ContextInterceptor" />
@@ -56,7 +56,7 @@
       <interceptor-stack name="commonInterceptors">
         <!--<interceptor-ref name="staticParams" />-->
         <!--<interceptor-ref name="params" />-->
-        <!--<interceptor-ref name="i18nInterceptor" />-->
+        <interceptor-ref name="i18nInterceptor" />
         <interceptor-ref name="systemSettingInterceptor" />
         <!-- The securityInterceptor is put after the i18nInterceptor so that the access denied error pages can use internationalization. -->
         <interceptor-ref name="securityInterceptor" />
@@ -507,10 +507,10 @@
 
   <package name="dhis-web-commons-ajax-json" extends="dhis-web-commons" namespace="/dhis-web-commons-ajax-json">
 
-    <!--<action name="getNotifications" class="com.mass3d.commons.action.GetNotificationsAction">-->
-      <!--<result name="success" type="velocity-json">/dhis-web-commons/ajax/jsonNotifications.vm</result>-->
-      <!--<param name="onExceptionReturn">plainTextError</param>-->
-    <!--</action>-->
+    <action name="getNotifications" class="com.mass3d.commons.action.GetNotificationsAction">
+      <result name="success" type="velocity-json">/dhis-web-commons/ajax/jsonNotifications.vm</result>
+      <param name="onExceptionReturn">plainTextError</param>
+    </action>
 
     <action name="getUser" class="com.mass3d.commons.action.GetUserAction">
       <result name="success" type="velocity-json">

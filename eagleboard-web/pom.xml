@@ -19,6 +19,7 @@
     <module>eagleboard-web-commons-resources</module>
     <module>eagleboard-web-uaa</module>
     <module>eagleboard-web-portal</module>
+    <module>eagleboard-web-apps</module>
   </modules>
 
   <!--<profiles>-->

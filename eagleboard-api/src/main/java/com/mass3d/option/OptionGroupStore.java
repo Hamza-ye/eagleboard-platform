@@ -5,11 +5,11 @@ import com.mass3d.common.DataDimensionType;
 import com.mass3d.common.GenericDimensionalObjectStore;
 
 public interface OptionGroupStore
-    extends GenericDimensionalObjectStore<OptionGroup> {
+    extends GenericDimensionalObjectStore<OptionGroup>
+{
+    List<OptionGroup> getOptionGroups(OptionGroupSet groupSet);
 
-  List<OptionGroup> getOptionGroups(OptionGroupSet groupSet);
-
-  List<OptionGroup> getOptionGroupsNoAcl(DataDimensionType dataDimensionType,
-      boolean dataDimension);
+    List<OptionGroup> getOptionGroupsNoAcl(DataDimensionType dataDimensionType,
+        boolean dataDimension);
 }
 

@@ -12,127 +12,101 @@ import com.mass3d.common.BaseIdentifiableObject;
 import com.mass3d.common.DimensionItemType;
 import com.mass3d.common.DxfNamespaces;
 import com.mass3d.common.MetadataObject;
-import javax.persistence.AssociationOverride;
-import javax.persistence.AttributeOverride;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-//@Entity
-//@Table(name = "optiongroup")
-//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-//@AttributeOverride(name = "id", column = @Column(name = "optiongroupid"))
-//@AssociationOverride(
-//    name="userGroupAccesses",
-//    joinTable=@JoinTable(
-//        name="optiongroupusergroupaccesses",
-//        joinColumns=@JoinColumn(name="optiongroupid"),
-//        inverseJoinColumns=@JoinColumn(name="usergroupaccessid")
-//    )
-//)
-//@AssociationOverride(
-//    name="userAccesses",
-//    joinTable=@JoinTable(
-//        name="optiongroupuseraccesses",
-//        joinColumns=@JoinColumn(name="optiongroupid"),
-//        inverseJoinColumns=@JoinColumn(name="useraccessid")
-//    )
-//)
-@JacksonXmlRootElement(localName = "optionGroup", namespace = DxfNamespaces.DXF_2_0)
+@JacksonXmlRootElement( localName = "optionGroup", namespace = DxfNamespaces.DXF_2_0 )
 public class OptionGroup
-    extends BaseDimensionalItemObject implements MetadataObject {
+    extends BaseDimensionalItemObject implements MetadataObject
+{
+    private Set<Option> members = new HashSet<>();
 
-  @ManyToMany
-  @JoinTable(name = "optiongroupmembers",
-      joinColumns = @JoinColumn(name = "optiongroupid", referencedColumnName = "optiongroupid"),
-      inverseJoinColumns = @JoinColumn(name = "optionid", referencedColumnName = "optionid")
-  )
-  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-  private Set<Option> members = new HashSet<>();
+    private OptionSet optionSet;
 
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "optionsetid")
-  private OptionSet optionSet;
+    // -------------------------------------------------------------------------
+    // Constructors
+    // -------------------------------------------------------------------------
 
-  // -------------------------------------------------------------------------
-  // Constructors
-  // -------------------------------------------------------------------------
-
-  public OptionGroup() {
-  }
-
-  public OptionGroup(String name) {
-    this.name = name;
-  }
-
-  // -------------------------------------------------------------------------
-  // DimensionalItemObject
-  // -------------------------------------------------------------------------
-
-  @Override
-  public DimensionItemType getDimensionItemType() {
-    return DimensionItemType.OPTION_GROUP;
-  }
-
-  // -------------------------------------------------------------------------
-  // Getters and setters
-  // -------------------------------------------------------------------------
-
-  @JsonProperty("options")
-  @JsonSerialize(contentAs = BaseIdentifiableObject.class)
-  @JacksonXmlElementWrapper(localName = "options", namespace = DxfNamespaces.DXF_2_0)
-  @JacksonXmlProperty(localName = "option", namespace = DxfNamespaces.DXF_2_0)
-  public Set<Option> getMembers() {
-    return members;
-  }
-
-  public void setMembers(Set<Option> members) {
-    this.members = members;
-  }
-
-  @JsonProperty("optionSet")
-  @JsonSerialize(as = BaseIdentifiableObject.class)
-  @JacksonXmlProperty(localName = "optionSet", namespace = DxfNamespaces.DXF_2_0)
-  public OptionSet getOptionSet() {
-    return optionSet;
-  }
-
-  public void setOptionSet(OptionSet optionSet) {
-    this.optionSet = optionSet;
-  }
-
-  // -------------------------------------------------------------------------
-  // Logic
-  // -------------------------------------------------------------------------
-
-  public void addOption(Option option) {
-    members.add(option);
-  }
-
-  public void removeOption(Option option) {
-    members.remove(option);
-  }
-
-  public void updateOptions(Set<Option> updates) {
-    for (Option option : new HashSet<>(members)) {
-      if (!updates.contains(option)) {
-        removeOption(option);
-      }
+    public OptionGroup()
+    {
     }
 
-    for (Option option : updates) {
-      addOption(option);
+    public OptionGroup( String name )
+    {
+        this.name = name;
     }
-  }
 
-  public void removeAllOptions() {
-    members.clear();
-  }
+    // -------------------------------------------------------------------------
+    // DimensionalItemObject
+    // -------------------------------------------------------------------------
+
+    @Override
+    public DimensionItemType getDimensionItemType()
+    {
+        return DimensionItemType.OPTION_GROUP;
+    }
+
+    // -------------------------------------------------------------------------
+    // Getters and setters
+    // -------------------------------------------------------------------------
+
+    @JsonProperty( "options" )
+    @JsonSerialize( contentAs = BaseIdentifiableObject.class )
+    @JacksonXmlElementWrapper( localName = "options", namespace = DxfNamespaces.DXF_2_0 )
+    @JacksonXmlProperty( localName = "option", namespace = DxfNamespaces.DXF_2_0 )
+    public Set<Option> getMembers()
+    {
+        return members;
+    }
+
+    public void setMembers( Set<Option> members )
+    {
+        this.members = members;
+    }
+
+    @JsonProperty( "optionSet" )
+    @JsonSerialize( as = BaseIdentifiableObject.class )
+    @JacksonXmlProperty( localName = "optionSet", namespace = DxfNamespaces.DXF_2_0 )
+    public OptionSet getOptionSet()
+    {
+        return optionSet;
+    }
+
+    public void setOptionSet( OptionSet optionSet )
+    {
+        this.optionSet = optionSet;
+    }
+
+    // -------------------------------------------------------------------------
+    // Logic
+    // -------------------------------------------------------------------------
+
+    public void addOption( Option option )
+    {
+        members.add( option );
+    }
+
+    public void removeOption( Option option )
+    {
+        members.remove( option );
+    }
+
+    public void updateOptions( Set<Option> updates )
+    {
+        for ( Option option : new HashSet<>( members ) )
+        {
+            if ( !updates.contains( option ) )
+            {
+                removeOption( option );
+            }
+        }
+
+        for ( Option option : updates )
+        {
+            addOption( option );
+        }
+    }
+
+    public void removeAllOptions()
+    {
+        members.clear();
+    }
 }
