@@ -1,0 +1,10 @@
+{
+  "name": "eagleboard-web-apps",
+  "version": "1.0.0",
+  "repository": "github.com/Hamza-ye/eagleboard-platform",
+  "description": "Wrapper for all frontend application apps",
+  "scripts": {
+    "bundle-apps": "node ./scripts/bundle-apps.js"
+  },
+  "license": "BSD-3-Clause"
+}
