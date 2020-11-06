@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 /**
  * Defines retry mechanism for metadata sync scheduling
  *
- * @author aamerm
  */
 @Slf4j
 @Component( "metadataRetryContext" )

@@ -2,6 +2,8 @@ package com.mass3d.configuration;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import com.mass3d.organisationunit.OrganisationUnit;
+import com.mass3d.organisationunit.OrganisationUnitLevel;
 import org.apache.commons.lang3.StringUtils;
 import com.mass3d.dataelement.DataElementGroup;
 import com.mass3d.indicator.IndicatorGroup;
@@ -61,21 +63,21 @@ public class ConfigurationDeletionHandler
         return ( infrastructuralIndicators != null && infrastructuralIndicators.equals( indicatorGroup ) ) ? StringUtils.EMPTY : null;
     }
 
-//    @Override
-//    public String allowDeleteOrganisationUnitLevel( OrganisationUnitLevel level )
-//    {
-//        OrganisationUnitLevel offlineLevel = configService.getConfiguration().getOfflineOrganisationUnitLevel();
-//
-//        return ( offlineLevel != null && offlineLevel.equals( level ) ) ? StringUtils.EMPTY : null;
-//    }
-//
-//    @Override
-//    public String allowDeleteOrganisationUnit( OrganisationUnit organisationUnit )
-//    {
-//        OrganisationUnit selfRegOrgUnit = configService.getConfiguration().getSelfRegistrationOrgUnit();
-//
-//        return ( selfRegOrgUnit != null && selfRegOrgUnit.equals( organisationUnit ) ) ? StringUtils.EMPTY : null;
-//    }
+    @Override
+    public String allowDeleteOrganisationUnitLevel( OrganisationUnitLevel level )
+    {
+        OrganisationUnitLevel offlineLevel = configService.getConfiguration().getOfflineOrganisationUnitLevel();
+
+        return ( offlineLevel != null && offlineLevel.equals( level ) ) ? StringUtils.EMPTY : null;
+    }
+
+    @Override
+    public String allowDeleteOrganisationUnit( OrganisationUnit organisationUnit )
+    {
+        OrganisationUnit selfRegOrgUnit = configService.getConfiguration().getSelfRegistrationOrgUnit();
+
+        return ( selfRegOrgUnit != null && selfRegOrgUnit.equals( organisationUnit ) ) ? StringUtils.EMPTY : null;
+    }
 
     @Override
     public String allowDeleteUserAuthorityGroup( UserAuthorityGroup userAuthorityGroup )

@@ -15,9 +15,6 @@ import com.mass3d.feedback.ErrorReport;
 import com.mass3d.util.ObjectUtils;
 import org.springframework.stereotype.Component;
 
-/**
- * @author Viet Nguyen <viet@dhis2.org>
- */
 @Component
 public class DataSetObjectBundleHook extends AbstractObjectBundleHook
 {
