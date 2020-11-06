@@ -6,7 +6,6 @@ import com.mass3d.program.ProgramStageInstance;
 
 /**
  * @version ProgramStageInstanceVisitDateComparator.java 8:24:02 PM Mar 5, 2013
- *          $
  */
 public class ProgramStageInstanceVisitDateComparator
     implements Comparator<ProgramStageInstance>

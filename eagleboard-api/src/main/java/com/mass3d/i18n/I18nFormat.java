@@ -22,7 +22,6 @@ import com.mass3d.period.WeeklyPeriodType;
 import org.joda.time.DateTime;
 
 /**
- * @author Pham Thi Thuy
  * @version $Id: I18nFormat.java 2974 2007-03-03 22:11:13Z torgeilo $
  */
 public class I18nFormat

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import java.util.List;
 import com.mass3d.analytics.AggregationType;
 import com.mass3d.common.BaseDimensionalItemObject;
 import com.mass3d.common.BaseIdentifiableObject;
@@ -17,126 +16,113 @@ import com.mass3d.common.IdScheme;
 import com.mass3d.common.ValueType;
 import com.mass3d.dataelement.DataElement;
 
-@JacksonXmlRootElement( localName = "programDataElement", namespace = DxfNamespaces.DXF_2_0 )
+@JacksonXmlRootElement(localName = "programDataElement", namespace = DxfNamespaces.DXF_2_0)
 public class ProgramDataElementDimensionItem
-    extends BaseDimensionalItemObject implements EmbeddedObject
-{
-    private Program program;
+    extends BaseDimensionalItemObject implements EmbeddedObject {
 
-    private DataElement dataElement;
+  private Program program;
 
-    // -------------------------------------------------------------------------
-    // Constructors
-    // -------------------------------------------------------------------------
+  private DataElement dataElement;
 
-    public ProgramDataElementDimensionItem()
-    {
-    }
-    
-    public ProgramDataElementDimensionItem( Program program, DataElement dataElement )
-    {
-        this.program = program;
-        this.dataElement = dataElement;
-    }
+  // -------------------------------------------------------------------------
+  // Constructors
+  // -------------------------------------------------------------------------
 
-    // -------------------------------------------------------------------------
-    // Logic
-    // -------------------------------------------------------------------------
+  public ProgramDataElementDimensionItem() {
+  }
 
-    @Override
-    public String getName()
-    {
-        return program.getDisplayName() + " " + dataElement.getDisplayName();
-    }
+  public ProgramDataElementDimensionItem(Program program, DataElement dataElement) {
+    this.program = program;
+    this.dataElement = dataElement;
+  }
 
-    @Override
-    public String getShortName()
-    {
-        return program.getDisplayShortName() + " " + dataElement.getDisplayShortName();
-    }
+  // -------------------------------------------------------------------------
+  // Logic
+  // -------------------------------------------------------------------------
 
-    @JsonProperty
-    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
-    public ValueType getValueType()
-    {
-        return dataElement.getValueType();
-    }
+  @Override
+  public String getName() {
+    return program.getDisplayName() + " " + dataElement.getDisplayName();
+  }
 
-    @Override
-    public String toString()
-    {
-        return "{" +
-            "\"class\":\"" + getClass() + "\", " +
-            "\"id\":\"" + id + "\", " +
-            "\"uid\":\"" + uid + "\", " +
-            "\"program\":" + program + ", " +
-            "\"dataElement\":" + dataElement + ", " +
-            "\"created\":\"" + created + "\", " +
-            "\"lastUpdated\":\"" + lastUpdated + "\" " +
-            "}";
-    }
+  @Override
+  public String getShortName() {
+    return program.getDisplayShortName() + " " + dataElement.getDisplayShortName();
+  }
 
-    // -------------------------------------------------------------------------
-    // DimensionalItemObject
-    // -------------------------------------------------------------------------
+  @JsonProperty
+  @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
+  public ValueType getValueType() {
+    return dataElement.getValueType();
+  }
 
-    @Override
-    public String getDimensionItem()
-    {
-        return program.getUid() + COMPOSITE_DIM_OBJECT_PLAIN_SEP + dataElement.getUid();
-    }
+  @Override
+  public String toString() {
+    return "{" +
+        "\"class\":\"" + getClass() + "\", " +
+        "\"id\":\"" + id + "\", " +
+        "\"uid\":\"" + uid + "\", " +
+        "\"program\":" + program + ", " +
+        "\"dataElement\":" + dataElement + ", " +
+        "\"created\":\"" + created + "\", " +
+        "\"lastUpdated\":\"" + lastUpdated + "\" " +
+        "}";
+  }
 
-    @Override
-    public String getDimensionItem( IdScheme idScheme )
-    {
-        return program.getPropertyValue( idScheme ) + COMPOSITE_DIM_OBJECT_PLAIN_SEP + dataElement.getPropertyValue( idScheme );
-    }
+  // -------------------------------------------------------------------------
+  // DimensionalItemObject
+  // -------------------------------------------------------------------------
 
-    @Override
-    public DimensionItemType getDimensionItemType()
-    {
-        return DimensionItemType.PROGRAM_DATA_ELEMENT;
-    }
+  @Override
+  public String getDimensionItem() {
+    return program.getUid() + COMPOSITE_DIM_OBJECT_PLAIN_SEP + dataElement.getUid();
+  }
 
-//    @Override
+  @Override
+  public String getDimensionItem(IdScheme idScheme) {
+    return program.getPropertyValue(idScheme) + COMPOSITE_DIM_OBJECT_PLAIN_SEP + dataElement
+        .getPropertyValue(idScheme);
+  }
+
+  @Override
+  public DimensionItemType getDimensionItemType() {
+    return DimensionItemType.PROGRAM_DATA_ELEMENT;
+  }
+
+  //    @Override
 //    public List<LegendSet> getLegendSets()
 //    {
 //        return dataElement.getLegendSets();
 //    }
 //
-//    @Override
-//    public AggregationType getAggregationType()
-//    {
-//        return dataElement.getAggregationType();
-//    }
+  @Override
+  public AggregationType getAggregationType() {
+    return dataElement.getAggregationType();
+  }
 
-    // -------------------------------------------------------------------------
-    // Get and set methods
-    // -------------------------------------------------------------------------
+  // -------------------------------------------------------------------------
+  // Get and set methods
+  // -------------------------------------------------------------------------
 
-    @JsonProperty
-    @JsonSerialize( as = BaseIdentifiableObject.class )
-    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
-    public Program getProgram()
-    {
-        return program;
-    }
+  @JsonProperty
+  @JsonSerialize(as = BaseIdentifiableObject.class)
+  @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
+  public Program getProgram() {
+    return program;
+  }
 
-    public void setProgram( Program program )
-    {
-        this.program = program;
-    }
+  public void setProgram(Program program) {
+    this.program = program;
+  }
 
-    @JsonProperty
-    @JsonSerialize( as = BaseIdentifiableObject.class )
-    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
-    public DataElement getDataElement()
-    {
-        return dataElement;
-    }
+  @JsonProperty
+  @JsonSerialize(as = BaseIdentifiableObject.class)
+  @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
+  public DataElement getDataElement() {
+    return dataElement;
+  }
 
-    public void setDataElement( DataElement dataElement )
-    {
-        this.dataElement = dataElement;
-    }
+  public void setDataElement(DataElement dataElement) {
+    this.dataElement = dataElement;
+  }
 }

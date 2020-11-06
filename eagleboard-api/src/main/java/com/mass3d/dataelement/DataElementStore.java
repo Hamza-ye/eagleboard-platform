@@ -1,5 +1,6 @@
 package com.mass3d.dataelement;
 
+import com.mass3d.category.CategoryCombo;
 import com.mass3d.common.GenericDimensionalObjectStore;
 import com.mass3d.common.ValueType;
 import java.util.List;
@@ -13,13 +14,13 @@ public interface DataElementStore
   // DataElement
   // -------------------------------------------------------------------------
 
-//  /**
-//   * Returns all DataElements with the given category combo.
-//   *
-//   * @param categoryCombo the CategoryCombo.
-//   * @return all DataElements with the given category combo.
-//   */
-//  List<DataElement> getDataElementByCategoryCombo( CategoryCombo categoryCombo );
+  /**
+   * Returns all DataElements with the given category combo.
+   *
+   * @param categoryCombo the CategoryCombo.
+   * @return all DataElements with the given category combo.
+   */
+  List<DataElement> getDataElementByCategoryCombo( CategoryCombo categoryCombo );
 
   /**
    * Returns all DataElement which zeroIsSignificant property is true or false
@@ -29,13 +30,13 @@ public interface DataElementStore
    */
   List<DataElement> getDataElementsByZeroIsSignificant(boolean zeroIsSignificant);
 
-//  /**
-//   * Returns all DataElements of the given domain type.
-//   *
-//   * @param domainType the domain type.
-//   * @return all DataElements of the given domain type.
-//   */
-//  List<DataElement> getDataElementsByDomainType( DataElementDomain domainType );
+  /**
+   * Returns all DataElements of the given domain type.
+   *
+   * @param domainType the domain type.
+   * @return all DataElements of the given domain type.
+   */
+  List<DataElement> getDataElementsByDomainType( DataElementDomain domainType );
 
   /**
    * Returns all DataElements of the given value type.

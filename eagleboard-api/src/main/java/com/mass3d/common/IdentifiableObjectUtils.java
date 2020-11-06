@@ -2,6 +2,9 @@ package com.mass3d.common;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import com.mass3d.category.Category;
+import com.mass3d.category.CategoryCombo;
+import com.mass3d.category.CategoryOption;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -31,10 +34,10 @@ public class IdentifiableObjectUtils {
   public static final DateTimeFormatter MEDIUM_DATE_FORMAT = DateTimeFormat
       .forPattern("yyyy-MM-dd");
 
-    public static final Map<String, String> CLASS_ALIAS = ImmutableMap.<String, String>builder()
-//        put( "CategoryOption", CategoryOption.class.getSimpleName() ).
-//        put( "Category", Category.class.getSimpleName() ).
-//        put( "CategoryCombo", CategoryCombo.class.getSimpleName() )
+    public static final Map<String, String> CLASS_ALIAS = ImmutableMap.<String, String>builder().
+        put( "CategoryOption", CategoryOption.class.getSimpleName() ).
+        put( "Category", Category.class.getSimpleName() ).
+        put( "CategoryCombo", CategoryCombo.class.getSimpleName() )
       .build();
 
   /**

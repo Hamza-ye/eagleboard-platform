@@ -3,10 +3,15 @@ package com.mass3d.datavalue;
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.mass3d.category.CategoryOption;
+import com.mass3d.category.CategoryOptionCombo;
+import com.mass3d.category.CategoryOptionGroup;
 import com.mass3d.common.IdSchemes;
 import com.mass3d.dataelement.DataElement;
 import com.mass3d.dataelement.DataElementGroup;
+import com.mass3d.dataelement.DataElementOperand;
 import com.mass3d.dataset.DataSet;
+import com.mass3d.organisationunit.OrganisationUnitGroup;
 import com.mass3d.period.Period;
 import com.mass3d.period.PeriodType;
 import com.mass3d.todotask.TodoTask;
@@ -18,7 +23,7 @@ public class DataExportParams {
 
   private Set<DataElement> dataElements = new HashSet<>();
 
-//    private Set<DataElementOperand> dataElementOperands = new HashSet<>();
+  private Set<DataElementOperand> dataElementOperands = new HashSet<>();
 
   private Set<DataSet> dataSets = new HashSet<>();
 
@@ -40,13 +45,13 @@ public class DataExportParams {
 
   private boolean returnParentOrgUnit;
 
-//    private Set<OrganisationUnitGroup> organisationUnitGroups = new HashSet<>();
-//
-//    private Set<CategoryOptionCombo> attributeOptionCombos = new HashSet<>();
-//
-//    private Set<CategoryOption> coDimensionConstraints;
-//
-//    private Set<CategoryOptionGroup> cogDimensionConstraints;
+  private Set<OrganisationUnitGroup> organisationUnitGroups = new HashSet<>();
+
+  private Set<CategoryOptionCombo> attributeOptionCombos = new HashSet<>();
+
+  private Set<CategoryOption> coDimensionConstraints;
+
+  private Set<CategoryOptionGroup> cogDimensionConstraints;
 
   private boolean includeDeleted;
 
@@ -74,7 +79,7 @@ public class DataExportParams {
 
     elements.addAll(dataElements);
     dataSets.forEach(ds -> elements.addAll(ds.getDataElements()));
-        dataElementGroups.forEach( dg -> elements.addAll( dg.getMembers() ) );
+    dataElementGroups.forEach(dg -> elements.addAll(dg.getMembers()));
 
     return ImmutableSet.copyOf(elements);
   }
@@ -91,14 +96,14 @@ public class DataExportParams {
     return ImmutableSet.copyOf(orgUnits);
   }
 
+
   public boolean hasDataElements() {
     return dataElements != null && !dataElements.isEmpty();
   }
 
-//    public boolean hasDataElementOperands()
-//    {
-//        return dataElementOperands != null && !dataElementOperands.isEmpty();
-//    }
+  public boolean hasDataElementOperands() {
+    return dataElementOperands != null && !dataElementOperands.isEmpty();
+  }
 
   public boolean hasDataSets() {
     return dataSets != null && !dataSets.isEmpty();
@@ -148,25 +153,21 @@ public class DataExportParams {
     return todoTasks != null && !todoTasks.isEmpty() ? todoTasks.iterator().next() : null;
   }
 
-//    public boolean hasOrganisationUnitGroups()
-//    {
-//        return organisationUnitGroups != null && !organisationUnitGroups.isEmpty();
-//    }
-//
-//    public boolean hasAttributeOptionCombos()
-//    {
-//        return attributeOptionCombos != null && !attributeOptionCombos.isEmpty();
-//    }
-//
-//    public boolean hasCoDimensionConstraints()
-//    {
-//        return coDimensionConstraints != null && !coDimensionConstraints.isEmpty();
-//    }
-//
-//    public boolean hasCogDimensionConstraints()
-//    {
-//        return cogDimensionConstraints != null && !cogDimensionConstraints.isEmpty();
-//    }
+  public boolean hasOrganisationUnitGroups() {
+    return organisationUnitGroups != null && !organisationUnitGroups.isEmpty();
+  }
+
+  public boolean hasAttributeOptionCombos() {
+    return attributeOptionCombos != null && !attributeOptionCombos.isEmpty();
+  }
+
+  public boolean hasCoDimensionConstraints() {
+    return coDimensionConstraints != null && !coDimensionConstraints.isEmpty();
+  }
+
+  public boolean hasCogDimensionConstraints() {
+    return cogDimensionConstraints != null && !cogDimensionConstraints.isEmpty();
+  }
 
   public boolean hasLastUpdated() {
     return lastUpdated != null;
@@ -191,27 +192,28 @@ public class DataExportParams {
   @Override
   public String toString() {
     return MoreObjects.toStringHelper(this).
-        add("data fields", dataElements).
-//            add( "data element operands", dataElementOperands ).
-    add("field sets", dataSets).
-//            add( "data element groups", dataElementGroups ).
-    add("periods", periods).
-            add("period types", periodTypes).
-            add("start date", startDate).
-            add("end date", endDate).
-            add("included date", includedDate).
-            add("todo tasks", todoTasks).
-            add("children", includeChildren).
-            add("return parent org unit", returnParentOrgUnit).
-//            add( "org unit groups", organisationUnitGroups ).
-//            add( "attribute option combos", attributeOptionCombos ).
-//            add( "category option dimension constraints", coDimensionConstraints ).
-//            add( "category option group dimension constraints", cogDimensionConstraints ).
-    add("deleted", includeDeleted).
-            add("last updated", lastUpdated).
-            add("last updated duration", lastUpdatedDuration).
-            add("limit", limit).
-            add("output id schemes", outputIdSchemes).toString();
+        add("data elements", dataElements).
+        add("projects", todoTasks).
+        add("data element operands", dataElementOperands).
+        add("data sets", dataSets).
+        add("data element groups", dataElementGroups).
+        add("periods", periods).
+        add("period types", periodTypes).
+        add("start date", startDate).
+        add("end date", endDate).
+        add("included date", includedDate).
+        add("todo tasks", todoTasks).
+        add("children", includeChildren).
+        add("return parent org unit", returnParentOrgUnit).
+        add("org unit groups", organisationUnitGroups).
+        add("attribute option combos", attributeOptionCombos).
+        add("category option dimension constraints", coDimensionConstraints).
+        add("category option group dimension constraints", cogDimensionConstraints).
+        add("deleted", includeDeleted).
+        add("last updated", lastUpdated).
+        add("last updated duration", lastUpdatedDuration).
+        add("limit", limit).
+        add("output id schemes", outputIdSchemes).toString();
   }
 
   // -------------------------------------------------------------------------
@@ -227,16 +229,14 @@ public class DataExportParams {
     return this;
   }
 
-//    public Set<DataElementOperand> getDataElementOperands()
-//    {
-//        return dataElementOperands;
-//    }
-//
-//    public DataExportParams setDataElementOperands( Set<DataElementOperand> dataElementOperands )
-//    {
-//        this.dataElementOperands = dataElementOperands;
-//        return this;
-//    }
+  public Set<DataElementOperand> getDataElementOperands() {
+    return dataElementOperands;
+  }
+
+  public DataExportParams setDataElementOperands(Set<DataElementOperand> dataElementOperands) {
+    this.dataElementOperands = dataElementOperands;
+    return this;
+  }
 
   public Set<DataSet> getDataSets() {
     return dataSets;
@@ -247,16 +247,14 @@ public class DataExportParams {
     return this;
   }
 
-    public Set<DataElementGroup> getDataElementGroups()
-    {
-        return dataElementGroups;
-    }
+  public Set<DataElementGroup> getDataElementGroups() {
+    return dataElementGroups;
+  }
 
-    public DataExportParams setDataElementGroups( Set<DataElementGroup> dataElementGroups )
-    {
-        this.dataElementGroups = dataElementGroups;
-        return this;
-    }
+  public DataExportParams setDataElementGroups(Set<DataElementGroup> dataElementGroups) {
+    this.dataElementGroups = dataElementGroups;
+    return this;
+  }
 
   public Set<PeriodType> getPeriodTypes() {
     return periodTypes;
@@ -330,49 +328,43 @@ public class DataExportParams {
     return this;
   }
 
-//    public Set<OrganisationUnitGroup> getOrganisationUnitGroups()
-//    {
-//        return organisationUnitGroups;
-//    }
-//
-//    public DataExportParams setOrganisationUnitGroups( Set<OrganisationUnitGroup> organisationUnitGroups )
-//    {
-//        this.organisationUnitGroups = organisationUnitGroups;
-//        return this;
-//    }
+  public Set<OrganisationUnitGroup> getOrganisationUnitGroups() {
+    return organisationUnitGroups;
+  }
 
-//    public Set<CategoryOptionCombo> getAttributeOptionCombos()
-//    {
-//        return attributeOptionCombos;
-//    }
-//
-//    public DataExportParams setAttributeOptionCombos( Set<CategoryOptionCombo> attributeOptionCombos )
-//    {
-//        this.attributeOptionCombos = attributeOptionCombos;
-//        return this;
-//    }
-//
-//    public Set<CategoryOption> getCoDimensionConstraints()
-//    {
-//        return coDimensionConstraints;
-//    }
-//
-//    public DataExportParams setCoDimensionConstraints( Set<CategoryOption> coDimensionConstraints )
-//    {
-//        this.coDimensionConstraints = coDimensionConstraints;
-//        return this;
-//    }
-//
-//    public Set<CategoryOptionGroup> getCogDimensionConstraints()
-//    {
-//        return cogDimensionConstraints;
-//    }
-//
-//    public DataExportParams setCogDimensionConstraints( Set<CategoryOptionGroup> cogDimensionConstraints )
-//    {
-//        this.cogDimensionConstraints = cogDimensionConstraints;
-//        return this;
-//    }
+  public DataExportParams setOrganisationUnitGroups(
+      Set<OrganisationUnitGroup> organisationUnitGroups) {
+    this.organisationUnitGroups = organisationUnitGroups;
+    return this;
+  }
+
+  public Set<CategoryOptionCombo> getAttributeOptionCombos() {
+    return attributeOptionCombos;
+  }
+
+  public DataExportParams setAttributeOptionCombos(Set<CategoryOptionCombo> attributeOptionCombos) {
+    this.attributeOptionCombos = attributeOptionCombos;
+    return this;
+  }
+
+  public Set<CategoryOption> getCoDimensionConstraints() {
+    return coDimensionConstraints;
+  }
+
+  public DataExportParams setCoDimensionConstraints(Set<CategoryOption> coDimensionConstraints) {
+    this.coDimensionConstraints = coDimensionConstraints;
+    return this;
+  }
+
+  public Set<CategoryOptionGroup> getCogDimensionConstraints() {
+    return cogDimensionConstraints;
+  }
+
+  public DataExportParams setCogDimensionConstraints(
+      Set<CategoryOptionGroup> cogDimensionConstraints) {
+    this.cogDimensionConstraints = cogDimensionConstraints;
+    return this;
+  }
 
   public boolean isIncludeDeleted() {
     return includeDeleted;

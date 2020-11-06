@@ -1,5 +1,6 @@
 package com.mass3d.dataelement.hibernate;
 
+import com.mass3d.category.CategoryCombo;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import org.hibernate.SessionFactory;
@@ -29,13 +30,13 @@ public class HibernateDataElementStore
     // DataElement
     // -------------------------------------------------------------------------
 
-//    @Override
-//    public List<DataElement> getDataElementsByDomainType( DataElementDomain domainType )
-//    {
-//        CriteriaBuilder builder = getCriteriaBuilder();
-//
-//        return getList( builder, newJpaParameters().addPredicate( root -> builder.equal( root.get( "domainType" ), domainType ) ) );
-//    }
+    @Override
+    public List<DataElement> getDataElementsByDomainType( DataElementDomain domainType )
+    {
+        CriteriaBuilder builder = getCriteriaBuilder();
+
+        return getList( builder, newJpaParameters().addPredicate( root -> builder.equal( root.get( "domainType" ), domainType ) ) );
+    }
 
     @Override
     public List<DataElement> getDataElementsByValueType( ValueType valueType )
@@ -45,13 +46,13 @@ public class HibernateDataElementStore
         return getList( builder, newJpaParameters().addPredicate( root -> builder.equal( root.get( "valueType" ), valueType ) ) );
     }
 
-//    @Override
-//    public List<DataElement> getDataElementByCategoryCombo( CategoryCombo categoryCombo )
-//    {
-//        CriteriaBuilder builder = getCriteriaBuilder();
-//
-//        return getList( builder, newJpaParameters().addPredicate( root -> builder.equal( root.get( "categoryCombo" ), categoryCombo ) ) );
-//    }
+    @Override
+    public List<DataElement> getDataElementByCategoryCombo( CategoryCombo categoryCombo )
+    {
+        CriteriaBuilder builder = getCriteriaBuilder();
+
+        return getList( builder, newJpaParameters().addPredicate( root -> builder.equal( root.get( "categoryCombo" ), categoryCombo ) ) );
+    }
 
     @Override
     public List<DataElement> getDataElementsByZeroIsSignificant( boolean zeroIsSignificant )
