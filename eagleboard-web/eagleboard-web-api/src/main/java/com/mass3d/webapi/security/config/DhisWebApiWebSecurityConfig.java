@@ -5,7 +5,6 @@ import com.mass3d.webapi.filter.CorsFilter;
 import com.mass3d.webapi.filter.CustomAuthenticationFilter;
 import com.mass3d.webapi.oprovider.DhisOauthAuthenticationProvider;
 import com.mass3d.webapi.security.DHIS2BasicAuthenticationEntryPoint;
-import com.mass3d.webapi.security.EagleboardBasicAuthenticationEntryPoint;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -200,15 +199,14 @@ public class DhisWebApiWebSecurityConfig {
       setHttpHeaders(http);
     }
 
-    //        @Bean
-//        public DHIS2BasicAuthenticationEntryPoint basicAuthenticationEntryPoint()
-//        {
-//            return new DHIS2BasicAuthenticationEntryPoint("/dhis-web-commons/security/login.action");
-//        }
     @Bean
-    public EagleboardBasicAuthenticationEntryPoint basicAuthenticationEntryPoint() {
-      return new EagleboardBasicAuthenticationEntryPoint ();
+    public DHIS2BasicAuthenticationEntryPoint basicAuthenticationEntryPoint() {
+      return new DHIS2BasicAuthenticationEntryPoint("/dhis-web-commons/security/login.action");
     }
+//    @Bean
+//    public EagleboardBasicAuthenticationEntryPoint basicAuthenticationEntryPoint() {
+//      return new EagleboardBasicAuthenticationEntryPoint ();
+//    }
   }
 
   /**
