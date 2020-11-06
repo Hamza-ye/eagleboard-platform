@@ -33,9 +33,9 @@
         <param name="enumClass">com.mass3d.sms.incoming.SmsMessageStatus</param>
       </type>
     </property>
-    
+
     <property name="parsed" />
-    
+
     <property name="statusMessage" />
 
     <many-to-one name="user" class="com.mass3d.user.User"

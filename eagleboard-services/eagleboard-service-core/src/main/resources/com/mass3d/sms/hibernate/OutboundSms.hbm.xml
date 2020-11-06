@@ -16,7 +16,7 @@
       <key column="outbound_sms_id" />
       <element type="text"/>
     </set>
-    
+
     <property name="date" not-null="true" />
 
     <property name="message" length="500" />
@@ -27,7 +27,7 @@
         <param name="enumClass">com.mass3d.sms.outbound.OutboundSmsStatus</param>
       </type>
     </property>
-    
+
     <property name="sender" />
 
   </class>

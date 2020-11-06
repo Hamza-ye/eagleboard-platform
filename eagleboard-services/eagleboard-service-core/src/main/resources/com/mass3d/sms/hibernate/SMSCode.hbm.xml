@@ -14,7 +14,7 @@
 		<property name="code" />
 
 		<property name="formula" type="text" />
-		
+
 		<property name="compulsory" />
 
 		<many-to-one name="dataElement" class="com.mass3d.dataelement.DataElement"
