@@ -83,7 +83,7 @@ public class HibernateConfig
         dataSource.setJdbcUrl( (String) getConnectionProperty( "hibernate.connection.url" ) );
         dataSource.setUser( (String) getConnectionProperty( "hibernate.connection.username" ) );
         dataSource.setPassword( (String) getConnectionProperty( "hibernate.connection.password" ) );
-        dataSource.setMinPoolSize( 10 );
+        dataSource.setMinPoolSize( 5 );
         dataSource.setMaxPoolSize( Integer.parseInt( (String) getConnectionProperty( "hibernate.c3p0.max_size" ) ) );
         dataSource.setInitialPoolSize( 5 );
         dataSource.setAcquireIncrement( 5 );
