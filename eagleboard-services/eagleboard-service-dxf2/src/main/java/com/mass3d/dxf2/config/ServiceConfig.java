@@ -5,6 +5,8 @@ import static com.mass3d.importexport.ImportStrategy.CREATE;
 import static com.mass3d.importexport.ImportStrategy.DELETE;
 import static com.mass3d.importexport.ImportStrategy.UPDATE;
 
+import com.mass3d.dxf2.metadata.objectbundle.validation.MandatoryAttributesCheck;
+import com.mass3d.dxf2.metadata.objectbundle.validation.UniqueAttributesCheck;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,8 +80,8 @@ public class ServiceConfig
         SecurityCheck.class,
         SchemaCheck.class,
         UniquenessCheck.class,
-//        MandatoryAttributesCheck.class,
-//        UniqueAttributesCheck.class,
+        MandatoryAttributesCheck.class,
+        UniqueAttributesCheck.class,
         ReferencesCheck.class );
 
     private final static List<Class<? extends ValidationCheck>> CREATE_CHECKS = newArrayList(
@@ -89,8 +91,8 @@ public class ServiceConfig
         CreationCheck.class,
         SchemaCheck.class,
         UniquenessCheck.class,
-//        MandatoryAttributesCheck.class,
-//        UniqueAttributesCheck.class,
+        MandatoryAttributesCheck.class,
+        UniqueAttributesCheck.class,
         ReferencesCheck.class );
 
     private final static List<Class<? extends ValidationCheck>> UPDATE_CHECKS = newArrayList(
@@ -100,8 +102,8 @@ public class ServiceConfig
         UpdateCheck.class,
         SchemaCheck.class,
         UniquenessCheck.class,
-//        MandatoryAttributesCheck.class,
-//        UniqueAttributesCheck.class,
+        MandatoryAttributesCheck.class,
+        UniqueAttributesCheck.class,
         ReferencesCheck.class );
 
     private final static List<Class<? extends ValidationCheck>> DELETE_CHECKS = newArrayList(
