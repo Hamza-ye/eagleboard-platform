@@ -12,8 +12,19 @@ import com.mass3d.category.CategoryOptionCombo;
 import com.mass3d.dataelement.DataElementOperand;
 import com.mass3d.dataentryform.DataEntryForm;
 import com.mass3d.dataset.Section;
+import com.mass3d.program.ProgramIndicator;
+import com.mass3d.program.ProgramStage;
+import com.mass3d.program.ProgramStageDataElement;
+import com.mass3d.program.ProgramStageSection;
+import com.mass3d.program.ProgramTrackedEntityAttribute;
+import com.mass3d.program.notification.ProgramNotificationTemplate;
+import com.mass3d.programrule.ProgramRule;
+import com.mass3d.programrule.ProgramRuleAction;
 import com.mass3d.programrule.ProgramRuleService;
+import com.mass3d.programrule.ProgramRuleVariable;
 import com.mass3d.programrule.ProgramRuleVariableService;
+import com.mass3d.trackedentity.TrackedEntityAttribute;
+import com.mass3d.trackedentity.TrackedEntityType;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -75,11 +86,11 @@ public class DefaultMetadataExportService implements MetadataExportService
     @Autowired
     private CurrentUserService currentUserService;
 
-//    @Autowired
-//    private ProgramRuleService programRuleService;
-//
-//    @Autowired
-//    private ProgramRuleVariableService programRuleVariableService;
+    @Autowired
+    private ProgramRuleService programRuleService;
+
+    @Autowired
+    private ProgramRuleVariableService programRuleVariableService;
 
     @Autowired
     private SystemService systemService;
@@ -321,7 +332,7 @@ public class DefaultMetadataExportService implements MetadataExportService
 
         if ( OptionSet.class.isInstance( object ) ) return handleOptionSet( metadata, (OptionSet) object );
         if ( DataSet.class.isInstance( object ) ) return handleDataSet( metadata, (DataSet) object );
-//        if ( Program.class.isInstance( object ) ) return handleProgram( metadata, (Program) object );
+        if ( Program.class.isInstance( object ) ) return handleProgram( metadata, (Program) object );
         if ( CategoryCombo.class.isInstance( object ) ) return handleCategoryCombo( metadata, (CategoryCombo) object );
 //        if ( Dashboard.class.isInstance( object ) ) return handleDashboard( metadata, (Dashboard) object );
         if ( DataElementGroup.class.isInstance( object ) ) return handleDataElementGroup( metadata, (DataElementGroup) object );
@@ -541,162 +552,162 @@ public class DefaultMetadataExportService implements MetadataExportService
         return metadata;
     }
 
-//    private SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> handleProgram( SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> metadata, Program program )
-//    {
-//        if ( program == null ) return metadata;
-//        metadata.putValue( Program.class, program );
-//        handleAttributes( metadata, program );
-//
-//        handleCategoryCombo( metadata, program.getCategoryCombo() );
-//        handleDataEntryForm( metadata, program.getDataEntryForm() );
-//        handleTrackedEntityType( metadata, program.getTrackedEntityType() );
-//
-//        program.getNotificationTemplates().forEach( template -> handleNotificationTemplate( metadata, template ) );
-//        program.getProgramStages().forEach( programStage -> handleProgramStage( metadata, programStage ) );
-//        program.getProgramAttributes().forEach( programTrackedEntityAttribute -> handleProgramTrackedEntityAttribute( metadata, programTrackedEntityAttribute ) );
-//        program.getProgramIndicators().forEach( programIndicator -> handleProgramIndicator( metadata, programIndicator ) );
-//
-//        List<ProgramRule> programRules = programRuleService.getProgramRule( program );
-//        List<ProgramRuleVariable> programRuleVariables = programRuleVariableService.getProgramRuleVariable( program );
-//
-//        programRules.forEach( programRule -> handleProgramRule( metadata, programRule ) );
-//        programRuleVariables.forEach( programRuleVariable -> handleProgramRuleVariable( metadata, programRuleVariable ) );
-//
-//        return metadata;
-//    }
+    private SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> handleProgram( SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> metadata, Program program )
+    {
+        if ( program == null ) return metadata;
+        metadata.putValue( Program.class, program );
+        handleAttributes( metadata, program );
 
-//    private SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> handleNotificationTemplate( SetMap<Class<? extends
-//        IdentifiableObject>, IdentifiableObject> metadata, ProgramNotificationTemplate template )
-//    {
-//        if ( template == null )
-//        {
-//            return metadata;
-//        }
-//
-//        metadata.putValue( ProgramNotificationTemplate.class, template );
-//
-//        handleTrackedEntityAttribute( metadata, template.getRecipientProgramAttribute() );
-//
-//        handleDataElement( metadata, template.getRecipientDataElement() );
-//
-//        return metadata;
-//    }
+        handleCategoryCombo( metadata, program.getCategoryCombo() );
+        handleDataEntryForm( metadata, program.getDataEntryForm() );
+        handleTrackedEntityType( metadata, program.getTrackedEntityType() );
 
-//    private SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> handleProgramRuleVariable( SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> metadata, ProgramRuleVariable programRuleVariable )
-//    {
-//        if ( programRuleVariable == null ) return metadata;
-//        metadata.putValue( ProgramRuleVariable.class, programRuleVariable );
-//        handleAttributes( metadata, programRuleVariable );
-//
-//        handleTrackedEntityAttribute( metadata, programRuleVariable.getAttribute() );
-//        handleDataElement( metadata, programRuleVariable.getDataElement() );
-//        handleProgramStage( metadata, programRuleVariable.getProgramStage() );
-//
-//        return metadata;
-//    }
+        program.getNotificationTemplates().forEach( template -> handleNotificationTemplate( metadata, template ) );
+        program.getProgramStages().forEach( programStage -> handleProgramStage( metadata, programStage ) );
+        program.getProgramAttributes().forEach( programTrackedEntityAttribute -> handleProgramTrackedEntityAttribute( metadata, programTrackedEntityAttribute ) );
+        program.getProgramIndicators().forEach( programIndicator -> handleProgramIndicator( metadata, programIndicator ) );
 
-//    private SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> handleTrackedEntityAttribute( SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> metadata, TrackedEntityAttribute trackedEntityAttribute )
-//    {
-//        if ( trackedEntityAttribute == null ) return metadata;
-//        metadata.putValue( TrackedEntityAttribute.class, trackedEntityAttribute );
-//        handleAttributes( metadata, trackedEntityAttribute );
-//
-//        handleOptionSet( metadata, trackedEntityAttribute.getOptionSet() );
-//
-//        return metadata;
-//    }
+        List<ProgramRule> programRules = programRuleService.getProgramRule( program );
+        List<ProgramRuleVariable> programRuleVariables = programRuleVariableService.getProgramRuleVariable( program );
 
-//    private SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> handleProgramRule( SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> metadata, ProgramRule programRule )
-//    {
-//        if ( programRule == null ) return metadata;
-//        metadata.putValue( ProgramRule.class, programRule );
-//        handleAttributes( metadata, programRule );
-//
-//        programRule.getProgramRuleActions().forEach( programRuleAction -> handleProgramRuleAction( metadata, programRuleAction ) );
-//
-//        return metadata;
-//    }
-//
-//    private SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> handleProgramRuleAction( SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> metadata, ProgramRuleAction programRuleAction )
-//    {
-//        if ( programRuleAction == null ) return metadata;
-//        metadata.putValue( ProgramRuleAction.class, programRuleAction );
-//        handleAttributes( metadata, programRuleAction );
-//
-//        handleDataElement( metadata, programRuleAction.getDataElement() );
-//        handleTrackedEntityAttribute( metadata, programRuleAction.getAttribute() );
-//        handleProgramIndicator( metadata, programRuleAction.getProgramIndicator() );
-//        handleProgramStageSection( metadata, programRuleAction.getProgramStageSection() );
-//        handleProgramStage( metadata, programRuleAction.getProgramStage() );
-//
-//        return metadata;
-//    }
-//
-//    private SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> handleProgramTrackedEntityAttribute( SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> metadata, ProgramTrackedEntityAttribute programTrackedEntityAttribute )
-//    {
-//        if ( programTrackedEntityAttribute == null ) return metadata;
-//        metadata.putValue( ProgramTrackedEntityAttribute.class, programTrackedEntityAttribute );
-//        handleAttributes( metadata, programTrackedEntityAttribute );
-//
-//        handleTrackedEntityAttribute( metadata, programTrackedEntityAttribute.getAttribute() );
-//
-//        return metadata;
-//    }
-//
-//    private SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> handleProgramStage( SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> metadata, ProgramStage programStage )
-//    {
-//        if ( programStage == null ) return metadata;
-//        metadata.putValue( ProgramStage.class, programStage );
-//        handleAttributes( metadata, programStage );
-//
-//        programStage.getNotificationTemplates().forEach( template -> handleNotificationTemplate( metadata, template ) );
-//        programStage.getProgramStageDataElements().forEach( programStageDataElement -> handleProgramStageDataElement( metadata, programStageDataElement ) );
-//        programStage.getProgramStageSections().forEach( programStageSection -> handleProgramStageSection( metadata, programStageSection ) );
-//
-//        handleDataEntryForm( metadata, programStage.getDataEntryForm() );
-//
-//        return metadata;
-//    }
-//
-//    private SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> handleProgramStageSection( SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> metadata, ProgramStageSection programStageSection )
-//    {
-//        if ( programStageSection == null ) return metadata;
-//        metadata.putValue( ProgramStageSection.class, programStageSection );
-//        handleAttributes( metadata, programStageSection );
-//
-//        programStageSection.getProgramIndicators().forEach( programIndicator -> handleProgramIndicator( metadata, programIndicator ) );
-//
-//        return metadata;
-//    }
-//
-//    private SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> handleProgramIndicator( SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> metadata, ProgramIndicator programIndicator )
-//    {
-//        if ( programIndicator == null ) return metadata;
-//        metadata.putValue( ProgramIndicator.class, programIndicator );
-//        handleAttributes( metadata, programIndicator );
-//
-//        return metadata;
-//    }
-//
-//    private SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> handleProgramStageDataElement( SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> metadata, ProgramStageDataElement programStageDataElement )
-//    {
-//        if ( programStageDataElement == null ) return metadata;
-//        metadata.putValue( ProgramStageDataElement.class, programStageDataElement );
-//
-//        handleAttributes( metadata, programStageDataElement );
-//        handleDataElement( metadata, programStageDataElement.getDataElement() );
-//
-//        return metadata;
-//    }
-//
-//    private SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> handleTrackedEntityType( SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> metadata, TrackedEntityType trackedEntityType )
-//    {
-//        if ( trackedEntityType == null ) return metadata;
-//        metadata.putValue( TrackedEntityType.class, trackedEntityType );
-//        handleAttributes( metadata, trackedEntityType );
-//
-//        return metadata;
-//    }
+        programRules.forEach( programRule -> handleProgramRule( metadata, programRule ) );
+        programRuleVariables.forEach( programRuleVariable -> handleProgramRuleVariable( metadata, programRuleVariable ) );
+
+        return metadata;
+    }
+
+    private SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> handleNotificationTemplate( SetMap<Class<? extends
+        IdentifiableObject>, IdentifiableObject> metadata, ProgramNotificationTemplate template )
+    {
+        if ( template == null )
+        {
+            return metadata;
+        }
+
+        metadata.putValue( ProgramNotificationTemplate.class, template );
+
+        handleTrackedEntityAttribute( metadata, template.getRecipientProgramAttribute() );
+
+        handleDataElement( metadata, template.getRecipientDataElement() );
+
+        return metadata;
+    }
+
+    private SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> handleProgramRuleVariable( SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> metadata, ProgramRuleVariable programRuleVariable )
+    {
+        if ( programRuleVariable == null ) return metadata;
+        metadata.putValue( ProgramRuleVariable.class, programRuleVariable );
+        handleAttributes( metadata, programRuleVariable );
+
+        handleTrackedEntityAttribute( metadata, programRuleVariable.getAttribute() );
+        handleDataElement( metadata, programRuleVariable.getDataElement() );
+        handleProgramStage( metadata, programRuleVariable.getProgramStage() );
+
+        return metadata;
+    }
+
+    private SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> handleTrackedEntityAttribute( SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> metadata, TrackedEntityAttribute trackedEntityAttribute )
+    {
+        if ( trackedEntityAttribute == null ) return metadata;
+        metadata.putValue( TrackedEntityAttribute.class, trackedEntityAttribute );
+        handleAttributes( metadata, trackedEntityAttribute );
+
+        handleOptionSet( metadata, trackedEntityAttribute.getOptionSet() );
+
+        return metadata;
+    }
+
+    private SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> handleProgramRule( SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> metadata, ProgramRule programRule )
+    {
+        if ( programRule == null ) return metadata;
+        metadata.putValue( ProgramRule.class, programRule );
+        handleAttributes( metadata, programRule );
+
+        programRule.getProgramRuleActions().forEach( programRuleAction -> handleProgramRuleAction( metadata, programRuleAction ) );
+
+        return metadata;
+    }
+
+    private SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> handleProgramRuleAction( SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> metadata, ProgramRuleAction programRuleAction )
+    {
+        if ( programRuleAction == null ) return metadata;
+        metadata.putValue( ProgramRuleAction.class, programRuleAction );
+        handleAttributes( metadata, programRuleAction );
+
+        handleDataElement( metadata, programRuleAction.getDataElement() );
+        handleTrackedEntityAttribute( metadata, programRuleAction.getAttribute() );
+        handleProgramIndicator( metadata, programRuleAction.getProgramIndicator() );
+        handleProgramStageSection( metadata, programRuleAction.getProgramStageSection() );
+        handleProgramStage( metadata, programRuleAction.getProgramStage() );
+
+        return metadata;
+    }
+
+    private SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> handleProgramTrackedEntityAttribute( SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> metadata, ProgramTrackedEntityAttribute programTrackedEntityAttribute )
+    {
+        if ( programTrackedEntityAttribute == null ) return metadata;
+        metadata.putValue( ProgramTrackedEntityAttribute.class, programTrackedEntityAttribute );
+        handleAttributes( metadata, programTrackedEntityAttribute );
+
+        handleTrackedEntityAttribute( metadata, programTrackedEntityAttribute.getAttribute() );
+
+        return metadata;
+    }
+
+    private SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> handleProgramStage( SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> metadata, ProgramStage programStage )
+    {
+        if ( programStage == null ) return metadata;
+        metadata.putValue( ProgramStage.class, programStage );
+        handleAttributes( metadata, programStage );
+
+        programStage.getNotificationTemplates().forEach( template -> handleNotificationTemplate( metadata, template ) );
+        programStage.getProgramStageDataElements().forEach( programStageDataElement -> handleProgramStageDataElement( metadata, programStageDataElement ) );
+        programStage.getProgramStageSections().forEach( programStageSection -> handleProgramStageSection( metadata, programStageSection ) );
+
+        handleDataEntryForm( metadata, programStage.getDataEntryForm() );
+
+        return metadata;
+    }
+
+    private SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> handleProgramStageSection( SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> metadata, ProgramStageSection programStageSection )
+    {
+        if ( programStageSection == null ) return metadata;
+        metadata.putValue( ProgramStageSection.class, programStageSection );
+        handleAttributes( metadata, programStageSection );
+
+        programStageSection.getProgramIndicators().forEach( programIndicator -> handleProgramIndicator( metadata, programIndicator ) );
+
+        return metadata;
+    }
+
+    private SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> handleProgramIndicator( SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> metadata, ProgramIndicator programIndicator )
+    {
+        if ( programIndicator == null ) return metadata;
+        metadata.putValue( ProgramIndicator.class, programIndicator );
+        handleAttributes( metadata, programIndicator );
+
+        return metadata;
+    }
+
+    private SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> handleProgramStageDataElement( SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> metadata, ProgramStageDataElement programStageDataElement )
+    {
+        if ( programStageDataElement == null ) return metadata;
+        metadata.putValue( ProgramStageDataElement.class, programStageDataElement );
+
+        handleAttributes( metadata, programStageDataElement );
+        handleDataElement( metadata, programStageDataElement.getDataElement() );
+
+        return metadata;
+    }
+
+    private SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> handleTrackedEntityType( SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> metadata, TrackedEntityType trackedEntityType )
+    {
+        if ( trackedEntityType == null ) return metadata;
+        metadata.putValue( TrackedEntityType.class, trackedEntityType );
+        handleAttributes( metadata, trackedEntityType );
+
+        return metadata;
+    }
 //
 //    private SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> handleChart( SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> metadata, Chart chart )
 //    {
