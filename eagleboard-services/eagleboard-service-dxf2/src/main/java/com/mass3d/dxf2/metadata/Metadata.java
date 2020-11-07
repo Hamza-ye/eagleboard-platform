@@ -5,6 +5,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.mass3d.activity.Activity;
+import com.mass3d.dataset.Section;
 import com.mass3d.project.Project;
 import com.mass3d.todotask.TodoTask;
 import java.util.ArrayList;
@@ -169,7 +170,7 @@ public class Metadata
 //
     private List<DataEntryForm> dataEntryForms = new ArrayList<>();
 
-//    private List<Section> sections = new ArrayList<>();
+    private List<Section> sections = new ArrayList<>();
 
     private List<DataSet> dataSets = new ArrayList<>();
 
@@ -697,18 +698,18 @@ public class Metadata
         this.dataEntryForms = dataEntryForms;
     }
 
-//    @JsonProperty
-//    @JacksonXmlElementWrapper( localName = "sections", namespace = DxfNamespaces.DXF_2_0 )
-//    @JacksonXmlProperty( localName = "section", namespace = DxfNamespaces.DXF_2_0 )
-//    public List<Section> getSections()
-//    {
-//        return sections;
-//    }
-//
-//    public void setSections( List<Section> sections )
-//    {
-//        this.sections = sections;
-//    }
+    @JsonProperty
+    @JacksonXmlElementWrapper( localName = "sections", namespace = DxfNamespaces.DXF_2_0 )
+    @JacksonXmlProperty( localName = "section", namespace = DxfNamespaces.DXF_2_0 )
+    public List<Section> getSections()
+    {
+        return sections;
+    }
+
+    public void setSections( List<Section> sections )
+    {
+        this.sections = sections;
+    }
 
     @JsonProperty
     @JacksonXmlElementWrapper( localName = "dataSets", namespace = DxfNamespaces.DXF_2_0 )
