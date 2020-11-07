@@ -24,7 +24,7 @@ public class EagleboardBasicAuthenticationEntryPoint extends BasicAuthentication
 
   @Override
   public void afterPropertiesSet()  {
-    setRealmName("Baeldung");
+    setRealmName("Mass3d");
     super.afterPropertiesSet();
   }
 }

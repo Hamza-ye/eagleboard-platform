@@ -1,6 +1,8 @@
 package com.mass3d.webapi.controller.dataelement;
 
 import com.google.common.collect.Lists;
+import com.mass3d.category.CategoryService;
+import com.mass3d.dataelement.DataElementOperand;
 import org.apache.commons.lang3.StringUtils;
 import com.mass3d.common.Pager;
 import com.mass3d.common.PagerUtils;
@@ -36,89 +38,89 @@ import java.util.Map;
 public class DataElementGroupController
     extends AbstractCrudController<DataElementGroup>
 {
-//    @Autowired
-//    private CategoryService dataElementCategoryService;
+    @Autowired
+    private CategoryService dataElementCategoryService;
 
     @Autowired
     private DataElementService dataElementService;
 
-//    @RequestMapping( value = "/{uid}/operands", method = RequestMethod.GET )
-//    public String getOperands( @PathVariable( "uid" ) String uid, @RequestParam Map<String, String> parameters, Model model,
-//        TranslateParams translateParams, HttpServletRequest request, HttpServletResponse response ) throws Exception
-//    {
-//        WebOptions options = new WebOptions( parameters );
-//        setUserContext( translateParams );
-//        List<DataElementGroup> dataElementGroups = getEntity( uid, NO_WEB_OPTIONS );
-//
-//        if ( dataElementGroups.isEmpty() )
-//        {
-//            throw new WebMessageException( WebMessageUtils.notFound( "DataElementGroup not found for uid: " + uid ) );
-//        }
-//
-//        WebMetadata metadata = new WebMetadata();
-//        List<DataElementOperand> dataElementOperands = Lists.newArrayList( dataElementCategoryService.getOperands( dataElementGroups.get( 0 ).getMembers() ) );
-//        Collections.sort( dataElementOperands );
-//
-//        metadata.setDataElementOperands( dataElementOperands );
-//
-//        if ( options.hasPaging() )
-//        {
-//            Pager pager = new Pager( options.getPage(), dataElementOperands.size(), options.getPageSize() );
-//            metadata.setPager( pager );
-//            dataElementOperands = PagerUtils.pageCollection( dataElementOperands, pager );
-//        }
-//
-//        metadata.setDataElementOperands( dataElementOperands );
-//        linkService.generateLinks( metadata, false );
-//
-//        model.addAttribute( "model", metadata );
-//        model.addAttribute( "viewClass", options.getViewClass( "basic" ) );
-//
-//        return StringUtils.uncapitalize( getEntitySimpleName() );
-//    }
+    @RequestMapping( value = "/{uid}/operands", method = RequestMethod.GET )
+    public String getOperands( @PathVariable( "uid" ) String uid, @RequestParam Map<String, String> parameters, Model model,
+        TranslateParams translateParams, HttpServletRequest request, HttpServletResponse response ) throws Exception
+    {
+        WebOptions options = new WebOptions( parameters );
+        setUserContext( translateParams );
+        List<DataElementGroup> dataElementGroups = getEntity( uid, NO_WEB_OPTIONS );
 
-//    @RequestMapping( value = "/{uid}/operands/query/{q}", method = RequestMethod.GET )
-//    public String getOperandsByQuery( @PathVariable( "uid" ) String uid,
-//        @PathVariable( "q" ) String q, @RequestParam Map<String, String> parameters, TranslateParams translateParams, Model model,
-//        HttpServletRequest request, HttpServletResponse response ) throws Exception
-//    {
-//        WebOptions options = new WebOptions( parameters );
-//        setUserContext( translateParams );
-//        List<DataElementGroup> dataElementGroups = getEntity( uid, NO_WEB_OPTIONS );
-//
-//        if ( dataElementGroups.isEmpty() )
-//        {
-//            throw new WebMessageException( WebMessageUtils.notFound( "DataElementGroup not found for uid: " + uid ) );
-//        }
-//
-//        WebMetadata metadata = new WebMetadata();
-//        List<DataElementOperand> dataElementOperands = Lists.newArrayList();
-//
-//        for ( DataElementOperand dataElementOperand : dataElementCategoryService.getOperands( dataElementGroups.get( 0 ).getMembers() ) )
-//        {
-//            if ( dataElementOperand.getDisplayName().toLowerCase().contains( q.toLowerCase() ) )
-//            {
-//                dataElementOperands.add( dataElementOperand );
-//            }
-//        }
-//
-//        metadata.setDataElementOperands( dataElementOperands );
-//
-//        if ( options.hasPaging() )
-//        {
-//            Pager pager = new Pager( options.getPage(), dataElementOperands.size(), options.getPageSize() );
-//            metadata.setPager( pager );
-//            dataElementOperands = PagerUtils.pageCollection( dataElementOperands, pager );
-//        }
-//
-//        metadata.setDataElementOperands( dataElementOperands );
-//        linkService.generateLinks( metadata, false );
-//
-//        model.addAttribute( "model", metadata );
-//        model.addAttribute( "viewClass", options.getViewClass( "basic" ) );
-//
-//        return StringUtils.uncapitalize( getEntitySimpleName() );
-//    }
+        if ( dataElementGroups.isEmpty() )
+        {
+            throw new WebMessageException( WebMessageUtils.notFound( "DataElementGroup not found for uid: " + uid ) );
+        }
+
+        WebMetadata metadata = new WebMetadata();
+        List<DataElementOperand> dataElementOperands = Lists.newArrayList( dataElementCategoryService.getOperands( dataElementGroups.get( 0 ).getMembers() ) );
+        Collections.sort( dataElementOperands );
+
+        metadata.setDataElementOperands( dataElementOperands );
+
+        if ( options.hasPaging() )
+        {
+            Pager pager = new Pager( options.getPage(), dataElementOperands.size(), options.getPageSize() );
+            metadata.setPager( pager );
+            dataElementOperands = PagerUtils.pageCollection( dataElementOperands, pager );
+        }
+
+        metadata.setDataElementOperands( dataElementOperands );
+        linkService.generateLinks( metadata, false );
+
+        model.addAttribute( "model", metadata );
+        model.addAttribute( "viewClass", options.getViewClass( "basic" ) );
+
+        return StringUtils.uncapitalize( getEntitySimpleName() );
+    }
+
+    @RequestMapping( value = "/{uid}/operands/query/{q}", method = RequestMethod.GET )
+    public String getOperandsByQuery( @PathVariable( "uid" ) String uid,
+        @PathVariable( "q" ) String q, @RequestParam Map<String, String> parameters, TranslateParams translateParams, Model model,
+        HttpServletRequest request, HttpServletResponse response ) throws Exception
+    {
+        WebOptions options = new WebOptions( parameters );
+        setUserContext( translateParams );
+        List<DataElementGroup> dataElementGroups = getEntity( uid, NO_WEB_OPTIONS );
+
+        if ( dataElementGroups.isEmpty() )
+        {
+            throw new WebMessageException( WebMessageUtils.notFound( "DataElementGroup not found for uid: " + uid ) );
+        }
+
+        WebMetadata metadata = new WebMetadata();
+        List<DataElementOperand> dataElementOperands = Lists.newArrayList();
+
+        for ( DataElementOperand dataElementOperand : dataElementCategoryService.getOperands( dataElementGroups.get( 0 ).getMembers() ) )
+        {
+            if ( dataElementOperand.getDisplayName().toLowerCase().contains( q.toLowerCase() ) )
+            {
+                dataElementOperands.add( dataElementOperand );
+            }
+        }
+
+        metadata.setDataElementOperands( dataElementOperands );
+
+        if ( options.hasPaging() )
+        {
+            Pager pager = new Pager( options.getPage(), dataElementOperands.size(), options.getPageSize() );
+            metadata.setPager( pager );
+            dataElementOperands = PagerUtils.pageCollection( dataElementOperands, pager );
+        }
+
+        metadata.setDataElementOperands( dataElementOperands );
+        linkService.generateLinks( metadata, false );
+
+        model.addAttribute( "model", metadata );
+        model.addAttribute( "viewClass", options.getViewClass( "basic" ) );
+
+        return StringUtils.uncapitalize( getEntitySimpleName() );
+    }
 
     @RequestMapping( value = "/{uid}/metadata", method = RequestMethod.GET )
     public ResponseEntity<RootNode> getDataElementGroupWithDependencies( @PathVariable( "uid" ) String dataElementGroupId, @RequestParam( required = false, defaultValue = "false" ) boolean download )

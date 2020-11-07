@@ -5,6 +5,7 @@ import com.mass3d.webapi.filter.CorsFilter;
 import com.mass3d.webapi.filter.CustomAuthenticationFilter;
 import com.mass3d.webapi.oprovider.DhisOauthAuthenticationProvider;
 import com.mass3d.webapi.security.DHIS2BasicAuthenticationEntryPoint;
+import com.mass3d.webapi.security.EagleboardBasicAuthenticationEntryPoint;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

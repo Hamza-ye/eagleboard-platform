@@ -320,74 +320,74 @@ public abstract class AbstractCrudController<T extends IdentifiableObject>
         }
     }
 
-//    @RequestMapping( value = "/{uid}/translations", method = RequestMethod.PUT )
-//    public void replaceTranslations(
-//        @PathVariable( "uid" ) String pvUid, @RequestParam Map<String, String> rpParameters,
-//        HttpServletRequest request, HttpServletResponse response ) throws Exception
-//    {
-//        WebOptions options = new WebOptions( rpParameters );
-//        List<T> entities = getEntity( pvUid, options );
-//
-//        if ( entities.isEmpty() )
-//        {
-//            throw new WebMessageException( WebMessageUtils.notFound( getEntityClass(), pvUid ) );
-//        }
-//
-//        T persistedObject = entities.get( 0 );
-//
-//        User user = currentUserService.getCurrentUser();
-//
-//        if ( !aclService.canUpdate( user, persistedObject ) )
-//        {
-//            throw new UpdateAccessDeniedException( "You don't have the proper permissions to update this object." );
-//        }
-//
-//        T object = renderService.fromJson( request.getInputStream(), getEntityClass() );
-//
-//        TypeReport typeReport = new TypeReport( Translation.class );
-//
-//        List<Translation> objectTranslations = Lists.newArrayList( object.getTranslations() );
-//
-//        for ( int idx = 0; idx < object.getTranslations().size(); idx++ )
-//        {
-//            ObjectReport objectReport = new ObjectReport( Translation.class, idx );
-//            Translation translation = objectTranslations.get( idx );
-//
-//            if ( translation.getLocale() == null )
-//            {
-//                objectReport.addErrorReport( new ErrorReport( Translation.class, ErrorCode.E4000, "locale" ).setErrorKlass( getEntityClass() ) );
-//            }
-//
-//            if ( translation.getProperty() == null )
-//            {
-//                objectReport.addErrorReport( new ErrorReport( Translation.class, ErrorCode.E4000, "property" ).setErrorKlass( getEntityClass() ) );
-//            }
-//
-//            if ( translation.getValue() == null )
-//            {
-//                objectReport.addErrorReport( new ErrorReport( Translation.class, ErrorCode.E4000, "value" ).setErrorKlass( getEntityClass() ) );
-//            }
-//
-//            typeReport.addObjectReport( objectReport );
-//
-//            if ( !objectReport.isEmpty() )
-//            {
-//                typeReport.getStats().incIgnored();
-//            }
-//        }
-//
-//        if ( !typeReport.getErrorReports().isEmpty() )
-//        {
-//            WebMessage webMessage = WebMessageUtils.typeReport( typeReport );
-//            webMessageService.send( webMessage, response, request );
-//            return;
-//        }
-//
-//        manager.updateTranslations( persistedObject, object.getTranslations() );
-//        manager.update( persistedObject );
-//
-//        response.setStatus( HttpServletResponse.SC_NO_CONTENT );
-//    }
+    @RequestMapping( value = "/{uid}/translations", method = RequestMethod.PUT )
+    public void replaceTranslations(
+        @PathVariable( "uid" ) String pvUid, @RequestParam Map<String, String> rpParameters,
+        HttpServletRequest request, HttpServletResponse response ) throws Exception
+    {
+        WebOptions options = new WebOptions( rpParameters );
+        List<T> entities = getEntity( pvUid, options );
+
+        if ( entities.isEmpty() )
+        {
+            throw new WebMessageException( WebMessageUtils.notFound( getEntityClass(), pvUid ) );
+        }
+
+        T persistedObject = entities.get( 0 );
+
+        User user = currentUserService.getCurrentUser();
+
+        if ( !aclService.canUpdate( user, persistedObject ) )
+        {
+            throw new UpdateAccessDeniedException( "You don't have the proper permissions to update this object." );
+        }
+
+        T object = renderService.fromJson( request.getInputStream(), getEntityClass() );
+
+        TypeReport typeReport = new TypeReport( Translation.class );
+
+        List<Translation> objectTranslations = Lists.newArrayList( object.getTranslations() );
+
+        for ( int idx = 0; idx < object.getTranslations().size(); idx++ )
+        {
+            ObjectReport objectReport = new ObjectReport( Translation.class, idx );
+            Translation translation = objectTranslations.get( idx );
+
+            if ( translation.getLocale() == null )
+            {
+                objectReport.addErrorReport( new ErrorReport( Translation.class, ErrorCode.E4000, "locale" ).setErrorKlass( getEntityClass() ) );
+            }
+
+            if ( translation.getProperty() == null )
+            {
+                objectReport.addErrorReport( new ErrorReport( Translation.class, ErrorCode.E4000, "property" ).setErrorKlass( getEntityClass() ) );
+            }
+
+            if ( translation.getValue() == null )
+            {
+                objectReport.addErrorReport( new ErrorReport( Translation.class, ErrorCode.E4000, "value" ).setErrorKlass( getEntityClass() ) );
+            }
+
+            typeReport.addObjectReport( objectReport );
+
+            if ( !objectReport.isEmpty() )
+            {
+                typeReport.getStats().incIgnored();
+            }
+        }
+
+        if ( !typeReport.getErrorReports().isEmpty() )
+        {
+            WebMessage webMessage = WebMessageUtils.typeReport( typeReport );
+            webMessageService.send( webMessage, response, request );
+            return;
+        }
+
+        manager.updateTranslations( persistedObject, object.getTranslations() );
+        manager.update( persistedObject );
+
+        response.setStatus( HttpServletResponse.SC_NO_CONTENT );
+    }
 
     @RequestMapping( value = "/{uid}", method = RequestMethod.PATCH )
     @ResponseStatus( value = HttpStatus.NO_CONTENT )
@@ -557,7 +557,7 @@ public abstract class AbstractCrudController<T extends IdentifiableObject>
         }
 
         T parsed = deserializeJsonEntity( request, response );
-//        parsed.getTranslations().clear();
+        parsed.getTranslations().clear();
 
         preCreateEntity( parsed );
 
@@ -600,7 +600,7 @@ public abstract class AbstractCrudController<T extends IdentifiableObject>
         }
 
         T parsed = deserializeXmlEntity( request );
-//        parsed.getTranslations().clear();
+        parsed.getTranslations().clear();
 
         preCreateEntity( parsed );
 

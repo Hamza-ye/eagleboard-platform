@@ -54,8 +54,8 @@
       <interceptor name="loginInterceptor" class="com.mass3d.security.intercept.LoginInterceptor" />
 
       <interceptor-stack name="commonInterceptors">
-        <!--<interceptor-ref name="staticParams" />-->
-        <!--<interceptor-ref name="params" />-->
+        <interceptor-ref name="staticParams" />
+        <interceptor-ref name="params" />
         <interceptor-ref name="i18nInterceptor" />
         <interceptor-ref name="systemSettingInterceptor" />
         <!-- The securityInterceptor is put after the i18nInterceptor so that the access denied error pages can use internationalization. -->
@@ -345,25 +345,25 @@
       <param name="javascripts">../dhis-web-commons/i18n/i18n.js</param>
     </action>
 
-    <!--<action name="translate" class="com.mass3d.i18n.action.TranslateAction">-->
-      <!--<result name="success" type="velocity">/dhis-web-commons/i18n/goback.vm-->
-      <!--</result>-->
-      <!--<result name="input" type="redirect">-->
-        <!--<param name="location">i18n.action</param>-->
-        <!--<param name="className">${className}</param>-->
-        <!--<param name="objectId">${objectId}</param>-->
-        <!--<param name="returnUrl">${returnUrl}</param>-->
-        <!--<param name="message">${message}</param>-->
-        <!--<param name="parse">false</param>-->
-      <!--</result>-->
-    <!--</action>-->
+    <action name="translate" class="com.mass3d.i18n.action.TranslateAction">
+      <result name="success" type="velocity">/dhis-web-commons/i18n/goback.vm
+      </result>
+      <result name="input" type="redirect">
+        <param name="location">i18n.action</param>
+        <param name="className">${className}</param>
+        <param name="objectId">${objectId}</param>
+        <param name="returnUrl">${returnUrl}</param>
+        <param name="message">${message}</param>
+        <param name="parse">false</param>
+      </result>
+    </action>
 
-    <!--<action name="getTranslations" class="com.mass3d.i18n.action.GetTranslationsAction">-->
-      <!--<result name="success" type="velocity-json">-->
-        <!--/dhis-web-commons/i18n/jsonTranslations.vm-->
-      <!--</result>-->
-      <!--<param name="onExceptionReturn">plainTextError</param>-->
-    <!--</action>-->
+    <action name="getTranslations" class="com.mass3d.i18n.action.GetTranslationsAction">
+      <result name="success" type="velocity-json">
+        /dhis-web-commons/i18n/jsonTranslations.vm
+      </result>
+      <param name="onExceptionReturn">plainTextError</param>
+    </action>
 
     <action name="i18nJavaScript" class="com.mass3d.commons.action.NoAction">
       <result name="success" type="velocity-javascript">/dhis-web-commons/i18n/i18n.vm</result>
@@ -376,12 +376,12 @@
 
   <package name="dhis-web-commons-ajax" extends="dhis-web-commons" namespace="/dhis-web-commons-ajax">
 
-    <!--<action name="getCategoryOptionCombos" class="com.mass3d.commons.action.GetCategoryOptionCombosAction">-->
-      <!--<result name="success" type="velocity-xml">-->
-        <!--/dhis-web-commons/ajax/xmlCategoryOptionCombos.vm-->
-      <!--</result>-->
-      <!--<param name="onExceptionReturn">plainTextError</param>-->
-    <!--</action>-->
+    <action name="getCategoryOptionCombos" class="com.mass3d.commons.action.GetCategoryOptionCombosAction">
+      <result name="success" type="velocity-xml">
+        /dhis-web-commons/ajax/xmlCategoryOptionCombos.vm
+      </result>
+      <param name="onExceptionReturn">plainTextError</param>
+    </action>
 
     <action name="getDataElement" class="com.mass3d.commons.action.GetDataElementAction">
       <result name="success" type="velocity-xml">
@@ -453,26 +453,26 @@
       <param name="onExceptionReturn">plainTextError</param>
     </action>
 
-    <!--<action name="getOrganisationUnit" class="com.mass3d.commons.action.GetOrganisationUnitAction">-->
-      <!--<result name="success" type="velocity-xml">-->
-        <!--/dhis-web-commons/ajax/xmlOrganisationUnit.vm-->
-      <!--</result>-->
-      <!--<param name="onExceptionReturn">plainTextError</param>-->
-    <!--</action>-->
+    <action name="getOrganisationUnit" class="com.mass3d.commons.action.GetOrganisationUnitAction">
+      <result name="success" type="velocity-xml">
+        /dhis-web-commons/ajax/xmlOrganisationUnit.vm
+      </result>
+      <param name="onExceptionReturn">plainTextError</param>
+    </action>
 
-    <!--<action name="getOrganisationUnits" class="com.mass3d.commons.action.GetOrganisationUnitsAction">-->
-      <!--<result name="success" type="velocity-xml">-->
-        <!--/dhis-web-commons/ajax/xmlOrganisationUnits.vm-->
-      <!--</result>-->
-      <!--<param name="onExceptionReturn">plainTextError</param>-->
-    <!--</action>-->
+    <action name="getOrganisationUnits" class="com.mass3d.commons.action.GetOrganisationUnitsAction">
+      <result name="success" type="velocity-xml">
+        /dhis-web-commons/ajax/xmlOrganisationUnits.vm
+      </result>
+      <param name="onExceptionReturn">plainTextError</param>
+    </action>
 
-    <!--<action name="getOrganisationUnitChildren" class="com.mass3d.commons.action.GetOrganisationUnitChildrenAction">-->
-      <!--<result name="success" type="velocity-xml">-->
-        <!--/dhis-web-commons/ajax/xmlOrganisationUnits.vm-->
-      <!--</result>-->
-      <!--<param name="onExceptionReturn">plainTextError</param>-->
-    <!--</action>-->
+    <action name="getOrganisationUnitChildren" class="com.mass3d.commons.action.GetOrganisationUnitChildrenAction">
+      <result name="success" type="velocity-xml">
+        /dhis-web-commons/ajax/xmlOrganisationUnits.vm
+      </result>
+      <param name="onExceptionReturn">plainTextError</param>
+    </action>
 
     <action name="getPeriod" class="com.mass3d.commons.action.GetPeriodAction">
       <result name="success" type="velocity-xml">
@@ -547,12 +547,12 @@
       <!--<param name="onExceptionReturn">plainTextError</param>-->
     <!--</action>-->
 
-    <!--<action name="getCategoryOptionCombos" class="com.mass3d.commons.action.GetCategoryOptionCombosAction">-->
-      <!--<result name="success" type="velocity-json">-->
-        <!--/dhis-web-commons/ajax/jsonCategoryOptionCombos.vm-->
-      <!--</result>-->
-      <!--<param name="onExceptionReturn">plainTextError</param>-->
-    <!--</action>-->
+    <action name="getCategoryOptionCombos" class="com.mass3d.commons.action.GetCategoryOptionCombosAction">
+      <result name="success" type="velocity-json">
+        /dhis-web-commons/ajax/jsonCategoryOptionCombos.vm
+      </result>
+      <param name="onExceptionReturn">plainTextError</param>
+    </action>
 
     <action name="getDataElement" class="com.mass3d.commons.action.GetDataElementAction">
       <result name="success" type="velocity-json">
@@ -624,33 +624,33 @@
       <param name="onExceptionReturn">plainTextError</param>
     </action>
 
-    <!--<action name="getSectionIndicators" class="com.mass3d.commons.action.GetSectionIndicatorsAction">-->
-      <!--<result name="success" type="velocity-json">-->
-        <!--/dhis-web-commons/ajax/jsonIndicators.vm-->
-      <!--</result>-->
-      <!--<param name="onExceptionReturn">plainTextError</param>-->
-    <!--</action>-->
+    <action name="getSectionIndicators" class="com.mass3d.commons.action.GetSectionIndicatorsAction">
+      <result name="success" type="velocity-json">
+        /dhis-web-commons/ajax/jsonIndicators.vm
+      </result>
+      <param name="onExceptionReturn">plainTextError</param>
+    </action>
 
-    <!--<action name="getDataElementCategories" class="com.mass3d.commons.action.GetDataElementCategoriesAction">-->
-      <!--<result name="success" type="velocity-json">-->
-        <!--/dhis-web-commons/ajax/jsonDataElementCategories.vm-->
-      <!--</result>-->
-      <!--<param name="onExceptionReturn">plainTextError</param>-->
-    <!--</action>-->
+    <action name="getDataElementCategories" class="com.mass3d.commons.action.GetDataElementCategoriesAction">
+      <result name="success" type="velocity-json">
+        /dhis-web-commons/ajax/jsonDataElementCategories.vm
+      </result>
+      <param name="onExceptionReturn">plainTextError</param>
+    </action>
 
-    <!--<action name="getDataElementCategoryOptions" class="com.mass3d.commons.action.GetCategoryOptionsAction">-->
-      <!--<result name="success" type="velocity-json">-->
-        <!--/dhis-web-commons/ajax/jsonDataElementCategoryOptions.vm-->
-      <!--</result>-->
-      <!--<param name="onExceptionReturn">plainTextError</param>-->
-    <!--</action>-->
+    <action name="getDataElementCategoryOptions" class="com.mass3d.commons.action.GetCategoryOptionsAction">
+      <result name="success" type="velocity-json">
+        /dhis-web-commons/ajax/jsonDataElementCategoryOptions.vm
+      </result>
+      <param name="onExceptionReturn">plainTextError</param>
+    </action>
 
-    <!--<action name="getCategoryOptionGroups" class="com.mass3d.commons.action.GetCategoryOptionGroupsAction">-->
-      <!--<result name="success" type="velocity-json">-->
-        <!--/dhis-web-commons/ajax/jsonCategoryOptionGroups.vm-->
-      <!--</result>-->
-      <!--<param name="onExceptionReturn">plainTextError</param>-->
-    <!--</action>-->
+    <action name="getCategoryOptionGroups" class="com.mass3d.commons.action.GetCategoryOptionGroupsAction">
+      <result name="success" type="velocity-json">
+        /dhis-web-commons/ajax/jsonCategoryOptionGroups.vm
+      </result>
+      <param name="onExceptionReturn">plainTextError</param>
+    </action>
 
     <action name="getDataSet" class="com.mass3d.commons.action.GetDataSetAction">
       <result name="success" type="velocity-json">
@@ -736,74 +736,74 @@
       <param name="onExceptionReturn">plainTextError</param>
     </action>
 
-    <!--<action name="getOrganisationUnit" class="com.mass3d.commons.action.GetOrganisationUnitAction">-->
-      <!--<result name="success" type="velocity-json">-->
-        <!--/dhis-web-commons/ajax/jsonOrganisationUnit.vm-->
-      <!--</result>-->
-      <!--<param name="onExceptionReturn">plainTextError</param>-->
-    <!--</action>-->
+    <action name="getOrganisationUnit" class="com.mass3d.commons.action.GetOrganisationUnitAction">
+      <result name="success" type="velocity-json">
+        /dhis-web-commons/ajax/jsonOrganisationUnit.vm
+      </result>
+      <param name="onExceptionReturn">plainTextError</param>
+    </action>
 
-    <!--<action name="getOrganisationUnitGroups" class="com.mass3d.commons.action.GetOrganisationUnitGroupsAction">-->
-      <!--<result name="success" type="velocity-json">-->
-        <!--/dhis-web-commons/ajax/jsonOrganisationUnitGroups.vm-->
-      <!--</result>-->
-      <!--<param name="onExceptionReturn">plainTextError</param>-->
-    <!--</action>-->
+    <action name="getOrganisationUnitGroups" class="com.mass3d.commons.action.GetOrganisationUnitGroupsAction">
+      <result name="success" type="velocity-json">
+        /dhis-web-commons/ajax/jsonOrganisationUnitGroups.vm
+      </result>
+      <param name="onExceptionReturn">plainTextError</param>
+    </action>
 
-    <!--<action name="getOrganisationUnitGroupsByGroupSet" class="com.mass3d.commons.action.GetOrganisationUnitGroupsByGroupSetAction">-->
-      <!--<result name="success" type="velocity-json">-->
-        <!--/dhis-web-commons/ajax/jsonOrganisationUnitGroups.vm-->
-      <!--</result>-->
-      <!--<param name="onExceptionReturn">plainTextError</param>-->
-    <!--</action>-->
+    <action name="getOrganisationUnitGroupsByGroupSet" class="com.mass3d.commons.action.GetOrganisationUnitGroupsByGroupSetAction">
+      <result name="success" type="velocity-json">
+        /dhis-web-commons/ajax/jsonOrganisationUnitGroups.vm
+      </result>
+      <param name="onExceptionReturn">plainTextError</param>
+    </action>
 
-    <!--<action name="getOrganisationUnitGroupSets" class="com.mass3d.commons.action.GetOrganisationUnitGroupSetsAction">-->
-      <!--<result name="success" type="velocity-json">-->
-        <!--/dhis-web-commons/ajax/jsonOrganisationUnitGroupSets.vm-->
-      <!--</result>-->
-      <!--<param name="onExceptionReturn">plainTextError</param>-->
-    <!--</action>-->
+    <action name="getOrganisationUnitGroupSets" class="com.mass3d.commons.action.GetOrganisationUnitGroupSetsAction">
+      <result name="success" type="velocity-json">
+        /dhis-web-commons/ajax/jsonOrganisationUnitGroupSets.vm
+      </result>
+      <param name="onExceptionReturn">plainTextError</param>
+    </action>
 
-    <!--<action name="getOrganisationUnitGroupSetsMinified" class="com.mass3d.commons.action.GetOrganisationUnitGroupSetsAction">-->
-      <!--<result name="success" type="velocity-json">-->
-        <!--/dhis-web-commons/ajax/jsonminOrganisationUnitGroupSets.vm-->
-      <!--</result>-->
-      <!--<param name="onExceptionReturn">plainTextError</param>-->
-    <!--</action>-->
+    <action name="getOrganisationUnitGroupSetsMinified" class="com.mass3d.commons.action.GetOrganisationUnitGroupSetsAction">
+      <result name="success" type="velocity-json">
+        /dhis-web-commons/ajax/jsonminOrganisationUnitGroupSets.vm
+      </result>
+      <param name="onExceptionReturn">plainTextError</param>
+    </action>
 
-    <!--<action name="getOrganisationUnitChildren" class="com.mass3d.commons.action.GetOrganisationUnitChildrenAction">-->
-      <!--<result name="success" type="velocity-json">-->
-        <!--/dhis-web-commons/ajax/jsonOrganisationUnits.vm-->
-      <!--</result>-->
-      <!--<param name="onExceptionReturn">plainTextError</param>-->
-    <!--</action>-->
+    <action name="getOrganisationUnitChildren" class="com.mass3d.commons.action.GetOrganisationUnitChildrenAction">
+      <result name="success" type="velocity-json">
+        /dhis-web-commons/ajax/jsonOrganisationUnits.vm
+      </result>
+      <param name="onExceptionReturn">plainTextError</param>
+    </action>
 
-    <!--<action name="getOrganisationUnitLevels" class="com.mass3d.commons.action.GetOrganisationUnitLevelsAction">-->
-      <!--<result name="success" type="velocity-json">-->
-        <!--/dhis-web-commons/ajax/jsonOrganisationUnitLevels.vm-->
-      <!--</result>-->
-      <!--<param name="onExceptionReturn">plainTextError</param>-->
-    <!--</action>-->
+    <action name="getOrganisationUnitLevels" class="com.mass3d.commons.action.GetOrganisationUnitLevelsAction">
+      <result name="success" type="velocity-json">
+        /dhis-web-commons/ajax/jsonOrganisationUnitLevels.vm
+      </result>
+      <param name="onExceptionReturn">plainTextError</param>
+    </action>
 
-    <!--<action name="getOrganisationUnits" class="com.mass3d.commons.action.GetOrganisationUnitsAction">-->
-      <!--<result name="success" type="velocity-json">-->
-        <!--/dhis-web-commons/ajax/jsonOrganisationUnits.vm-->
-      <!--</result>-->
-      <!--<param name="onExceptionReturn">plainTextError</param>-->
-    <!--</action>-->
+    <action name="getOrganisationUnits" class="com.mass3d.commons.action.GetOrganisationUnitsAction">
+      <result name="success" type="velocity-json">
+        /dhis-web-commons/ajax/jsonOrganisationUnits.vm
+      </result>
+      <param name="onExceptionReturn">plainTextError</param>
+    </action>
 
-    <!--<action name="getOrganisationUnitTree" class="com.mass3d.commons.action.GetOrganisationUnitTreeAction">-->
-      <!--<result name="success" type="velocity-json">/dhis-web-commons/ajax/jsonOrganisationUnitTree.vm</result>-->
-      <!--<result name="partial" type="velocity-json">/dhis-web-commons/ajax/jsonOrganisationUnitTreePartial.vm</result>-->
-      <!--<param name="onExceptionReturn">plainTextError</param>-->
-    <!--</action>-->
+    <action name="getOrganisationUnitTree" class="com.mass3d.commons.action.GetOrganisationUnitTreeAction">
+      <result name="success" type="velocity-json">/dhis-web-commons/ajax/jsonOrganisationUnitTree.vm</result>
+      <result name="partial" type="velocity-json">/dhis-web-commons/ajax/jsonOrganisationUnitTreePartial.vm</result>
+      <param name="onExceptionReturn">plainTextError</param>
+    </action>
 
-    <!--<action name="getAttributes" class="com.mass3d.commons.action.GetAttributesAction">-->
-      <!--<result name="success" type="velocity-json">-->
-        <!--/dhis-web-commons/ajax/jsonAttributes.vm-->
-      <!--</result>-->
-      <!--<param name="onExceptionReturn">plainTextError</param>-->
-    <!--</action>-->
+    <action name="getAttributes" class="com.mass3d.commons.action.GetAttributesAction">
+      <result name="success" type="velocity-json">
+        /dhis-web-commons/ajax/jsonAttributes.vm
+      </result>
+      <param name="onExceptionReturn">plainTextError</param>
+    </action>
 
     <action name="getPeriod" class="com.mass3d.commons.action.GetPeriodAction">
       <result name="success" type="velocity-json">

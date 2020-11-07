@@ -1,6 +1,7 @@
 package com.mass3d.user;
 
 import com.google.common.base.MoreObjects;
+import com.mass3d.organisationunit.OrganisationUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -37,7 +38,7 @@ public class UserQueryParams
 
     private UserInvitationStatus invitationStatus;
 
-//    private List<OrganisationUnit> organisationUnits = new ArrayList<>();
+    private List<OrganisationUnit> organisationUnits = new ArrayList<>();
 
     private Set<UserGroup> userGroups = new HashSet<>();
 
@@ -98,16 +99,23 @@ public class UserQueryParams
     // Builder
     // -------------------------------------------------------------------------
 
-//    public UserQueryParams addOrganisationUnit( OrganisationUnit unit )
-//    {
-//        this.organisationUnits.add( unit );
-//        return this;
-//    }
+    public UserQueryParams addOrganisationUnit( OrganisationUnit unit )
+    {
+        this.organisationUnits.add( unit );
+        return this;
+    }
+
+    public boolean hasOrganisationUnits()
+    {
+        return !organisationUnits.isEmpty();
+    }
 
 //    public boolean hashasTodoTasks()
 //    {
 //        return !organisationUnits.isEmpty();
 //    }
+
+
 
     public boolean hasUserGroups()
     {

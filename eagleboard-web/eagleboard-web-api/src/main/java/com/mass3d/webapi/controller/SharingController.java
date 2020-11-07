@@ -1,6 +1,8 @@
 package com.mass3d.webapi.controller;
 
 import com.mass3d.common.SystemDefaultMetadataObject;
+import com.mass3d.program.ProgramStage;
+import com.mass3d.program.ProgramType;
 import lombok.extern.slf4j.Slf4j;
 import com.mass3d.common.BaseIdentifiableObject;
 import com.mass3d.common.DhisApiVersion;
@@ -334,10 +336,10 @@ public class SharingController
 
         manager.updateNoAcl( object );
 
-//        if ( Program.class.isInstance( object ) )
-//        {
-//            syncSharingForEventProgram( (Program) object );
-//        }
+        if ( Program.class.isInstance( object ) )
+        {
+            syncSharingForEventProgram( (Program) object );
+        }
 
         log.info( sharingToString( object ) );
 
@@ -447,20 +449,20 @@ public class SharingController
         return builder.toString();
     }
 
-//    private void syncSharingForEventProgram( Program program )
-//    {
-//        if ( ProgramType.WITH_REGISTRATION == program.getProgramType()
-//            || program.getProgramStages().isEmpty() )
-//        {
-//            return;
-//        }
-//
-//        ProgramStage programStage = program.getProgramStages().iterator().next();
-//        AccessStringHelper.copySharing( program, programStage );
-//
-//        programStage.setUser( program.getUser() );
-//        manager.update( programStage );
-//    }
+    private void syncSharingForEventProgram( Program program )
+    {
+        if ( ProgramType.WITH_REGISTRATION == program.getProgramType()
+            || program.getProgramStages().isEmpty() )
+        {
+            return;
+        }
+
+        ProgramStage programStage = program.getProgramStages().iterator().next();
+        AccessStringHelper.copySharing( program, programStage );
+
+        programStage.setUser( program.getUser() );
+        manager.update( programStage );
+    }
 
     /**
      * This method is being used only during the deprecation process of the

@@ -6,13 +6,23 @@ import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static com.mass3d.common.CodeGenerator.isValidUid;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletResponse;
+
+import com.mass3d.common.DataQueryRequest;
 import com.mass3d.common.DimensionService;
 import com.mass3d.common.DimensionalItemObject;
 import com.mass3d.common.DimensionalObject;
 import com.mass3d.common.IdentifiableObjectManager;
+import com.mass3d.dataset.DataSet;
 import com.mass3d.dxf2.common.OrderParams;
+import com.mass3d.dxf2.webmessage.WebMessageException;
+import com.mass3d.dxf2.webmessage.WebMessageUtils;
 import com.mass3d.fieldfilter.Defaults;
 import com.mass3d.fieldfilter.FieldFilterParams;
 import com.mass3d.node.AbstractNode;
@@ -29,6 +39,7 @@ import com.mass3d.webapi.webdomain.WebMetadata;
 import com.mass3d.webapi.webdomain.WebOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -178,44 +189,44 @@ public class DimensionController
 //        return rootNode;
 //    }
 
-//    @RequestMapping( value = "/dataSet/{uid}", method = RequestMethod.GET )
-//    public @ResponseBody RootNode getDimensionsForDataSet( @PathVariable String uid,
-//        @RequestParam( value = "links", defaultValue = "true", required = false ) Boolean links,
-//        Model model, HttpServletResponse response )
-//        throws WebMessageException
-//    {
-//        WebMetadata metadata = new WebMetadata();
-//        List<String> fields = newArrayList( contextService.getParameterValues( "fields" ) );
-//
-//        DataSet dataSet = identifiableObjectManager.get( DataSet.class, uid );
-//
-//        if ( dataSet == null )
-//        {
-//            throw new WebMessageException( WebMessageUtils.notFound( "Data set not found: " + uid ) );
-//        }
-//
-//        List<DimensionalObject> dimensions = new ArrayList<>();
-//        dimensions.addAll( dataSet.getCategoryCombo().getCategories().stream()
-//            .filter( ca -> !ca.isDefault() )
-//            .collect( Collectors.toList() ) );
-//        dimensions.addAll( dataSet.getCategoryOptionGroupSets() );
-//
-//        dimensions = dimensionService.getCanReadObjects( dimensions );
-//
-//        for ( DimensionalObject dim : dimensions )
-//        {
-//            metadata.getDimensions().add( dimensionService.getDimensionalObjectCopy( dim.getUid(), true ) );
-//        }
-//
-//        if ( links )
-//        {
-//            linkService.generateLinks( metadata, false );
-//        }
-//
-//        RootNode rootNode = NodeUtils.createMetadata();
-//        rootNode.addChild( fieldFilterService.toCollectionNode( getEntityClass(),
-//            new FieldFilterParams( metadata.getDimensions(), fields ) ) );
-//
-//        return rootNode;
-//    }
+    @RequestMapping( value = "/dataSet/{uid}", method = RequestMethod.GET )
+    public @ResponseBody RootNode getDimensionsForDataSet( @PathVariable String uid,
+        @RequestParam( value = "links", defaultValue = "true", required = false ) Boolean links,
+        Model model, HttpServletResponse response )
+        throws WebMessageException
+    {
+        WebMetadata metadata = new WebMetadata();
+        List<String> fields = newArrayList( contextService.getParameterValues( "fields" ) );
+
+        DataSet dataSet = identifiableObjectManager.get( DataSet.class, uid );
+
+        if ( dataSet == null )
+        {
+            throw new WebMessageException( WebMessageUtils.notFound( "Data set not found: " + uid ) );
+        }
+
+        List<DimensionalObject> dimensions = new ArrayList<>();
+        dimensions.addAll( dataSet.getCategoryCombo().getCategories().stream()
+            .filter( ca -> !ca.isDefault() )
+            .collect( Collectors.toList() ) );
+        dimensions.addAll( dataSet.getCategoryOptionGroupSets() );
+
+        dimensions = dimensionService.getCanReadObjects( dimensions );
+
+        for ( DimensionalObject dim : dimensions )
+        {
+            metadata.getDimensions().add( dimensionService.getDimensionalObjectCopy( dim.getUid(), true ) );
+        }
+
+        if ( links )
+        {
+            linkService.generateLinks( metadata, false );
+        }
+
+        RootNode rootNode = NodeUtils.createMetadata();
+        rootNode.addChild( fieldFilterService.toCollectionNode( getEntityClass(),
+            new FieldFilterParams( metadata.getDimensions(), fields ) ) );
+
+        return rootNode;
+    }
 }

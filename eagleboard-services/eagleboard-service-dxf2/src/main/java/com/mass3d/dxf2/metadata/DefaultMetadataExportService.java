@@ -86,11 +86,11 @@ public class DefaultMetadataExportService implements MetadataExportService
     @Autowired
     private CurrentUserService currentUserService;
 
-    @Autowired
-    private ProgramRuleService programRuleService;
-
-    @Autowired
-    private ProgramRuleVariableService programRuleVariableService;
+//    @Autowired
+//    private ProgramRuleService programRuleService;
+//
+//    @Autowired
+//    private ProgramRuleVariableService programRuleVariableService;
 
     @Autowired
     private SystemService systemService;
@@ -332,7 +332,7 @@ public class DefaultMetadataExportService implements MetadataExportService
 
         if ( OptionSet.class.isInstance( object ) ) return handleOptionSet( metadata, (OptionSet) object );
         if ( DataSet.class.isInstance( object ) ) return handleDataSet( metadata, (DataSet) object );
-        if ( Program.class.isInstance( object ) ) return handleProgram( metadata, (Program) object );
+//        if ( Program.class.isInstance( object ) ) return handleProgram( metadata, (Program) object );
         if ( CategoryCombo.class.isInstance( object ) ) return handleCategoryCombo( metadata, (CategoryCombo) object );
 //        if ( Dashboard.class.isInstance( object ) ) return handleDashboard( metadata, (Dashboard) object );
         if ( DataElementGroup.class.isInstance( object ) ) return handleDataElementGroup( metadata, (DataElementGroup) object );
@@ -552,29 +552,29 @@ public class DefaultMetadataExportService implements MetadataExportService
         return metadata;
     }
 
-    private SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> handleProgram( SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> metadata, Program program )
-    {
-        if ( program == null ) return metadata;
-        metadata.putValue( Program.class, program );
-        handleAttributes( metadata, program );
-
-        handleCategoryCombo( metadata, program.getCategoryCombo() );
-        handleDataEntryForm( metadata, program.getDataEntryForm() );
-        handleTrackedEntityType( metadata, program.getTrackedEntityType() );
-
-        program.getNotificationTemplates().forEach( template -> handleNotificationTemplate( metadata, template ) );
-        program.getProgramStages().forEach( programStage -> handleProgramStage( metadata, programStage ) );
-        program.getProgramAttributes().forEach( programTrackedEntityAttribute -> handleProgramTrackedEntityAttribute( metadata, programTrackedEntityAttribute ) );
-        program.getProgramIndicators().forEach( programIndicator -> handleProgramIndicator( metadata, programIndicator ) );
-
-        List<ProgramRule> programRules = programRuleService.getProgramRule( program );
-        List<ProgramRuleVariable> programRuleVariables = programRuleVariableService.getProgramRuleVariable( program );
-
-        programRules.forEach( programRule -> handleProgramRule( metadata, programRule ) );
-        programRuleVariables.forEach( programRuleVariable -> handleProgramRuleVariable( metadata, programRuleVariable ) );
-
-        return metadata;
-    }
+//    private SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> handleProgram( SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> metadata, Program program )
+//    {
+//        if ( program == null ) return metadata;
+//        metadata.putValue( Program.class, program );
+//        handleAttributes( metadata, program );
+//
+//        handleCategoryCombo( metadata, program.getCategoryCombo() );
+//        handleDataEntryForm( metadata, program.getDataEntryForm() );
+//        handleTrackedEntityType( metadata, program.getTrackedEntityType() );
+//
+//        program.getNotificationTemplates().forEach( template -> handleNotificationTemplate( metadata, template ) );
+//        program.getProgramStages().forEach( programStage -> handleProgramStage( metadata, programStage ) );
+//        program.getProgramAttributes().forEach( programTrackedEntityAttribute -> handleProgramTrackedEntityAttribute( metadata, programTrackedEntityAttribute ) );
+//        program.getProgramIndicators().forEach( programIndicator -> handleProgramIndicator( metadata, programIndicator ) );
+//
+//        List<ProgramRule> programRules = programRuleService.getProgramRule( program );
+//        List<ProgramRuleVariable> programRuleVariables = programRuleVariableService.getProgramRuleVariable( program );
+//
+//        programRules.forEach( programRule -> handleProgramRule( metadata, programRule ) );
+//        programRuleVariables.forEach( programRuleVariable -> handleProgramRuleVariable( metadata, programRuleVariable ) );
+//
+//        return metadata;
+//    }
 
     private SetMap<Class<? extends IdentifiableObject>, IdentifiableObject> handleNotificationTemplate( SetMap<Class<? extends
         IdentifiableObject>, IdentifiableObject> metadata, ProgramNotificationTemplate template )

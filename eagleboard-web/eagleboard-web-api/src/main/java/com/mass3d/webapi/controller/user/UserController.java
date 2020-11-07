@@ -1,6 +1,8 @@
 package com.mass3d.webapi.controller.user;
 
 import com.google.common.collect.Lists;
+import com.mass3d.attribute.AttributeValue;
+import com.mass3d.organisationunit.OrganisationUnitService;
 import org.apache.commons.lang3.StringUtils;
 import com.mass3d.common.CodeGenerator;
 import com.mass3d.common.IdentifiableObjectUtils;
@@ -80,8 +82,8 @@ public class UserController
     @Autowired
     private SecurityService securityService;
 
-//    @Autowired
-//    private OrganisationUnitService organisationUnitService;
+    @Autowired
+    private OrganisationUnitService organisationUnitService;
 
     @Autowired
     private UserSettingService userSettingService;
@@ -110,10 +112,10 @@ public class UserController
 
         String ou = options.get( "ou" );
 
-//        if ( ou != null )
-//        {
-//            params.addOrganisationUnit( organisationUnitService.getOrganisationUnit( ou ) );
-//        }
+        if ( ou != null )
+        {
+            params.addOrganisationUnit( organisationUnitService.getOrganisationUnit( ou ) );
+        }
 
         if ( options.isManage() )
         {
@@ -358,7 +360,7 @@ public class UserController
         User userReplica = new User();
         mergeService.merge( new MergeParams<>( existingUser, userReplica )
             .setMergeMode( MergeMode.MERGE ) );
-//        copyAttributeValues( userReplica );
+        copyAttributeValues( userReplica );
         userReplica.setUid( CodeGenerator.generateUid() );
         userReplica.setCode( null );
         userReplica.setCreated( new Date() );
@@ -694,38 +696,38 @@ public class UserController
         return null;
     }
 
-//    /**
-//     * Make a copy of any existing attribute values so they can be saved
-//     * as new attribute values. Don't copy unique values.
-//     *
-//     * @param userReplica user for which to copy attribute values.
-//     */
-//    private void copyAttributeValues( User userReplica )
-//    {
-//        if ( userReplica.getAttributeValues() == null )
-//        {
-//            return;
-//        }
-//
-//        Set<AttributeValue> newAttributeValues = new HashSet<>();
-//
-//        for ( AttributeValue oldValue : userReplica.getAttributeValues() )
-//        {
-//            if ( !oldValue.getAttribute().isUnique() )
-//            {
-//                AttributeValue newValue = new AttributeValue( oldValue.getValue(), oldValue.getAttribute() );
-//
-//                newAttributeValues.add( newValue );
-//            }
-//        }
-//
-//        if ( newAttributeValues.isEmpty() )
-//        {
-//            userReplica.setAttributeValues( null );
-//        }
-//
-//        userReplica.setAttributeValues( newAttributeValues );
-//    }
+    /**
+     * Make a copy of any existing attribute values so they can be saved
+     * as new attribute values. Don't copy unique values.
+     *
+     * @param userReplica user for which to copy attribute values.
+     */
+    private void copyAttributeValues( User userReplica )
+    {
+        if ( userReplica.getAttributeValues() == null )
+        {
+            return;
+        }
+
+        Set<AttributeValue> newAttributeValues = new HashSet<>();
+
+        for ( AttributeValue oldValue : userReplica.getAttributeValues() )
+        {
+            if ( !oldValue.getAttribute().isUnique() )
+            {
+                AttributeValue newValue = new AttributeValue( oldValue.getValue(), oldValue.getAttribute() );
+
+                newAttributeValues.add( newValue );
+            }
+        }
+
+        if ( newAttributeValues.isEmpty() )
+        {
+            userReplica.setAttributeValues( null );
+        }
+
+        userReplica.setAttributeValues( newAttributeValues );
+    }
 
     private User mergeLastLoginAttribute( User source, User target )
     {
