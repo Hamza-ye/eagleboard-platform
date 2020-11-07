@@ -13,6 +13,7 @@ import com.mass3d.feedback.ErrorCode;
 import com.mass3d.feedback.ErrorReport;
 import com.mass3d.fileresource.FileResource;
 import com.mass3d.fileresource.FileResourceService;
+import com.mass3d.organisationunit.OrganisationUnit;
 import com.mass3d.preheat.PreheatIdentifier;
 import com.mass3d.schema.MergeParams;
 import com.mass3d.security.acl.AclService;
@@ -206,8 +207,8 @@ public class UserObjectBundleHook extends AbstractObjectBundleHook
                 continue;
             }
 
-//            user.setTodoTasks( (Set<OrganisationUnit>) userReferenceMap.get( "organisationUnits" ) );
-//            user.setDataViewOrganisationUnits( (Set<OrganisationUnit>) userReferenceMap.get( "dataViewOrganisationUnits" ) );
+            user.setOrganisationUnits( (Set<OrganisationUnit>) userReferenceMap.get( "organisationUnits" ) );
+            user.setDataViewOrganisationUnits( (Set<OrganisationUnit>) userReferenceMap.get( "dataViewOrganisationUnits" ) );
             userCredentials.setUser( (User) userCredentialsReferenceMap.get( "user" ) );
             userCredentials.setUserInfo( user );
 

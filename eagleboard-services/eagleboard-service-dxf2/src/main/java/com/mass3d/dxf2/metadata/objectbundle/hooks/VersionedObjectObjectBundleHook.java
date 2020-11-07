@@ -1,5 +1,7 @@
 package com.mass3d.dxf2.metadata.objectbundle.hooks;
 
+import com.mass3d.dataset.DataSet;
+import com.mass3d.dataset.Section;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,12 +37,11 @@ public class VersionedObjectObjectBundleHook extends AbstractObjectBundleHook
     {
         VersionedObject versionedObject = null;
         
-//        if ( Section.class.isInstance( persistedObject ) )
-//        {
-//            versionedObject = ((Section) persistedObject).getDataSet();
-//        }
-//        else
-          if ( Option.class.isInstance( persistedObject ) )
+        if ( Section.class.isInstance( persistedObject ) )
+        {
+            versionedObject = ((Section) persistedObject).getDataSet();
+        }
+        else if ( Option.class.isInstance( persistedObject ) )
         {
             versionedObject = ((Option) persistedObject).getOptionSet();
         }
@@ -55,27 +56,26 @@ public class VersionedObjectObjectBundleHook extends AbstractObjectBundleHook
     @Override
     public <T extends IdentifiableObject> void postTypeImport( Class<? extends IdentifiableObject> klass, List<T> objects, ObjectBundle bundle )
     {
-//        if ( Section.class.isAssignableFrom( klass ) )
-//        {
-//            Set<DataSet> dataSets = new HashSet<>();
-//            objects.forEach( o ->
-//            {
-//                DataSet dataSet = ((Section) o).getDataSet();
-//
-//                if ( dataSet != null && dataSet.getId() > 0 )
-//                {
-//                    dataSets.add( dataSet );
-//                }
-//            } );
-//
-//            dataSets.forEach( ds ->
-//            {
-//                ds.increaseVersion();
-//                sessionFactory.getCurrentSession().save( ds );
-//            } );
-//        }
-//        else
-          if ( Option.class.isAssignableFrom( klass ) )
+        if ( Section.class.isAssignableFrom( klass ) )
+        {
+            Set<DataSet> dataSets = new HashSet<>();
+            objects.forEach( o ->
+            {
+                DataSet dataSet = ((Section) o).getDataSet();
+
+                if ( dataSet != null && dataSet.getId() > 0 )
+                {
+                    dataSets.add( dataSet );
+                }
+            } );
+
+            dataSets.forEach( ds ->
+            {
+                ds.increaseVersion();
+                sessionFactory.getCurrentSession().save( ds );
+            } );
+        }
+        else if ( Option.class.isAssignableFrom( klass ) )
         {
             Set<OptionSet> optionSets = new HashSet<>();
 
