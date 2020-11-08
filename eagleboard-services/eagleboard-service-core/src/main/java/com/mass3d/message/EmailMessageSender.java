@@ -45,7 +45,7 @@ import org.springframework.util.concurrent.ListenableFuture;
 public class EmailMessageSender
     implements MessageSender
 {
-    private static final String DEFAULT_APPLICATION_TITLE = "DHIS 2";
+    private static final String DEFAULT_APPLICATION_TITLE = "Eagleboard";
     private static final String LB = System.getProperty( "line.separator" );
     private static final String MESSAGE_EMAIL_TEMPLATE = "message_email";
     private static final String HOST = "Host: ";

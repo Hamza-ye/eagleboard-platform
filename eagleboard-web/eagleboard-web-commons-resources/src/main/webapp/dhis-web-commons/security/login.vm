@@ -48,7 +48,7 @@
         <div id="loginField">
         <div id="loginArea">
             <div id="bannerArea">
-            <a href="http://www.dhis2.org"><img src="../../api/staticContent/logo_front" style="border:none"></a>
+            <a href="http://www.eagleboard.com"><img src="../../api/staticContent/logo_front" style="border:none"></a>
             </div>
             
             <form id="loginForm" action="../../dhis-web-commons-security/login.action" method="post">
@@ -104,7 +104,7 @@
         </div>
         <div id="footerArea">
         	<div id="leftFooterArea" class="innerFooterArea">
-	        	Powered by <a href="http://www.dhis2.org">Eagleboard</a>&nbsp; <span id="applicationFooter">$!{keyApplicationFooter}</span>
+	        	Powered by <a href="http://www.eagleboard.com">Eagleboard</a>&nbsp; <span id="applicationFooter">$!{keyApplicationFooter}</span>
 		    </div>
 			<div id="rightFooterArea" class="innerFooterArea">
 				<span id="applicationRightFooter">$!{keyApplicationRightFooter}</span>

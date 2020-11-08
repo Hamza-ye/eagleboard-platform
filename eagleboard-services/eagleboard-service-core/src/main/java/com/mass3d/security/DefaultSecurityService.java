@@ -52,7 +52,7 @@ public class DefaultSecurityService
     private static final Pattern INVITE_USERNAME_PATTERN = Pattern.compile( "^invite\\-(.+?)\\-(\\w{11})$" );
     private static final String TBD_NAME = "(TBD)";
 
-    private static final String DEFAULT_APPLICATION_TITLE = "DHIS 2";
+    private static final String DEFAULT_APPLICATION_TITLE = "Eagleboard";
 
     private static final int INVITED_USER_PASSWORD_LENGTH = 40;
 

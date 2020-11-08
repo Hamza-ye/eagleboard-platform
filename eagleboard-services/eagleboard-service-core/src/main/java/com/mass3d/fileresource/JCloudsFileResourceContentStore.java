@@ -36,8 +36,8 @@ import org.jclouds.s3.reference.S3Constants;
 import org.joda.time.Minutes;
 import org.springframework.stereotype.Service;
 
-import com.shaded.common.hash.HashCode;
-import com.shaded.common.hash.Hashing;
+import com.google.common.hash.HashCode;
+import com.google.common.hash.Hashing;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -137,8 +137,7 @@ public class JCloudsFileResourceContentStore
         }
         catch ( HttpResponseException ex )
         {
-            log.error( String
-                .format( "Could not configure file store with provider '%s' and container '%s'.\n" +
+            log.error( String.format( "Could not configure file store with provider '%s' and container '%s'.\n" +
                 "File storage will not be available.", config.provider, config.container ), ex );
         }
         catch ( AuthorizationException ex )
@@ -174,12 +173,11 @@ public class JCloudsFileResourceContentStore
         }
         catch ( IOException e )
         {
-            log.warn( String
-                .format( "Unable to retrieve fileResource with key: %s. Message: %s", key, e.getMessage() ) );
+            log.warn( String.format( "Unable to retrieve fileResource with key: %s. Message: %s", key, e.getMessage() ) );
             return null;
         }
     }
-    
+
     @Override
     public long getFileResourceContentLength( String key )
     {
@@ -262,7 +260,7 @@ public class JCloudsFileResourceContentStore
 
             try
             {
-                HashCode hash = com.shaded.common.io.Files.hash( file, Hashing.md5() );
+                HashCode hash = com.google.common.io.Files.hash( file, Hashing.md5() );
                 contentMd5 = hash.toString();
             }
             catch ( IOException e )
@@ -396,7 +394,7 @@ public class JCloudsFileResourceContentStore
 
     private boolean requestSigningSupported( BlobRequestSigner signer )
     {
-        return !( signer instanceof RequestSigningUnsupported) && !( signer instanceof LocalBlobRequestSigner);
+        return !( signer instanceof RequestSigningUnsupported) && !( signer instanceof LocalBlobRequestSigner );
     }
 
     private static Location createRegionLocation( BlobStoreProperties config, Location provider )
