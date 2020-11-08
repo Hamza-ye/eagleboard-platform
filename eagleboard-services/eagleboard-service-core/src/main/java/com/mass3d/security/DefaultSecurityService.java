@@ -3,6 +3,7 @@ package com.mass3d.security;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mass3d.system.velocity.VelocityManager;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
@@ -342,9 +343,9 @@ public class DefaultSecurityService
         // Render emails
         // -------------------------------------------------------------------------
 
-//        VelocityManager vm = new VelocityManager();
+        VelocityManager vm = new VelocityManager();
 
-        String text1 = ""; //vm.render( vars, restoreType.getEmailTemplate() + "1" );
+        String text1 = vm.render( vars, restoreType.getEmailTemplate() + "1" );
 
         String subject1 = i18n.getString( restoreType.getEmailSubject() ) + " " + rootPath;
 
