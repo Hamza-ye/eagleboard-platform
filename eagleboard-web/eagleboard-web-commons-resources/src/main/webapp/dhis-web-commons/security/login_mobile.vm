@@ -1,7 +1,7 @@
 <html dir="ltr">
 
 <head>
-<title>DHIS 2</title>
+<title>Eagleboard</title>
 
 <meta name="viewport" content="width=device-width, user-scalable=no" />
 <link rel="stylesheet" href="../css/login_mobile.css" />
@@ -13,7 +13,7 @@
 <div id="wrap">
 
 <div id="header">
-	<a href="login.action" tabindex="-1"><img src="logo_mobile.png" width="88" height="24" alt="DHIS 2"></a>
+	<a href="login.action" tabindex="-1"><img src="logo_mobile.png" width="88" height="24" alt="Eagleboard"></a>
 </div>
 
 <div id="content" align="center" style="text-align: left;">

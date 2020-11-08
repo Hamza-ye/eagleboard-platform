@@ -2,8 +2,8 @@
 <html class="loginPage" dir="ltr">
     <head>
         <title>$!encoder.htmlEncode( ${applicationTitle} )</title>
-        <meta name="description" content="DHIS 2">
-        <meta name="keywords" content="DHIS 2">
+        <meta name="description" content="Eagleboard">
+        <meta name="keywords" content="Eagleboard">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script type="text/javascript" src="../javascripts/jQuery/jquery.min.js"></script>
         <script>
@@ -28,7 +28,7 @@
 
     <body class="loginPage">
     	<h1 style="display:none">$!encoder.htmlEncode( ${applicationTitle} )</h1>
-    	<div style="display:none">DHIS 2</div>
+    	<div style="display:none">Eagleboard</div>
         <div>
         #if ( $keyFlag )
             <img id="flagArea" src="../flags/$!{keyFlagImage}">
@@ -104,7 +104,7 @@
         </div>
         <div id="footerArea">
         	<div id="leftFooterArea" class="innerFooterArea">
-	        	Powered by <a href="http://www.dhis2.org">DHIS 2</a>&nbsp; <span id="applicationFooter">$!{keyApplicationFooter}</span>
+	        	Powered by <a href="http://www.dhis2.org">Eagleboard</a>&nbsp; <span id="applicationFooter">$!{keyApplicationFooter}</span>
 		    </div>
 			<div id="rightFooterArea" class="innerFooterArea">
 				<span id="applicationRightFooter">$!{keyApplicationRightFooter}</span>
