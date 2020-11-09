@@ -35,7 +35,7 @@ import org.apache.commons.lang3.StringUtils;
  * {@code
  * <filter>
  *     <filter-name>yourRegexFilter</filter-name>
- *     <filter-class>org.hisp.dhis.servlet.filter.YourRegexFilter</filter-class>
+ *     <filter-class>com.mass3d.servlet.filter.YourRegexFilter</filter-class>
  *     <init-param>
  *         <param-name>urlPattern</param-name>
  *         <param-value>index\.action|index\.html</param-value>

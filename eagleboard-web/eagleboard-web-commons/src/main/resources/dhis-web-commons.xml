@@ -47,7 +47,7 @@
       <interceptor name="portalParamsInterceptor" class="com.mass3d.webportal.interceptor.XWorkPortalParamsInterceptor" />
       <interceptor name="portalModuleInterceptor" class="com.mass3d.webportal.interceptor.XWorkPortalModuleInterceptor" />
       <interceptor name="portalMenuInterceptor" class="com.mass3d.webportal.interceptor.XWorkPortalMenuInterceptor" />
-      <interceptor name="organisationUnitTreeInterceptor" class="com.mass3d.ouwt.interceptor.OrganisationUnitTreeInterceptor" />
+      <!--<interceptor name="organisationUnitTreeInterceptor" class="com.mass3d.ouwt.interceptor.OrganisationUnitTreeInterceptor" />-->
       <interceptor name="portalUserInterceptor" class="com.mass3d.webportal.interceptor.XWorkPortalUserInterceptor" />
       <interceptor name="securityInterceptor" class="com.mass3d.security.intercept.XWorkSecurityInterceptor" />
       <interceptor name="postHttpMethodInterceptor" class="com.mass3d.security.intercept.HttpMethodInterceptor" />
@@ -175,7 +175,7 @@
 
   <!-- Organisation Unit Selection Tree -->
 
-  <package name="dhis-web-commons-oust" extends="dhis-web-commons" namespace="/dhis-web-commons/oust">
+  <!--<package name="dhis-web-commons-oust" extends="dhis-web-commons" namespace="/dhis-web-commons/oust">-->
 
     <!--<action name="expandSubtree" class="com.mass3d.oust.action.ExpandSubtreeAction">-->
       <!--<result name="success" type="velocity">-->
@@ -233,11 +233,11 @@
       <!--<param name="onExceptionReturn">plainTextError</param>-->
     <!--</action>-->
 
-  </package>
+  <!--</package>-->
 
   <!-- Organisation Unit Web Tree -->
 
-  <package name="dhis-web-commons-ouwt" extends="dhis-web-commons" namespace="/dhis-web-commons/ouwt">
+  <!--<package name="dhis-web-commons-ouwt" extends="dhis-web-commons" namespace="/dhis-web-commons/ouwt">-->
 
     <!--<action name="expandSubtree" class="com.mass3d.ouwt.action.ExpandSubtreeAction">-->
       <!--<result name="success" type="velocity">-->
@@ -305,7 +305,7 @@
       <!--<interceptor-ref name="organisationUnitTreeStack" />-->
     <!--</action>-->
 
-  </package>
+  <!--</package>-->
 
   <!-- Menu -->
 
