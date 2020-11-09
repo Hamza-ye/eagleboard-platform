@@ -1,5 +1,7 @@
 package com.mass3d.commons.action;
 
+import com.mass3d.category.CategoryOptionCombo;
+import com.mass3d.category.CategoryService;
 import com.mass3d.dataelement.DataElement;
 import com.mass3d.dataelement.DataElementService;
 
@@ -19,12 +21,12 @@ public class GetDataElementNameAction
         this.dataElementService = dataElementService;
     }
 
-//    private CategoryService categoryService;
-//
-//    public void setCategoryService( CategoryService categoryService )
-//    {
-//        this.categoryService = categoryService;
-//    }
+    private CategoryService categoryService;
+
+    public void setCategoryService( CategoryService categoryService )
+    {
+        this.categoryService = categoryService;
+    }
 
     // -------------------------------------------------------------------------
     // Input
@@ -66,8 +68,8 @@ public class GetDataElementNameAction
         {
             DataElement dataElement = dataElementService.getDataElement( dataElementId );
 
-//            CategoryOptionCombo categoryOptionCombo = categoryService
-//                .getCategoryOptionCombo( categoryOptionComboId );
+            CategoryOptionCombo categoryOptionCombo = categoryService
+                .getCategoryOptionCombo( categoryOptionComboId );
 
             name = dataElement.getName();// + " " + categoryOptionCombo.getName();
         }

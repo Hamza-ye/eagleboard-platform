@@ -241,13 +241,13 @@
     <property name="identifiableObjectManager" ref="com.mass3d.common.IdentifiableObjectManager" />
   </bean>
 
-  <!--<bean id="com.mass3d.i18n.action.GetTranslationsAction" class="com.mass3d.i18n.action.GetTranslationsAction">-->
-    <!--<property name="identifiableObjectManager" ref="com.mass3d.common.IdentifiableObjectManager" />-->
-  <!--</bean>-->
+  <bean id="com.mass3d.i18n.action.GetTranslationsAction" class="com.mass3d.i18n.action.GetTranslationsAction">
+    <property name="identifiableObjectManager" ref="com.mass3d.common.IdentifiableObjectManager" />
+  </bean>
 
-  <!--<bean id="com.mass3d.i18n.action.TranslateAction" class="com.mass3d.i18n.action.TranslateAction">-->
-    <!--<property name="identifiableObjectManager" ref="com.mass3d.common.IdentifiableObjectManager" />-->
-  <!--</bean>-->
+  <bean id="com.mass3d.i18n.action.TranslateAction" class="com.mass3d.i18n.action.TranslateAction">
+    <property name="identifiableObjectManager" ref="com.mass3d.common.IdentifiableObjectManager" />
+  </bean>
 
   <bean id="com.mass3d.i18n.action.GetStringsFromLocaleAction" class="com.mass3d.i18n.action.GetStringsFromLocaleAction" />
 
@@ -302,14 +302,14 @@
     <!--<property name="validationRuleService" ref="com.mass3d.validation.ValidationRuleService" />-->
   <!--</bean>-->
 
-  <!--<bean id="com.mass3d.commons.action.GetCategoryOptionsAction" class="com.mass3d.commons.action.GetCategoryOptionsAction"-->
-    <!--scope="prototype" />-->
+  <bean id="com.mass3d.commons.action.GetCategoryOptionsAction" class="com.mass3d.commons.action.GetCategoryOptionsAction"
+    scope="prototype" />
 
-  <!--<bean id="com.mass3d.commons.action.GetCategoryOptionCombosAction" class="com.mass3d.commons.action.GetCategoryOptionCombosAction"-->
-    <!--scope="prototype">-->
-    <!--<property name="dataElementService" ref="com.mass3d.dataelement.DataElementService" />-->
-    <!--<property name="categoryService" ref="com.mass3d.category.CategoryService" />-->
-  <!--</bean>-->
+  <bean id="com.mass3d.commons.action.GetCategoryOptionCombosAction" class="com.mass3d.commons.action.GetCategoryOptionCombosAction"
+    scope="prototype">
+    <property name="dataElementService" ref="com.mass3d.dataelement.DataElementService" />
+    <property name="categoryService" ref="com.mass3d.category.CategoryService" />
+  </bean>
 
   <bean id="com.mass3d.commons.action.GetDataElementAction" class="com.mass3d.commons.action.GetDataElementAction"
     scope="prototype">
@@ -345,26 +345,26 @@
   <bean id="com.mass3d.commons.action.GetDataElementNameAction" class="com.mass3d.commons.action.GetDataElementNameAction"
     scope="prototype">
     <property name="dataElementService" ref="com.mass3d.dataelement.DataElementService" />
-    <!--<property name="categoryService" ref="com.mass3d.category.CategoryService" />-->
+    <property name="categoryService" ref="com.mass3d.category.CategoryService" />
   </bean>
 
   <bean id="com.mass3d.commons.action.GetDataElementsAction" class="com.mass3d.commons.action.GetDataElementsAction"
     scope="prototype">
     <property name="dataElementService" ref="com.mass3d.dataelement.DataElementService" />
-    <!--<property name="categoryService" ref="com.mass3d.category.CategoryService" />-->
+    <property name="categoryService" ref="com.mass3d.category.CategoryService" />
     <property name="dataSetService" ref="com.mass3d.dataset.DataSetService" />
     <property name="periodService" ref="com.mass3d.period.PeriodService" />
   </bean>
 
-  <!--<bean id="com.mass3d.commons.action.GetSectionIndicatorsAction" class="com.mass3d.commons.action.GetSectionIndicatorsAction"-->
-    <!--scope="prototype">-->
-    <!--<property name="dataSetService" ref="com.mass3d.dataset.DataSetService" />-->
-  <!--</bean>-->
+  <bean id="com.mass3d.commons.action.GetSectionIndicatorsAction" class="com.mass3d.commons.action.GetSectionIndicatorsAction"
+    scope="prototype">
+    <property name="dataSetService" ref="com.mass3d.dataset.DataSetService" />
+  </bean>
 
-  <!--<bean id="com.mass3d.commons.action.GetDataElementCategoriesAction" class="com.mass3d.commons.action.GetDataElementCategoriesAction"-->
-    <!--scope="prototype">-->
-    <!--<property name="categoryService" ref="com.mass3d.category.CategoryService" />-->
-  <!--</bean>-->
+  <bean id="com.mass3d.commons.action.GetDataElementCategoriesAction" class="com.mass3d.commons.action.GetDataElementCategoriesAction"
+    scope="prototype">
+    <property name="categoryService" ref="com.mass3d.category.CategoryService" />
+  </bean>
 
   <bean id="com.mass3d.commons.action.GetDataSetsAction" class="com.mass3d.commons.action.GetDataSetsAction"
     scope="prototype">
@@ -404,53 +404,53 @@
     <property name="dataSetService" ref="com.mass3d.dataset.DataSetService" />
   </bean>
 
-  <!--<bean id="com.mass3d.commons.action.GetOrganisationUnitAction" class="com.mass3d.commons.action.GetOrganisationUnitAction"-->
-    <!--scope="prototype">-->
-    <!--<property name="organisationUnitService" ref="com.mass3d.organisationunit.OrganisationUnitService" />-->
-  <!--</bean>-->
+  <bean id="com.mass3d.commons.action.GetOrganisationUnitAction" class="com.mass3d.commons.action.GetOrganisationUnitAction"
+    scope="prototype">
+    <property name="organisationUnitService" ref="com.mass3d.organisationunit.OrganisationUnitService" />
+  </bean>
 
-  <!--<bean id="com.mass3d.commons.action.GetOrganisationUnitChildrenAction"-->
-    <!--class="com.mass3d.commons.action.GetOrganisationUnitChildrenAction"-->
-    <!--scope="prototype">-->
-    <!--<property name="organisationUnitService" ref="com.mass3d.organisationunit.OrganisationUnitService" />-->
-  <!--</bean>-->
+  <bean id="com.mass3d.commons.action.GetOrganisationUnitChildrenAction"
+    class="com.mass3d.commons.action.GetOrganisationUnitChildrenAction"
+    scope="prototype">
+    <property name="organisationUnitService" ref="com.mass3d.organisationunit.OrganisationUnitService" />
+  </bean>
 
-  <!--<bean id="com.mass3d.commons.action.GetOrganisationUnitGroupsAction"-->
-    <!--class="com.mass3d.commons.action.GetOrganisationUnitGroupsAction"-->
-    <!--scope="prototype">-->
-    <!--<property name="organisationUnitGroupService" ref="com.mass3d.organisationunit.OrganisationUnitGroupService" />-->
-  <!--</bean>-->
+  <bean id="com.mass3d.commons.action.GetOrganisationUnitGroupsAction"
+    class="com.mass3d.commons.action.GetOrganisationUnitGroupsAction"
+    scope="prototype">
+    <property name="organisationUnitGroupService" ref="com.mass3d.organisationunit.OrganisationUnitGroupService" />
+  </bean>
 
-  <!--<bean id="com.mass3d.commons.action.GetOrganisationUnitGroupsByGroupSetAction"-->
-    <!--class="com.mass3d.commons.action.GetOrganisationUnitGroupsByGroupSetAction"-->
-    <!--scope="prototype">-->
-    <!--<property name="organisationUnitGroupService" ref="com.mass3d.organisationunit.OrganisationUnitGroupService" />-->
-  <!--</bean>-->
+  <bean id="com.mass3d.commons.action.GetOrganisationUnitGroupsByGroupSetAction"
+    class="com.mass3d.commons.action.GetOrganisationUnitGroupsByGroupSetAction"
+    scope="prototype">
+    <property name="organisationUnitGroupService" ref="com.mass3d.organisationunit.OrganisationUnitGroupService" />
+  </bean>
 
-  <!--<bean id="com.mass3d.commons.action.GetOrganisationUnitGroupSetsAction"-->
-    <!--class="com.mass3d.commons.action.GetOrganisationUnitGroupSetsAction"-->
-    <!--scope="prototype">-->
-    <!--<property name="organisationUnitGroupService" ref="com.mass3d.organisationunit.OrganisationUnitGroupService" />-->
-  <!--</bean>-->
+  <bean id="com.mass3d.commons.action.GetOrganisationUnitGroupSetsAction"
+    class="com.mass3d.commons.action.GetOrganisationUnitGroupSetsAction"
+    scope="prototype">
+    <property name="organisationUnitGroupService" ref="com.mass3d.organisationunit.OrganisationUnitGroupService" />
+  </bean>
 
-  <!--<bean id="com.mass3d.commons.action.GetOrganisationUnitLevelsAction"-->
-    <!--class="com.mass3d.commons.action.GetOrganisationUnitLevelsAction"-->
-    <!--scope="prototype">-->
-    <!--<property name="organisationUnitService" ref="com.mass3d.organisationunit.OrganisationUnitService" />-->
-  <!--</bean>-->
+  <bean id="com.mass3d.commons.action.GetOrganisationUnitLevelsAction"
+    class="com.mass3d.commons.action.GetOrganisationUnitLevelsAction"
+    scope="prototype">
+    <property name="organisationUnitService" ref="com.mass3d.organisationunit.OrganisationUnitService" />
+  </bean>
 
-  <!--<bean id="com.mass3d.commons.action.GetOrganisationUnitsAction" class="com.mass3d.commons.action.GetOrganisationUnitsAction"-->
-    <!--scope="prototype">-->
-    <!--<property name="organisationUnitService" ref="com.mass3d.organisationunit.OrganisationUnitService" />-->
-  <!--</bean>-->
+  <bean id="com.mass3d.commons.action.GetOrganisationUnitsAction" class="com.mass3d.commons.action.GetOrganisationUnitsAction"
+    scope="prototype">
+    <property name="organisationUnitService" ref="com.mass3d.organisationunit.OrganisationUnitService" />
+  </bean>
 
-  <!--<bean id="com.mass3d.commons.action.GetOrganisationUnitTreeAction" class="com.mass3d.commons.action.GetOrganisationUnitTreeAction"-->
-    <!--scope="prototype">-->
-    <!--<property name="currentUserService" ref="com.mass3d.user.CurrentUserService" />-->
-    <!--<property name="organisationUnitService" ref="com.mass3d.organisationunit.OrganisationUnitService" />-->
-    <!--<property name="versionService" ref="com.mass3d.version.VersionService" />-->
-    <!--<property name="userSettingService" ref="com.mass3d.user.UserSettingService" />-->
-  <!--</bean>-->
+  <bean id="com.mass3d.commons.action.GetOrganisationUnitTreeAction" class="com.mass3d.commons.action.GetOrganisationUnitTreeAction"
+    scope="prototype">
+    <property name="currentUserService" ref="com.mass3d.user.CurrentUserService" />
+    <property name="organisationUnitService" ref="com.mass3d.organisationunit.OrganisationUnitService" />
+    <property name="versionService" ref="com.mass3d.version.VersionService" />
+    <property name="userSettingService" ref="com.mass3d.user.UserSettingService" />
+  </bean>
 
   <bean id="com.mass3d.commons.action.GetPeriodAction" class="com.mass3d.commons.action.GetPeriodAction"
     scope="prototype">
@@ -563,9 +563,9 @@
 
   <bean id="com.mass3d.commons.action.GetPingAction" class="com.mass3d.commons.action.GetPingAction" />
 
-  <!--<bean id="com.mass3d.commons.action.GetAttributesAction" class="com.mass3d.commons.action.GetAttributesAction">-->
-    <!--<property name="attributeService" ref="com.mass3d.attribute.AttributeService" />-->
-  <!--</bean>-->
+  <bean id="com.mass3d.commons.action.GetAttributesAction" class="com.mass3d.commons.action.GetAttributesAction">
+    <property name="attributeService" ref="com.mass3d.attribute.AttributeService" />
+  </bean>
 
   <bean id="com.mass3d.appcache.AppCacheAction" class="com.mass3d.appcache.AppCacheAction" />
 

@@ -1,5 +1,7 @@
 package com.mass3d.commons.action;
 
+import com.mass3d.category.CategoryCombo;
+import com.mass3d.category.CategoryService;
 import org.apache.struts2.ServletActionContext;
 import com.mass3d.common.IdentifiableObjectUtils;
 import com.mass3d.dataelement.DataElement;
@@ -35,12 +37,12 @@ public class GetDataElementsAction
         this.dataElementService = dataElementService;
     }
 
-//    private CategoryService categoryService;
-//
-//    public void setCategoryService( CategoryService categoryService )
-//    {
-//        this.categoryService = categoryService;
-//    }
+    private CategoryService categoryService;
+
+    public void setCategoryService( CategoryService categoryService )
+    {
+        this.categoryService = categoryService;
+    }
 
     private DataSetService dataSetService;
 
@@ -135,13 +137,13 @@ public class GetDataElementsAction
         }
         else if ( categoryComboId != null && categoryComboId != ALL )
         {
-//            CategoryCombo categoryCombo = categoryService.getCategoryCombo( categoryComboId );
-//
-//            if ( categoryCombo != null )
-//            {
-//                dataElements = new ArrayList<>(
-//                    dataElementService.getDataElementByCategoryCombo( categoryCombo ) );
-//            }
+            CategoryCombo categoryCombo = categoryService.getCategoryCombo( categoryComboId );
+
+            if ( categoryCombo != null )
+            {
+                dataElements = new ArrayList<>(
+                    dataElementService.getDataElementByCategoryCombo( categoryCombo ) );
+            }
         }
         else if ( dataSetId != null )
         {
@@ -165,13 +167,13 @@ public class GetDataElementsAction
         {
             if ( domain.equals( DataElementDomain.AGGREGATE.getValue() ) )
             {
-//                dataElements = new ArrayList<>(
-//                    dataElementService.getDataElementsByDomainType( DataElementDomain.AGGREGATE ) );
+                dataElements = new ArrayList<>(
+                    dataElementService.getDataElementsByDomainType( DataElementDomain.AGGREGATE ) );
             }
             else
             {
-//                dataElements = new ArrayList<>(
-//                    dataElementService.getDataElementsByDomainType( DataElementDomain.TRACKER ) );
+                dataElements = new ArrayList<>(
+                    dataElementService.getDataElementsByDomainType( DataElementDomain.TRACKER ) );
             }
         }
         else

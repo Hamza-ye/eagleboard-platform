@@ -5,6 +5,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import com.mass3d.attribute.Attribute;
+import com.mass3d.category.CategoryCombo;
 import com.mass3d.common.GenericDimensionalObjectStore;
 import com.mass3d.common.IdentifiableObjectStore;
 import com.mass3d.common.ValueType;
@@ -118,6 +120,27 @@ public class DefaultDataElementService
 
     @Override
     @Transactional(readOnly = true)
+    public List<DataElement> getDataElementsByDomainType( DataElementDomain domainType )
+    {
+        return dataElementStore.getDataElementsByDomainType( domainType );
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<DataElement> getDataElementByCategoryCombo( CategoryCombo categoryCombo )
+    {
+        return dataElementStore.getDataElementByCategoryCombo( categoryCombo );
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<DataElement> getDataElementsWithoutGroups()
+    {
+        return dataElementStore.getDataElementsWithoutGroups();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<DataElement> getDataElementsWithoutDataSets()
     {
         return dataElementStore.getDataElementsWithoutDataSets();
@@ -136,6 +159,10 @@ public class DefaultDataElementService
     {
         return dataElementStore.getDataElementsByAggregationLevel( aggregationLevel );
     }
+
+    // -------------------------------------------------------------------------
+    // DataElementGroup
+    // -------------------------------------------------------------------------
 
     @Override
     @Transactional
@@ -254,4 +281,24 @@ public class DefaultDataElementService
         return dataElementGroupSetStore.getAll();
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<DataElement> getByAttributeAndValue( Attribute attribute, String value )
+    {
+        return dataElementStore.getByAttributeAndValue( attribute, value );
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<DataElement> getByAttribute( Attribute attribute )
+    {
+        return dataElementStore.getByAttribute( attribute );
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public DataElement getByUniqueAttributeValue( Attribute attribute, String value )
+    {
+        return dataElementStore.getByUniqueAttributeValue( attribute, value );
+    }
 }
